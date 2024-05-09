@@ -3,15 +3,15 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div>
-      <main className="flex min-h-screen flex-col items-center justify-between hero-wrapper">
+      <main className="flex md:min-h-screen flex-col items-center justify-between hero-wrapper">
         <div className="relative pt-20 px-8 w-full md:w-4/5">
           <div className="flex justify-center">
             <Image src="/hero-logo.png" width="100" height="100" />
           </div>
-          <h1 className="text-center mt-0 text-6xl font-extrabold leading-[84.5px]">
+          <h1 className="text-center mt-0 text-3xl md:text-6xl font-extrabold md:leading-[84.5px]">
             Be TEQSA-Ready. Assessment Reform in a Single Click.
           </h1>
-          <p className="text-center mt-4 text-base leading-7">
+          <p className="text-center mt-4 text-sm md:text-base leading:5 md:leading-7">
             NextAssess transforms your assessments for the new technological
             era. Offering seamless integration, real-time adaptation, and the
             precise tools educators need to maintain compliance, encourage deep
@@ -30,51 +30,53 @@ export default function Home() {
         </div>
       </main>
       <div className=" my-16">
-        <section className="md:w-3/4 mx-auto">
-          <h2 className="text-[#18191F] text-5xl leading-[60px] font-extrabold">NextAssess Solves Assessment Reform in 3 Easy Steps</h2>
-          <div className="flex justify-between gap-8 mt-16">
+        <section className="md:w-3/4 mx-10 md:mx-auto">
+          <h2 className="text-[#18191F] text-3xl md:text-5xl md:leading-[60px] font-extrabold">NextAssess Solves Assessment Reform in 3 Easy Steps</h2>
+          <div className="flex flex-col md:flex-row justify-between gap-8 mt-16">
             <div>
-              <div className="flex gap-4">
+              <div className="flex justify-center md:justify-start gap-4">
                 <div className="flex justify-center items-center bg-[#F4F5F7] rounded-full w-[72px] h-[72px]">
                   <Image src='/service-1.svg' width='24' height={24} />
                 </div>
-                <Image src='/step-1.svg' width={120} height={16} />
+                <Image className="hidden md:block" src='/step-1.svg' width={120} height={16} />
               </div>
-              <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Headline1</h6>
-              <p className="leadin-7 text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2 text-center md:text-start">Headline1</h6>
+              <p className="leadin-7 text-base text-[#18191F] text-center md:text-start">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             </div>
             <div>
-              <div className="flex gap-4">
+              <div className="flex gap-4 justify-center md:justify-start">
                 <div className="flex justify-center items-center bg-[#F4F5F7] rounded-full w-[72px] h-[72px]">
                   <Image src='/service-2.svg' width='24' height={24} />
                 </div>
-                <Image src='/step-2.svg' width={120} height={16} />
+                <Image className="hidden md:block" src='/step-2.svg' width={120} height={16} />
               </div>
-              <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Headline1</h6>
-              <p className="leadin-7 text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2 text-center md:text-start">Headline1</h6>
+              <p className="leadin-7 text-base text-[#18191F] text-center md:text-start">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             </div>
             <div>
-              <div className="flex gap-4">
+              <div className="flex gap-4 justify-center md:justify-start">
                 <div className="flex justify-center items-center bg-[#F4F5F7] rounded-full w-[72px] h-[72px]">
                   <Image src='/service-3.svg' width='24' height={24} />
                 </div>
-                <Image src='/step-3.svg' width={120} height={16} />
+                <Image className="hidden md:block" src='/step-3.svg' width={120} height={16} />
               </div>
-              <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Headline1</h6>
-              <p className="leadin-7 text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h6 className="font-bold leading-7 text-[#18191F] text-center md:text-start text-lg mt-4 mb-2">Headline1</h6>
+              <p className="leadin-7 text-base text-[#18191F] text-center md:text-start">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             </div>
             <div>
-              <div className="flex justify-center items-center bg-[#F4F5F7] rounded-full w-[72px] h-[72px]">
-                <Image src='/service-4.svg' width='24' height={24} />
+              <div className="flex justify-center md:justify-start">
+                <div className="flex justify-center items-center bg-[#F4F5F7] rounded-full w-[72px] h-[72px]">
+                  <Image src='/service-4.svg' width='24' height={24} />
+                </div>
               </div>
-              <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Headline1</h6>
-              <p className="leadin-7 text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h6 className="font-bold leading-7 text-[#18191F] text-center md:text-start text-lg mt-4 mb-2">Headline1</h6>
+              <p className="leadin-7 text-base text-[#18191F] text-center md:text-start">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             </div>
           </div>
         </section>
-        <section className="my-16 md:w-3/4 mx-auto">
-          <h2 className="text-[#18191F] text-5xl leading-[60px] font-extrabold mb-8 text-center">Why choose AssessMate?</h2>
-          <div className="grid grid-cols-2 items-center">
+        <section className="my-16 md:w-3/4 mx-10 md:mx-auto">
+          <h2 className="text-[#18191F] text-3xl md:text-5xl md:leading-[60px] font-extrabold mb-8 text-center">Why choose AssessMate?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 items-center">
             <div>
               <Image src='/feature-1.png' width='400' height='400' />
             </div>
@@ -103,9 +105,9 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="mt-8 mb-16 md:w-3/4 mx-auto">
-          <h2 className="text-[#18191F] text-5xl leading-[60px] font-extrabold mb-8">How AssessMate works</h2>
-          <div className="grid grid-cols-2 items-center gap-4">
+        <section className="mt-8 mb-16 md:w-3/4 mx-10 md:mx-auto">
+          <h2 className="text-[#18191F] text-3xl md:text-5xl md:leading-[60px] font-extrabold mb-8">How AssessMate works</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
             <div>
               <div className="flex items-start gap-5">
                 <div className="flex justify-center items-center bg-[#F4F5F7] mt-8 rounded-full min-w-[72px] h-[72px]">
@@ -140,10 +142,10 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="mt-8 mb-16 md:w-3/4 mx-auto">
-          <h2 className="text-[#18191F] text-5xl leading-[60px] text-center font-extrabold mb-4">Tailor-made features</h2>
+        <section className="mt-8 mb-16 md:w-3/4 mx-10 md:mx-auto">
+          <h2 className="text-[#18191F] text-3xl md:text-5xl md:leading-[60px] text-center font-extrabold mb-4">Tailor-made features</h2>
           <p className="leading-7 text-base text-[#18191F] mb-8 md:w-1/2 mx-auto">Lorem ipsum is common placeholder text used to demonstrate the graphic elements of a document or visual presentation.</p>
-          <div className="mt-6 grid grid-cols-3 gap-6">
+          <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-6">
             <div className="flex items-center flex-col gap-3">
               <Image src='/service-1.svg' width='24' height={24} />
               <h6 className="font-bold text-center leading-7 text-[#18191F] text-lg">Robust workflow</h6>
@@ -180,33 +182,33 @@ export default function Home() {
           <div>
             <img className="w-full" src='/headline.png' width='100' height='100' />
           </div>
-          <div className="bg-white p-10 w-[33%] relative ml-auto top-[-160px] right-[150px]">
-            <h6 className="font-bold leading-[54px] text-[#18191F] text-[40px]">Headline</h6>
-            <p className="text-base text-[#18191F] mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Interdum quis amet, faucibus lorem. Lectus amet odio quis sed adipiscing adipiscing magna non. Nullam turpis faucibus ridiculus suscipit. Et blandit suspendisse curabitur eu congue dui ut.</p>
-            <div className="flex gap-4 mt-5">
+          <div className="bg-white px-4 py-6 md:p-10 w-[54%] md:w-[33%] relative ml-auto top-[-70px] md:top-[-160px] right-[20px] md:right-[150px]">
+            <h6 className="font-bold leading-[54px] text-[#18191F] text-3xl md:text-[40px]">Headline</h6>
+            <p className="text-sm md:text-base text-[#18191F] mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Interdum quis amet, faucibus lorem. Lectus amet odio quis sed adipiscing adipiscing magna non. Nullam turpis faucibus ridiculus suscipit. Et blandit suspendisse curabitur eu congue dui ut.</p>
+            <div className="flex items-center md:gap-4 mt-5">
               <button className="flex bg-transparent gap-3 text-[#8C30F5]">Learn More</button>
-              <button className="flex bg-transparent gap-3 text-[#8C30F5]"><Image src='/video-icon.svg' width={11} height={16} />Watch Video </button>
+              <button className="flex bg-transparent items-center gap-3 text-[#8C30F5]"><Image src='/video-icon.svg' width={11} height={16} />Watch Video </button>
             </div>
           </div>
         </section>
         <section className="mb-16 md:w-3/4 mx-auto">
-          <div className="bg-gradient py-16 px-16 rounded-2xl">
-            <div className="flex items-center gap-16 md:w-3/4 mx-auto">
+          <div className="bg-gradient py-16 px-8 md:px-16 rounded-2xl">
+            <div className="flex items-center flex-col md:flex-row gap-8 md:gap-16 md:w-3/4 mx-auto">
               <div>
-                <Image src='/Illustration.png' width={175} height={100} />
+                <Image className="h-24 w-24" src='/Illustration.png' width={175} height={100} />
               </div>
               <div>
-                <h2 className="text-[#fff] text-[40px] leading-[54px] font-extrabold mb-4">Join 569 more people in the waitlist</h2>
+                <h2 className="text-[#fff] text-3xl md:text-[40px] leading-[40px] md:leading-[54px] font-extrabold mb-4">Join 569 more people in the waitlist</h2>
                 <div className="flex">
-                  <input type="email" placeholder="Your work email address" className="p-3 rounded-tl-md rounded-bl-md outline-none" />
-                  <button className="py-3 px-6 text-white outline-none rounded-tr-md rounded-br-md bg-[#18191F] text-sm">Join the waitlist</button>
+                  <input type="email" placeholder="Your work email address" className="p-3 rounded-tl-md rounded-bl-md outline-none w-[160%]" />
+                  <button className="py-2 md:py-3 px-6 text-white outline-none rounded-tr-md rounded-br-md bg-[#18191F] text-xs md:text-sm w-full md:w-auto">Join the waitlist</button>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <section className="mt-8 mb-16 md:w-3/4 mx-auto">
-          <div className="grid grid-cols-2 items-center gap-12">
+        <section className="mt-8 mb-16 md:w-3/4 mx-10 md:mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-12">
             <div>
               <Image src='/Creative.png' width={540} height={540} />
             </div>

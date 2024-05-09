@@ -7,7 +7,7 @@ export default function Navbar() {
         <div className={styles.app_logo}>
           <Image src='/logo.png' alt='logo' width='200' height='50' />
         </div>
-        <ul className={styles.links}>
+        <ul className={`hidden md:flex ${styles.links}`}>
           <li className='cursor-pointer mx-4'>About</li>
           <li className='cursor-pointer mx-4'>Features</li>
           <li className='cursor-pointer mx-4'>Pricing</li>

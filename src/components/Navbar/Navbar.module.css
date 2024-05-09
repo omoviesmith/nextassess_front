@@ -16,7 +16,6 @@
 
 .links {
     align-items: center;
-    display: flex;
     flex: 1 1;
     justify-content: center;
     list-style: none;
@@ -40,4 +39,15 @@
     background: linear-gradient(134.8deg, #FFAE47 10.78%, #E97FB6 36.46%, #B36FCF 58.59%, #8261E8 76.74%, #8060E9 77.63%, #1492CC 95.78%);    
     border-radius: 6px;
     color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+    .app_navbar {
+        padding: 0.5rem 1.5rem;
+        justify-content: space-around;
+    }
+    .app_logo img {
+        width: 180px;
+        height: 50px;
+    }
 }
