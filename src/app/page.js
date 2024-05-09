@@ -2,112 +2,223 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
+    <div>
+      <main className="flex min-h-screen flex-col items-center justify-between hero-wrapper">
+        <div className="relative pt-20 px-8 w-full md:w-4/5">
+          <div className="flex justify-center">
+            <Image src="/hero-logo.png" width="100" height="100" />
+          </div>
+          <h1 className="text-center mt-0 text-6xl font-extrabold leading-[84.5px]">
+            Be TEQSA-Ready. Assessment Reform in a Single Click.
+          </h1>
+          <p className="text-center mt-4 text-base leading-7">
+            NextAssess transforms your assessments for the new technological
+            era. Offering seamless integration, real-time adaptation, and the
+            precise tools educators need to maintain compliance, encourage deep
+            learning, and prepare students for a future dominated by AI.
+            NextAssess takes care of everything, so you can concentrate on what
+            matters most – teaching and student success
+          </p>
+          <div className="mt-4">
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+              className="w-full"
+              src="/circle-bg.svg"
+              width="200"
+              height="200"
             />
-          </a>
+          </div>
         </div>
+      </main>
+      <div className=" my-16">
+        <section className="md:w-3/4 mx-auto">
+          <h2 className="text-[#18191F] text-5xl leading-[60px] font-extrabold">NextAssess Solves Assessment Reform in 3 Easy Steps</h2>
+          <div className="flex justify-between gap-8 mt-16">
+            <div>
+              <div className="flex gap-4">
+                <div className="flex justify-center items-center bg-[#F4F5F7] rounded-full w-[72px] h-[72px]">
+                  <Image src='/service-1.svg' width='24' height={24} />
+                </div>
+                <Image src='/step-1.svg' width={120} height={16} />
+              </div>
+              <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Headline1</h6>
+              <p className="leadin-7 text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div>
+              <div className="flex gap-4">
+                <div className="flex justify-center items-center bg-[#F4F5F7] rounded-full w-[72px] h-[72px]">
+                  <Image src='/service-2.svg' width='24' height={24} />
+                </div>
+                <Image src='/step-2.svg' width={120} height={16} />
+              </div>
+              <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Headline1</h6>
+              <p className="leadin-7 text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div>
+              <div className="flex gap-4">
+                <div className="flex justify-center items-center bg-[#F4F5F7] rounded-full w-[72px] h-[72px]">
+                  <Image src='/service-3.svg' width='24' height={24} />
+                </div>
+                <Image src='/step-3.svg' width={120} height={16} />
+              </div>
+              <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Headline1</h6>
+              <p className="leadin-7 text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div>
+              <div className="flex justify-center items-center bg-[#F4F5F7] rounded-full w-[72px] h-[72px]">
+                <Image src='/service-4.svg' width='24' height={24} />
+              </div>
+              <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Headline1</h6>
+              <p className="leadin-7 text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </div>
+        </section>
+        <section className="my-16 md:w-3/4 mx-auto">
+          <h2 className="text-[#18191F] text-5xl leading-[60px] font-extrabold mb-8 text-center">Why choose AssessMate?</h2>
+          <div className="grid grid-cols-2 items-center">
+            <div>
+              <Image src='/feature-1.png' width='400' height='400' />
+            </div>
+            <div>
+              <div className="mb-3">
+                <div className="flex gap-3 items-center">
+                  <div className="h-[6px] w-[6px] bg-[#A0DCFF] rounded-full"></div>
+                  <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Future-proof assessments</h6>
+                </div>
+                <p className="leadin-7 text-base text-[#18191F]">Integrate AI and focus on relevant skill sets to prepare students for the digital future.</p>
+              </div>
+              <div className="mb-3">
+                <div className="flex gap-3 items-center">
+                  <div className="h-[6px] w-[6px] bg-[#FFC3D8] rounded-full"></div>
+                  <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Save time and effort</h6>
+                </div>
+                <p className="leadin-7 text-base text-[#18191F]">Let AssessMate redesign your assessments, saving you countless hours of work.</p>
+              </div>
+              <div className="mb-3">
+                <div className="flex gap-3 items-center">
+                  <div className="h-[6px] w-[6px] bg-[#C1E5C0] rounded-full"></div>
+                  <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Ensure best practices</h6>
+                </div>
+                <p className="leadin-7 text-base text-[#18191F]">Align your assessments with the latest pedagogy and ensure they meet the highest standards.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="mt-8 mb-16 md:w-3/4 mx-auto">
+          <h2 className="text-[#18191F] text-5xl leading-[60px] font-extrabold mb-8">How AssessMate works</h2>
+          <div className="grid grid-cols-2 items-center gap-4">
+            <div>
+              <div className="flex items-start gap-5">
+                <div className="flex justify-center items-center bg-[#F4F5F7] mt-8 rounded-full min-w-[72px] h-[72px]">
+                  <Image src='/service-1.svg' width='24' height={24} />
+                </div>
+                <div>
+                  <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Input your existing assessments</h6>
+                  <p className="leading-7 text-base text-[#18191F]">Simply provide your current assessment details to AssessMate.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-5">
+                <div className="flex justify-center items-center bg-[#F4F5F7] mt-8 rounded-full min-w-[72px] h-[72px]">
+                  <Image src='/service-3.svg' width='24' height={24} />
+                </div>
+                <div>
+                  <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Let AssessMate do the rest</h6>
+                  <p className="leading-7 text-base text-[#18191F]">Our tool redesigns your assessments, whether you want to integrate AI or focus on other relevant skill sets. Our tool ensures your new assessment still hits all of the key learning objectives.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-5">
+                <div className="flex justify-center items-center bg-[#F4F5F7] mt-8 rounded-full min-w-[72px] h-[72px]">
+                  <Image src='/service-5.svg' width='24' height={24} />
+                </div>
+                <div>
+                  <h6 className="font-bold leading-7 text-[#18191F] text-lg mt-4 mb-2">Receive comprehensive assessments</h6>
+                  <p className="leading-7 text-base text-[#18191F]">Each custom assessment comes with a grade-appropriate outline (K-12 and higher ed), student-friendly description, and marking rubric.</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <Image src='/feature-2.png' width='500' height='400' />
+            </div>
+          </div>
+        </section>
+        <section className="mt-8 mb-16 md:w-3/4 mx-auto">
+          <h2 className="text-[#18191F] text-5xl leading-[60px] text-center font-extrabold mb-4">Tailor-made features</h2>
+          <p className="leading-7 text-base text-[#18191F] mb-8 md:w-1/2 mx-auto">Lorem ipsum is common placeholder text used to demonstrate the graphic elements of a document or visual presentation.</p>
+          <div className="mt-6 grid grid-cols-3 gap-6">
+            <div className="flex items-center flex-col gap-3">
+              <Image src='/service-1.svg' width='24' height={24} />
+              <h6 className="font-bold text-center leading-7 text-[#18191F] text-lg">Robust workflow</h6>
+              <p className=" text-center text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed erat nibh tristique ipsum.</p>
+            </div>
+            <div className="flex items-center flex-col gap-3">
+              <Image src='/service-7.svg' width='24' height={24} />
+              <h6 className="font-bold text-center leading-7 text-[#18191F] text-lg">Flexibility</h6>
+              <p className=" text-center text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed erat nibh tristique ipsum.</p>
+            </div>
+            <div className="flex items-center flex-col gap-3">
+              <Image src='/service-2.svg' width='24' height={24} />
+              <h6 className="font-bold text-center leading-7 text-[#18191F] text-lg">User friendly</h6>
+              <p className=" text-center text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed erat nibh tristique ipsum.</p>
+            </div>
+            <div className="flex items-center flex-col gap-3">
+              <Image src='/service-5.svg' width='24' height={24} />
+              <h6 className="font-bold text-center leading-7 text-[#18191F] text-lg">Multiple layouts</h6>
+              <p className=" text-center text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed erat nibh tristique ipsum.</p>
+            </div>
+            <div className="flex items-center flex-col gap-3">
+              <Image src='/service-3.svg' width='24' height={24} />
+              <h6 className="font-bold text-center leading-7 text-[#18191F] text-lg">Better components</h6>
+              <p className=" text-center text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed erat nibh tristique ipsum.</p>
+            </div>
+            <div className="flex items-center flex-col gap-3">
+              <Image src='/service-6.svg' width='24' height={24} />
+              <h6 className="font-bold text-center leading-7 text-[#18191F] text-lg">Well organised</h6>
+              <p className=" text-center text-base text-[#18191F]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed erat nibh tristique ipsum.</p>
+            </div>  
+          </div>
+        </section>
+        <section className="mt-8">
+          <div>
+            <img className="w-full" src='/headline.png' width='100' height='100' />
+          </div>
+          <div className="bg-white p-10 w-[33%] relative ml-auto top-[-160px] right-[150px]">
+            <h6 className="font-bold leading-[54px] text-[#18191F] text-[40px]">Headline</h6>
+            <p className="text-base text-[#18191F] mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Interdum quis amet, faucibus lorem. Lectus amet odio quis sed adipiscing adipiscing magna non. Nullam turpis faucibus ridiculus suscipit. Et blandit suspendisse curabitur eu congue dui ut.</p>
+            <div className="flex gap-4 mt-5">
+              <button className="flex bg-transparent gap-3 text-[#8C30F5]">Learn More</button>
+              <button className="flex bg-transparent gap-3 text-[#8C30F5]"><Image src='/video-icon.svg' width={11} height={16} />Watch Video </button>
+            </div>
+          </div>
+        </section>
+        <section className="mb-16 md:w-3/4 mx-auto">
+          <div className="bg-gradient py-16 px-16 rounded-2xl">
+            <div className="flex items-center gap-16 md:w-3/4 mx-auto">
+              <div>
+                <Image src='/Illustration.png' width={175} height={100} />
+              </div>
+              <div>
+                <h2 className="text-[#fff] text-[40px] leading-[54px] font-extrabold mb-4">Join 569 more people in the waitlist</h2>
+                <div className="flex">
+                  <input type="email" placeholder="Your work email address" className="p-3 rounded-tl-md rounded-bl-md outline-none" />
+                  <button className="py-3 px-6 text-white outline-none rounded-tr-md rounded-br-md bg-[#18191F] text-sm">Join the waitlist</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="mt-8 mb-16 md:w-3/4 mx-auto">
+          <div className="grid grid-cols-2 items-center gap-12">
+            <div>
+              <Image src='/Creative.png' width={540} height={540} />
+            </div>
+            <div>
+              <span className="text-[#2EC5CE] text-sm leading-[18px] font-bold">CONSULTANT</span>
+              <h3 className="text-[#18191F] text-[40px] font-extrabold leading-[54px]">Headline</h3>
+              <p className="text-[#18191F] leading-7 text-lg my-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Condimentum diam orci pretium a pharetra, feugiat cursus. Dictumst risus, sem egestas odio cras adipiscing vulputate. Nisi, risus in suscipit non. Non commodo volutpat, pharetra, vel.</p>
+              <button className="flex bg-transparent gap-3 text-[#8C30F5]">Get Started <Image src='/right-arrow.svg' width={24} height={24} /></button>
+            </div>
+          </div>
+        </section>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
   );
 }
