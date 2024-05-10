@@ -16,7 +16,7 @@ export default function Footer() {
                     <li className="text-white cursor-pointer">Privacy Policy</li>
                 </ul>
                 <div className="w-full h-[1px] bg-white mb-8 mt-12"></div>
-                <div className="flex justify-between items-center flex-col-reverse md:flex-row">
+                <div className="flex justify-between items-center flex-col-reverse gap-4 md:gap-0 md:flex-row">
                     <span className="text-[#D9DBE1] text-sm">© 2023 AccessMate. All rights reserved</span>
                     <ul className="flex items-center gap-5">
                         <li className="bg-gray-700 cursor-pointer rounded-full w-8 h-8 flex justify-center items-center">
