@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const assessments = [
   {
     date: '12/12/2023',
@@ -48,7 +50,9 @@ export default function Assessment() {
           <h3 className="text-[#101828] text-3xl font-semibold">Welcome back, Jack</h3>
           <p className="text-[#475467] text-base font-normal mt-2">Track, manage and forecast your presentations.</p>
         </div>
-        <button className="text-sm text-white font-semibold bg-[#7F56D9] rounded-lg py-[10px] px-4"> + Add New Presentation</button>
+        <Link href='/admin'>
+          <button className="text-sm text-white font-semibold bg-[#7F56D9] rounded-lg py-[10px] px-4"> + Add New Presentation</button>
+        </Link>
       </div>
       <div className="flex justify-between mt-6">
         <button className="flex gap-3 py-[10px] px-4 items-center bg-white text-[#344054] text-sm font-semibold rounded-lg border-[1px] border-[#D0D5DD]">
