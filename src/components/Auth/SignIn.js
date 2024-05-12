@@ -8,8 +8,10 @@ import Modal from "../Modal/Modal";
 import { useState } from "react";
 import ForgetPassword from "./ForgetPassword";
 import SignUp from "./SignUp";
+import { useRouter } from 'next/navigation'
 
 export default function SignIn({ isOpen, onClose }) {
+    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [showForgetPassword, setShowForgetPassword] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
@@ -27,6 +29,10 @@ export default function SignIn({ isOpen, onClose }) {
         setShowSignup(false);
         onClose();
     }
+    function handleSubmit(e) {
+        e.preventDefault();
+        router.push('/assessment');
+    }
     return (<>
         {
             showForgetPassword ? (
@@ -41,7 +47,7 @@ export default function SignIn({ isOpen, onClose }) {
                         <div className="flex justify-center my-3">
                             <Image src='/sun.svg' width='20' height='20' />
                         </div>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div>
                                 <FaRegUser className="relative top-8 left-5" />
                                 <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Username / Email address" />

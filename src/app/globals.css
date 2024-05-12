@@ -13,3 +13,7 @@
 .bg-gradient {
     background: linear-gradient(134.8deg, #FFAE47 10.78%, #E97FB6 36.46%, #B36FCF 58.59%, #8261E8 76.74%, #8060E9 77.63%, #1492CC 95.78%);
 }
+
+.side-links li:hover path, .active-link path {
+    fill: #2D68A2;
+}
