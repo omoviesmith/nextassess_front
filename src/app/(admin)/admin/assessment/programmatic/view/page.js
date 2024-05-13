@@ -7,7 +7,7 @@ import { BiSolidLike, BiSolidDislike, BiSolidPencil } from "react-icons/bi";
 import { MdRefresh, MdDownload } from "react-icons/md";
 import { IoSaveSharp } from "react-icons/io5";
 
-export default function Assessment() {
+export default function ProgrammaticView() {
     return (<>
         <div className="flex justify-between items-center">
             <div  className="flex items-center gap-3 bg-white rounded-md py-3 px-5 text-[#202123] font-semibold">
@@ -17,9 +17,9 @@ export default function Assessment() {
                     </button>
                 </Link>
                 <FaChevronRight className="w-3 h-3" />
-                <Link href='/admin/assessment/upload'>
+                <Link href='/admin/assessment/programmatic'>
                     <button className="flex items-center gap-2 text-[#202123] font-semibold">
-                        Upload Assessment
+                        Programmatic Assessment
                     </button>
                 </Link>
                 <FaChevronRight className="w-3 h-3" />

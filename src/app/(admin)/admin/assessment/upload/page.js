@@ -43,11 +43,11 @@ export default function Upload() {
     }
     return (
         <div>
-            <Link href='/admin'>
+            <div onClick={()=> router.back()}>
                 <button className="flex items-center gap-2 bg-white rounded-md py-3 px-5 text-[#202123] font-semibold">
                     <IoMdArrowBack className="w-5 h-5" /> Back
                 </button>
-            </Link>
+            </div>
             <div className="my-6">
                 <h1 className="text-center text-[#202123] font-bold text-5xl leading-[64px] font-serif my-2">Upload Assessment</h1>
                 <p className="text-[#202123] text-center font-semibold text-base leading-[18px]">Describe your assessment in detail </p>
