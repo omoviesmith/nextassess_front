@@ -51,7 +51,7 @@ export default function Sidebar() {
                             <path d="M14 8L8 4V12L14 8Z" fill="#323232"/>
                             <path d="M21.7102 14.43C21.7402 14.14 21.7502 13.85 21.7202 13.57L22.7902 12.72C22.8902 12.64 22.9102 12.51 22.8502 12.4L21.8202 10.61C21.7602 10.5 21.6302 10.46 21.5102 10.5L20.2302 11C20.0002 10.83 19.7502 10.69 19.4802 10.58L19.2802 9.22C19.2602 9.09 19.1602 9 19.0302 9H16.9602C16.8402 9 16.7302 9.09 16.7102 9.21L16.5102 10.57C16.2502 10.68 16.0002 10.83 15.7702 10.99L14.4902 10.49C14.3702 10.44 14.2402 10.49 14.1802 10.6L13.1502 12.39C13.0902 12.5 13.1102 12.63 13.2102 12.71L14.2802 13.57C14.2502 13.86 14.2402 14.15 14.2702 14.43L13.2002 15.28C13.1002 15.36 13.0802 15.49 13.1402 15.6L14.1702 17.39C14.2302 17.5 14.3602 17.54 14.4802 17.5L15.7502 17C15.9802 17.17 16.2302 17.31 16.5002 17.42L16.7002 18.78C16.7202 18.9 16.8202 18.99 16.9502 18.99H19.0202C19.1402 18.99 19.2502 18.9 19.2702 18.78L19.4702 17.42C19.7302 17.31 19.9802 17.16 20.2102 17L21.4902 17.5C21.6102 17.55 21.7402 17.5 21.8002 17.39L22.8302 15.6C22.8902 15.49 22.8702 15.36 22.7702 15.28L21.7102 14.43ZM18.0002 15.5C17.1702 15.5 16.5002 14.83 16.5002 14C16.5002 13.17 17.1702 12.5 18.0002 12.5C18.8302 12.5 19.5002 13.17 19.5002 14C19.5002 14.83 18.8302 15.5 18.0002 15.5Z" fill="#323232"/>
                         </svg>
-                        <Link className="text-sm transition-colors duration-200 font-medium" href='/assessment'>Courses</Link>
+                        <Link className="text-sm transition-colors duration-200 font-medium" href='/courses'>Courses</Link>
                     </li>
                     <li className={`flex items-center gap-2 px-3 py-3 mb-2 rounded-md ${currentPath === '/users' ? 'bg-white text-[#2D68A2] active-link' : 'text-[#181A1B]'} text-[#181A1B] hover:bg-white hover:text-[#2D68A2]`}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16" fill="none">
@@ -60,7 +60,7 @@ export default function Sidebar() {
                             <path d="M8 8C10.21 8 12 6.21 12 4C12 1.79 10.21 0 8 0C5.79 0 4 1.79 4 4C4 6.21 5.79 8 8 8ZM8 2C9.1 2 10 2.9 10 4C10 5.1 9.1 6 8 6C6.9 6 6 5.1 6 4C6 2.9 6.9 2 8 2Z" fill="#323232"/>
                             <path d="M8 9C5.33 9 0 10.34 0 13V16H16V13C16 10.34 10.67 9 8 9ZM14 14H2V13.01C2.2 12.29 5.3 11 8 11C10.7 11 13.8 12.29 14 13V14Z" fill="#323232"/>
                         </svg>
-                        <Link className="text-sm transition-colors duration-200 font-medium" href='/assessment'>Users</Link>
+                        <Link className="text-sm transition-colors duration-200 font-medium" href='/users'>Users</Link>
                     </li>
                     <li className={`flex items-center gap-2 px-3 py-3 mb-2 rounded-md ${currentPath === '/account' ? 'bg-white text-[#2D68A2] active-link' : 'text-[#181A1B]'} text-[#181A1B] hover:bg-white hover:text-[#2D68A2]`}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
