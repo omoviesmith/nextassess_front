@@ -22,7 +22,7 @@ export default function Admin() {
                         <div className="flex justify-center">
                             <Image className="w-14 h-14" src='/bulb-icon.png' width={64} height={64} />
                         </div>
-                        <h1 className="text-center text-[#202123] font-bold text-5xl leading-[64px] font-serif my-2">Create with AI</h1>
+                        <h1 className="text-center text-[#202123] font-bold text-5xl leading-[64px] font-serif my-0">Create with AI</h1>
                         <p className="text-[#202123] text-center font-semibold text-base leading-[18px]">Ask anything, get your Assessment</p>
                         <div className="flex justify-center my-3">
                             <Image src='/sun.svg' width='20' height='20' />
@@ -46,7 +46,7 @@ export default function Admin() {
                                 </div>
                                 <div className="bg-white py-4 px-4">
                                     <h3 className="text-[#3C3838] text-lg font-semibold leading-[27px]">Upload Assessment</h3>
-                                    <p className="text-[#898686] font-medium mt-2 leading-6">Upload anything regarding document and PDF files</p>
+                                    <p className="text-[#898686] font-medium mt-0 leading-6">Upload anything regarding document and PDF files</p>
                                 </div>
                             </div>
                             <div onClick={()=> setSelected('describe')} className="m-0 cursor-pointer shadow-[0px 4px 19.5px 0px #0000001A] relative">
@@ -65,7 +65,7 @@ export default function Admin() {
                                 </div>
                                 <div className="bg-white py-4 px-4">
                                     <h3 className="text-[#3C3838] text-lg font-semibold leading-[27px]">Describe Assessment</h3>
-                                    <p className="text-[#898686] font-medium mt-2 leading-6">Describe your assessment and see the magic</p>
+                                    <p className="text-[#898686] font-medium mt-0 leading-6">Describe your assessment and see the magic</p>
                                 </div>
                             </div>
                             <Link href='/admin/assessment/programmatic' className="m-0 shadow-[0px 4px 19.5px 0px #0000001A] relative">
@@ -87,7 +87,7 @@ export default function Admin() {
                                 </div>
                                 <div className="bg-white py-4 px-4">
                                     <h3 className="text-[#3C3838] text-lg font-semibold leading-[27px]">Programmatic Assessment</h3>
-                                    <p className="text-[#898686] font-medium mt-2 leading-6">Upload any thing regarding document and pdf files</p>
+                                    <p className="text-[#898686] font-medium mt-0 leading-6">Upload any thing regarding document and pdf files</p>
                                 </div>
                             </Link>
                         </div>

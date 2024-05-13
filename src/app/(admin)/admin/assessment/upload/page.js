@@ -48,7 +48,7 @@ export default function Upload() {
                     <IoMdArrowBack className="w-5 h-5" /> Back
                 </button>
             </div>
-            <div className="my-6">
+            <div className="my-0">
                 <h1 className="text-center text-[#202123] font-bold text-5xl leading-[64px] font-serif my-2">Upload Assessment</h1>
                 <p className="text-[#202123] text-center font-semibold text-base leading-[18px]">Describe your assessment in detail </p>
                 <div className="flex justify-center my-3">

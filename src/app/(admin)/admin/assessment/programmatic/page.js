@@ -46,10 +46,10 @@ export default function Programmatic() {
                     <IoMdArrowBack className="w-5 h-5" /> Back
                 </button>
             </Link>
-            <div className="my-6">
-                <h1 className="text-center text-[#202123] font-bold text-5xl leading-[64px] font-serif my-2">Programmatic Assessment</h1>
+            <div className="my-0">
+                <h1 className="text-center text-[#202123] font-bold text-5xl leading-[64px] font-serif mb-1">Programmatic Assessment</h1>
                 <p className="text-[#202123] text-center font-semibold text-base leading-[18px]">Describe your assessment in detail</p>
-                <div className="flex justify-center my-3">
+                <div className="flex justify-center mt-2">
                     <Image src='/sun.svg' width='20' height='20' />
                 </div>
             </div>
@@ -95,9 +95,9 @@ export default function Programmatic() {
                     </div>
                 </div>
                 <div className="mt-4">
-                    <textarea rows={5} className="rounded-md outline-none px-5 py-3 w-full" placeholder="Additional Note"></textarea>
+                    <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full" placeholder="Additional Note"></textarea>
                 </div>
-                <div className="mt-5">
+                <div className="mt-3">
                     <button type="submit" className={`w-full text-center rounded-lg py-3 px-6 font-bold text-base bg-[#CBFFFE]`}>Submit</button>
                 </div>
             </form>

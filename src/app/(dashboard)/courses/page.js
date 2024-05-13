@@ -45,7 +45,7 @@ export default function Courses() {
                     <h3 className="text-[#101828] text-3xl font-semibold">Welcome back, Jack</h3>
                     <p className="text-[#475467] text-base font-normal mt-2">Track, manage and forecast your courses.</p>
                 </div>
-                <Link href='/courses' className="flex justify-end w-full">
+                <Link href='/courses' className="flex justify-end w-full md:w-auto">
                     <button className="text-sm text-white font-semibold bg-[#7F56D9] rounded-lg py-[10px] px-4"> + Add New Course</button>
                 </Link>
             </div>
