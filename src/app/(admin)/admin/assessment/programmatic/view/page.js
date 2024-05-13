@@ -30,10 +30,8 @@ export default function ProgrammaticView() {
             </button>
         </div>
         <div className="flex gap-6 mt-5">
+            <div className="md:w-1/4"></div>
             <div className="md:w-1/2">
-                <div className="md:w-3/4 mx-auto bg-[#CBFFFE] rounded-[48px] p-4">
-                    <h6 className="text-[#3C3838] font-semibold text-2xl leading-9 text-center">AI-Integrated Assessment</h6>
-                </div>
                 <div className="flex gap-5 rounded-lg bg-white border border-[#A9A9A9] mt-5">
                     <div className="m-0 w-2/5">
                         <Image className="h-full" src='/assessment-1.png' width={300} height={200} />
@@ -52,85 +50,72 @@ export default function ProgrammaticView() {
                         </div>
                     </div>
                 </div>
-                <div className="flex gap-5 rounded-lg bg-white border border-[#A9A9A9] mt-5">
-                    <div className="grid grid-cols-4 gap-0 w-full">
-                        <div className="p-3 rounded-tl-lg border border-[#A9A9A9] font-semibold text-xl text-center"></div>
-                        <div className="p-3 border border-[#A9A9A9] font-semibold text-xl text-center">1</div>
-                        <div className="p-3 border border-[#A9A9A9] font-semibold text-xl text-center">2</div>
-                        <div className="p-3 rounded-tr-lg border border-[#A9A9A9] font-semibold text-xl text-center">3</div>
-                        <div className="p-3 border border-[#A9A9A9] font-semibold text-base">The Shoemaker's Solitude</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 rounded-bl-lg border border-[#A9A9A9] font-semibold text-base">The Shoemaker's Solitude</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 rounded-br-lg border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                <div className="flex flex-col rounded-lg bg-white border border-[#A9A9A9] mt-5">
+                    <div className="m-0">
+                        <Image className="h-full w-full" src='/assessment-3.png' width={600} height={500} />
                     </div>
-                </div>
-                <div className="grid grid-cols-6 gap-3 mt-5">
-                    <div className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
-                        <BiSolidLike className="w-7 h-7" />
-                        <p className="text-[#666666] text-center text-[13px]">Like</p>
+                    <div className="m-0 py-8 px-3">
+                        <h1 className="text-[32px] text-center font-semibold leading-10">Historical Tale: A Tale of Two Cities</h1>
+                        <p className="mt-2 mb-2 text-center text-[#666666] text-xs font-normal leading-5">In the midst of the turbulent period of the French Revolution, Charles Dickens weaves a mesmerizing tale of love, sacrifice, and redemption in "A Tale of Two Cities". The novel unfolds against the backdrop of unrest and social upheaval, with vivid descriptions of London and Paris during the late 18th century.</p>
                     </div>
-                    <div className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
-                        <BiSolidDislike className="w-7 h-7" />
-                        <p className="text-[#666666] text-center text-[13px]">Unlike</p>
-                    </div>
-                    <div className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
-                        <MdRefresh className="w-7 h-7 text-[#FF0000]" />
-                        <p className="text-[#FF0000] text-center text-[13px]">Try Again</p>
-                    </div>
-                    <div className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
-                        <IoSaveSharp className="w-7 h-7" />
-                        <p className="text-[#666666] text-center text-[13px]">Save</p>
-                    </div>
-                    <div className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
-                        <BiSolidPencil className="w-7 h-7" />
-                        <p className="text-[#666666] text-center text-[13px]">Edit</p>
-                    </div>
-                    <div className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
-                        <MdDownload className="w-7 h-7" />
-                        <p className="text-[#666666] text-center text-[13px]">Download</p>
-                    </div>
-                </div>
-            </div>
-            <div className="md:w-1/2">
-                <div className="md:w-3/4 mx-auto bg-[#CBFFFE] rounded-[48px] p-4">
-                    <h6 className="text-[#3C3838] font-semibold text-2xl leading-9 text-center">Human-Centric Assessment</h6>
                 </div>
                 <div className="flex flex-col rounded-lg bg-white border border-[#A9A9A9] mt-5">
                     <div className="m-0">
-                        <Image className="h-full w-full" src='/assessment-2.png' width={600} height={500} />
+                        <Image className="h-full w-full" src='/assessment-3.png' width={600} height={500} />
                     </div>
-                    <div className="m-0 py-1 px-3">
-                        <h1 className="text-[32px] text-center font-semibold leading-10">Historical Tale: A Tale of Two Cities</h1>
-                        <p className="mt-2 mb-2 text-center text-[#666666] text-xs font-normal leading-5">In the midst of the turbulent period of the French Revolution, Charles Dickens weaves a mesmerizing tale of love, sacrifice, and redemption in "A Tale of Two Cities". The novel unfolds against the backdrop of unrest and social upheaval, with vivid descriptions of London and Paris during the late 18th century.</p>
-                        <div className="flex items-center justify-center gap-3">
-                            <div>
-                                <Image src='/account.png' width={33} height={33} />
+                    <div className="m-0 py-8 px-3">
+                        <h1 className="text-[32px] text-center font-semibold leading-10 mb-4">The Shoemaker’s Garret</h1>
+                        <div className="flex gap-4 items-start mb-4">
+                            <div className="flex justify-center items-center rounded-full bg-[#DADBF1] w-[140px] h-[60px]">
+                                <span className="text-black text-center text-2xl font-semibold">1</span>
                             </div>
                             <div>
-                                <h6 className="font-semibold text-[17px] leading-10 m-0">by Richard Smith</h6>
-                                <p className="m-0 text-[#666666] text-[10px]">Last Edited 1 minute ago</p>
+                                <h3 className="text-black text-2xl font-semibold leading-[50px] mb-0">The Shoemaker's Solitude</h3>
+                                <p className="text-[#666666] text-sm font-normal leading-[26px]">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work. His faded surroundings bear testimony to a life of seclusion and resilience.</p>
+                            </div>
+                        </div>
+                        <div className="flex gap-4 items-start mb-4">
+                            <div className="m-0 w-[10%]">
+                                <div className="flex justify-center items-center rounded-full bg-[#DADBF1] w-[60px] h-[60px]">
+                                    <span className="text-black text-center text-2xl font-semibold">2</span>
+                                </div>
+                            </div>
+                            <div className="w-[88%]">
+                                <h3 className="text-black text-2xl font-semibold leading-[50px] mb-0">A Glimmer of Light</h3>
+                                <p className="text-[#666666] text-sm font-normal leading-[26px]">A ray of light pierces through the darkness, bringing a momentary respite to the gloom that envelops the shoemaker's garret. It illuminates the worn tools and scraps of leather, casting a poignant glow on his unfinished creations.</p>
+                            </div>
+                        </div>
+                        <div className="flex gap-4 items-start mb-4">
+                            <div className="flex justify-center items-center rounded-full bg-[#DADBF1] w-[140px] h-[60px]">
+                                <span className="text-black text-center text-2xl font-semibold">3</span>
+                            </div>
+                            <div>
+                                <h3 className="text-black text-2xl font-semibold leading-[50px] mb-0">Moment of Recognition</h3>
+                                <p className="text-[#666666] text-sm font-normal leading-[26px]">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work. His faded surroundings bear testimony to a life of seclusion and resilience.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="flex gap-5 rounded-lg bg-white border border-[#A9A9A9] mt-5">
-                    <div className="grid grid-cols-4 gap-0 w-full">
-                        <div className="p-3 rounded-tl-lg border border-[#A9A9A9] font-semibold text-xl text-center"></div>
-                        <div className="p-3 border border-[#A9A9A9] font-semibold text-xl text-center">1</div>
-                        <div className="p-3 border border-[#A9A9A9] font-semibold text-xl text-center">2</div>
-                        <div className="p-3 rounded-tr-lg border border-[#A9A9A9] font-semibold text-xl text-center">3</div>
-                        <div className="p-3 border border-[#A9A9A9] font-semibold text-base">The Shoemaker's Solitude</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 rounded-bl-lg border border-[#A9A9A9] font-semibold text-base">The Shoemaker's Solitude</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 rounded-br-lg border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                <div className="flex flex-col rounded-lg bg-white border border-[#A9A9A9] mt-5">
+                    <div className="m-0">
+                        <Image className="h-full w-full" src='/assessment-3.png' width={600} height={500} />
+                    </div>
+                    <div className="m-0 py-8 px-3">
+                        <h1 className="text-[32px] text-center font-semibold leading-10">The Mystery of the Unfinished Shoe</h1>
+                        <div className="grid grid-rows-2 grid-flow-col gap-4 mt-5">
+                            <div class="row-span-2 bg-[#DADBF1] rounded-md p-3">
+                                <h4 className="mb-2 text-2xl font-semibold leading-7">A Glimpse of Recognition</h4>
+                                <p className="text-[#666666] font-normal text-sm leading-[26px]">As the visitor seeks to unlock the mystery of the shoe, the shoemaker's hesitant responses provide a glimpse into the enigma of his past, shrouded in layers of solitude and longing.As the visitor seeks to unlock the mystery of the shoe, the shoemaker's hesitant responses provide a glimpse into the  layers of solitude and longing.</p>
+                            </div>
+                            <div class="m-0 bg-[#DADBF1] rounded-md p-3">
+                                <h4 className="mb-2 text-2xl font-semibold leading-7">Forgotten Artistry</h4>
+                                <p className="text-[#666666] font-normal text-sm leading-[26px]">The intricate details of the unfinished shoe bear witness to the forgotten artistry of the shoemaker. Each stitch and curve holds a story, waiting to be unraveled.</p>
+                            </div>
+                            <div class="bg-[#DADBF1] rounded-md p-3">
+                                <h4 className="mb-2 text-2xl font-semibold leading-7">Lost Memory</h4>
+                                <p className="text-[#666666] font-normal text-sm leading-[26px]">The shoemaker's struggle to recollect his craft mirrors the fragments of forgotten memories that lay dormant within him. The unfinished shoe becomes a poignant symbol of his fractured past.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="grid grid-cols-6 gap-3 mt-5">
