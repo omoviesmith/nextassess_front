@@ -29,7 +29,7 @@ export default function Account() {
                             <MdOutlineEdit className="w-4 h-4" /> Edit
                         </button>
                     </div>
-                    <div className="flex mt-8 mb-2 gap-6 justify-between w-1/2">
+                    <div className="flex mt-8 mb-2 gap-6 justify-between md:w-1/2">
                         <div>
                             <h3 className="text-[#061C3D] text-lg leading-7 font-semibold">First Name</h3>
                             <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">Jack</p>
@@ -39,7 +39,7 @@ export default function Account() {
                             <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">Adams</p>
                         </div>
                     </div>
-                    <div className="flex mt-8 mb-2 gap-6 justify-between w-1/2">
+                    <div className="flex mt-8 mb-2 gap-6 justify-between md:w-1/2">
                         <div>
                             <h3 className="text-[#061C3D] text-lg leading-7 font-semibold">Email address</h3>
                             <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">jackadams@gmail.com</p>
@@ -49,7 +49,7 @@ export default function Account() {
                             <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">213 555 1424</p>
                         </div>
                     </div>
-                    <div className="flex mt-8 mb-2 gap-6 justify-between w-1/2">
+                    <div className="flex mt-8 mb-2 gap-6 justify-between md:w-1/2">
                         <div>
                             <h3 className="text-[#061C3D] text-lg leading-7 font-semibold">Bio</h3>
                             <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">Product Designer</p>
@@ -63,7 +63,7 @@ export default function Account() {
                             <MdOutlineEdit className="w-4 h-4" /> Edit
                         </button>
                     </div>
-                    <div className="flex mt-8 mb-2 gap-6 justify-between w-1/2">
+                    <div className="flex mt-8 mb-2 gap-6 justify-between md:w-1/2">
                         <div>
                             <h3 className="text-[#061C3D] text-lg leading-7 font-semibold">Country</h3>
                             <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">Jack</p>
@@ -73,7 +73,7 @@ export default function Account() {
                             <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">Adams</p>
                         </div>
                     </div>
-                    <div className="flex mt-8 mb-2 gap-6 justify-between w-1/2">
+                    <div className="flex mt-8 mb-2 gap-6 justify-between md:w-1/2">
                         <div>
                             <h3 className="text-[#061C3D] text-lg leading-7 font-semibold">Postal Code</h3>
                             <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">jackadams@gmail.com</p>

@@ -9,7 +9,7 @@ import { IoSaveSharp } from "react-icons/io5";
 
 export default function ProgrammaticView() {
     return (<>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center flex-col md:flex-row gap-3">
             <div  className="flex items-center gap-3 bg-white rounded-md py-3 px-5 text-[#202123] font-semibold">
                 <Link href='/admin'>
                     <button className="flex items-center gap-2 text-[#202123] font-semibold">
@@ -30,7 +30,7 @@ export default function ProgrammaticView() {
             </button>
         </div>
         <div className="flex gap-6 mt-5">
-            <div className="md:w-1/4"></div>
+            <div className="md:w-1/4 hidden md:block"></div>
             <div className="md:w-1/2">
                 <div className="flex gap-5 rounded-lg bg-white border border-[#A9A9A9] mt-5">
                     <div className="m-0 w-2/5">
@@ -65,16 +65,18 @@ export default function ProgrammaticView() {
                     </div>
                     <div className="m-0 py-8 px-3">
                         <h1 className="text-[32px] text-center font-semibold leading-10 mb-4">The Shoemaker’s Garret</h1>
-                        <div className="flex gap-4 items-start mb-4">
-                            <div className="flex justify-center items-center rounded-full bg-[#DADBF1] w-[140px] h-[60px]">
-                                <span className="text-black text-center text-2xl font-semibold">1</span>
+                        <div className="flex gap-8 md:gap-4 items-start mb-4">
+                            <div className="m-0 w-[10%]">
+                                <div className="flex justify-center items-center rounded-full bg-[#DADBF1] w-[60px] h-[60px]">
+                                    <span className="text-black text-center text-2xl font-semibold">1</span>
+                                </div>
                             </div>
-                            <div>
+                            <div className="w-[88%]">
                                 <h3 className="text-black text-2xl font-semibold leading-[50px] mb-0">The Shoemaker's Solitude</h3>
                                 <p className="text-[#666666] text-sm font-normal leading-[26px]">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work. His faded surroundings bear testimony to a life of seclusion and resilience.</p>
                             </div>
                         </div>
-                        <div className="flex gap-4 items-start mb-4">
+                        <div className="flex gap-8 md:gap-4 items-start mb-4">
                             <div className="m-0 w-[10%]">
                                 <div className="flex justify-center items-center rounded-full bg-[#DADBF1] w-[60px] h-[60px]">
                                     <span className="text-black text-center text-2xl font-semibold">2</span>
@@ -85,11 +87,13 @@ export default function ProgrammaticView() {
                                 <p className="text-[#666666] text-sm font-normal leading-[26px]">A ray of light pierces through the darkness, bringing a momentary respite to the gloom that envelops the shoemaker's garret. It illuminates the worn tools and scraps of leather, casting a poignant glow on his unfinished creations.</p>
                             </div>
                         </div>
-                        <div className="flex gap-4 items-start mb-4">
-                            <div className="flex justify-center items-center rounded-full bg-[#DADBF1] w-[140px] h-[60px]">
-                                <span className="text-black text-center text-2xl font-semibold">3</span>
+                        <div className="flex gap-8 md:gap-4 items-start mb-4">
+                            <div className="m-0 w-[10%]">
+                                <div className="flex justify-center items-center rounded-full bg-[#DADBF1] w-[60px] h-[60px]">
+                                    <span className="text-black text-center text-2xl font-semibold">3</span>
+                                </div>
                             </div>
-                            <div>
+                            <div className="w-[88%]">
                                 <h3 className="text-black text-2xl font-semibold leading-[50px] mb-0">Moment of Recognition</h3>
                                 <p className="text-[#666666] text-sm font-normal leading-[26px]">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work. His faded surroundings bear testimony to a life of seclusion and resilience.</p>
                             </div>
@@ -102,8 +106,8 @@ export default function ProgrammaticView() {
                     </div>
                     <div className="m-0 py-8 px-3">
                         <h1 className="text-[32px] text-center font-semibold leading-10">The Mystery of the Unfinished Shoe</h1>
-                        <div className="grid grid-rows-2 grid-flow-col gap-4 mt-5">
-                            <div class="row-span-2 bg-[#DADBF1] rounded-md p-3">
+                        <div className="grid grid-rows-3 md:grid-rows-2 grid-flow-col gap-4 mt-5">
+                            <div class="md:row-span-2 bg-[#DADBF1] rounded-md p-3">
                                 <h4 className="mb-2 text-2xl font-semibold leading-7">A Glimpse of Recognition</h4>
                                 <p className="text-[#666666] font-normal text-sm leading-[26px]">As the visitor seeks to unlock the mystery of the shoe, the shoemaker's hesitant responses provide a glimpse into the enigma of his past, shrouded in layers of solitude and longing.As the visitor seeks to unlock the mystery of the shoe, the shoemaker's hesitant responses provide a glimpse into the  layers of solitude and longing.</p>
                             </div>
@@ -118,7 +122,7 @@ export default function ProgrammaticView() {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-6 gap-3 mt-5">
+                <div className="grid grid-cols-6 gap-1 md:gap-3 mt-5">
                     <div className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
                         <BiSolidLike className="w-7 h-7" />
                         <p className="text-[#666666] text-center text-[13px]">Like</p>

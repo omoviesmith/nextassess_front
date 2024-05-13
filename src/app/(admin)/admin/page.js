@@ -27,7 +27,7 @@ export default function Admin() {
                         <div className="flex justify-center my-3">
                             <Image src='/sun.svg' width='20' height='20' />
                         </div>
-                        <div className="grid grid-cols-3 gap-6 md:w-3/4 mx-auto">
+                        <div className="grid grid-col-1 md:grid-cols-3 gap-6 w-4/5 md:w-3/4 mx-auto">
                             <div onClick={()=> setSelected('upload')} className="m-0 cursor-pointer shadow-[0px 4px 19.5px 0px #0000001A] relative">
                                 <div className="bg-[#CBFFFE] rounded-tl-xl rounded-tr-xl flex justify-center items-center p-3 h-48">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="210" height="122" viewBox="0 0 210 122" fill="none">
@@ -102,13 +102,13 @@ export default function Admin() {
                         <div className="flex justify-center my-3">
                             <Image src='/sun.svg' width='20' height='20' />
                         </div>
-                        <div className="md:w-1/2 mx-auto mt-5">
-                            <Link href={`/admin/assessment/${selected}`} className="flex rounded-xl w-full cursor-pointer relative">
-                                <div className="bg-[#CBFFFE] p-4 rounded-tl-xl rounded-bl-xl w-1/2 flex justify-center items-center">
+                        <div className="md:w-1/2 w-4/5 mx-auto mt-5">
+                            <Link href={`/admin/assessment/${selected}`} className="flex md:flex-row flex-col rounded-xl w-full cursor-pointer relative">
+                                <div className="bg-[#CBFFFE] p-4 rounded-tl-xl rounded-tr-xl md:rounded-tr-none md:rounded-bl-xl md:w-1/2 flex justify-center items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="263" height="68" viewBox="0 0 263 68" fill="none">
                                         <path d="M244.473 7.67098C212.179 -9.53053 68.0354 6.17085 0 16.1717V36.6736C22.5521 39.6739 86.873 49.3747 163.74 64.176C259.823 82.6776 284.839 29.1729 244.473 7.67098Z" fill="#AAF2F1"/>
                                     </svg>
-                                    <div  className="absolute left-[11%] w-auto h-auto top-[35%] flex justify-center items-center">
+                                    <div  className="absolute left-[25%] md:left-[11%] w-auto h-auto top-[18%] md:top-[35%] flex justify-center items-center">
                                         <svg className="absolute" xmlns="http://www.w3.org/2000/svg" width="169" height="70" viewBox="0 0 169 70" fill="none">
                                             <rect width="169" height="50" rx="5" fill="white"/>
                                         </svg>
@@ -124,17 +124,17 @@ export default function Admin() {
                                         </svg>
                                     </div>
                                 </div>
-                                <div className="px-4 py-6 bg-white rounded-tr-xl rounded-br-xl w-1/2">
+                                <div className="px-4 py-6 bg-white md:rounded-bl-none rounded-bl-xl md:rounded-tr-xl rounded-br-xl md:w-1/2">
                                     <h6 className="text-[#3C3838] text-lg font-semibold leading-7">AI-Integrated Assessment</h6>
                                     <p className="mt-1 text-[#898686] font-semibold text-sm leading-6">Upload any thing regarding</p>
                                 </div>
                             </Link>
-                            <Link href={`/admin/assessment/${selected}`} className="flex rounded-xl mt-3 w-full cursor-pointer relative">
-                                <div className="bg-[#CBFFFE] p-4 rounded-tl-xl rounded-bl-xl w-1/2 flex justify-center items-center">
+                            <Link href={`/admin/assessment/${selected}`} className="flex md:flex-row flex-col rounded-xl mt-5 md:mt-3 w-full cursor-pointer relative">
+                                <div className="bg-[#CBFFFE] p-4 rounded-tl-xl rounded-tr-xl md:rounded-tr-none md:rounded-bl-xl md:w-1/2 flex justify-center items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="263" height="68" viewBox="0 0 263 68" fill="none">
                                         <path d="M244.473 7.67098C212.179 -9.53053 68.0354 6.17085 0 16.1717V36.6736C22.5521 39.6739 86.873 49.3747 163.74 64.176C259.823 82.6776 284.839 29.1729 244.473 7.67098Z" fill="#AAF2F1"/>
                                     </svg>
-                                    <div  className="absolute left-[11%] w-auto h-auto top-[35%] flex justify-center items-center">
+                                    <div  className="absolute left-[25%] md:left-[11%] w-auto h-auto top-[18%] md:top-[35%] flex justify-center items-center">
                                         <svg className="absolute" xmlns="http://www.w3.org/2000/svg" width="169" height="70" viewBox="0 0 169 70" fill="none">
                                             <rect width="169" height="50" rx="5" fill="white"/>
                                         </svg>
@@ -150,7 +150,7 @@ export default function Admin() {
                                         </svg>
                                     </div>
                                 </div>
-                                <div className="px-4 py-6 bg-white rounded-tr-xl rounded-br-xl w-1/2">
+                                <div className="px-4 py-6 bg-white md:rounded-bl-none rounded-bl-xl md:rounded-tr-xl rounded-br-xl md:w-1/2">
                                     <h6 className="text-[#3C3838] text-lg font-semibold leading-7">Human-Centric Assessment</h6>
                                     <p className="mt-1 text-[#898686] font-semibold text-sm leading-6">Upload any thing regarding</p>
                                 </div>

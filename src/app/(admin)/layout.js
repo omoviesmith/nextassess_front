@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body className={`${inter.className} `}>
-                <div className="bg-[#F9F5FF] admin-wrapper min-h-screen p-8">
+                <div className="bg-[#F9F5FF] admin-wrapper min-h-screen md:px-8 py-8 px-3">
                     <div className="relative">
                         {children}
                     </div>

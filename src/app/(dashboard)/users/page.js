@@ -88,52 +88,59 @@ export default function Users() {
                 </div>
             </div>
             <div className="mt-8">
-                <table className="table-auto border-collapse overflow-auto md:w-full md:overflow-hidden border border-slate-300 rounded-lg">
-                    <thead>
-                        <tr>
-                            <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Date</th>
-                            <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Name</th>
-                            <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Email</th>
-                            <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Status</th>
-                            <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            users.map((user, index) => (
-                                <tr key={index}>
-                                    <td className="border-b border-slate-300 bg-white p-3">
-                                        <span className="block text-[#101828] text-sm font-normal">{user.date}</span>
-                                        <span className="block text-[#475467] text-sm font-normal">{user.time}</span>
-                                    </td>
-                                    <td className="border-b border-slate-300 bg-white p-3 text-sm font-medium text-[#101828]">{user.name}</td>
-                                    <td className="border-b border-slate-300 bg-white p-3">
-                                        <span className="block text-[#101828] text-sm">{user.email}</span>
-                                    </td>
-                                    <td className="border-b border-slate-300 bg-white p-3">
-                                        <div className="flex justify-start">
-                                            <span className={`block ${getStatusBgColorClass(user.status)} py-[2px] px-2 text-xs font-medium rounded-2xl ${getStatusTextColorClass(user.status)}`}>{getStatusText(user.status)}</span>
-                                        </div>
-                                    </td>
-                                    <td className="border-b border-slate-300 bg-white p-3">
-                                        <div className="flex gap-2 justify-start">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                <g clipPath="url(#clip0_16_7064)">
-                                                    <path d="M19 9H15V3H9V9H5L12 16L19 9ZM5 18V20H19V18H5Z" fill="#323232" />
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0_16_7064">
-                                                        <rect width="24" height="24" fill="white" />
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
+                <div className="overflow-x-auto mx-w-full">
+                    <table className="table-auto border-collapse overflow-auto md:w-full md:overflow-hidden border border-slate-300 rounded-tl-lg rounded-tr-lg">
+                        <thead>
+                            <tr>
+                                <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Date</th>
+                                <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Name</th>
+                                <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Email</th>
+                                <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Status</th>
+                                <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                users.map((user, index) => (
+                                    <tr key={index}>
+                                        <td className="border-b border-slate-300 bg-white p-3">
+                                            <span className="block text-[#101828] text-sm font-normal">{user.date}</span>
+                                            <span className="block text-[#475467] text-sm font-normal">{user.time}</span>
+                                        </td>
+                                        <td className="border-b border-slate-300 bg-white p-3 text-sm font-medium text-[#101828]">{user.name}</td>
+                                        <td className="border-b border-slate-300 bg-white p-3">
+                                            <span className="block text-[#101828] text-sm">{user.email}</span>
+                                        </td>
+                                        <td className="border-b border-slate-300 bg-white p-3">
+                                            <div className="flex justify-start">
+                                                <span className={`block ${getStatusBgColorClass(user.status)} py-[2px] px-2 text-xs font-medium rounded-2xl ${getStatusTextColorClass(user.status)}`}>{getStatusText(user.status)}</span>
+                                            </div>
+                                        </td>
+                                        <td className="border-b border-slate-300 bg-white p-3">
+                                            <div className="flex gap-2 justify-start">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                    <g clipPath="url(#clip0_16_7064)">
+                                                        <path d="M19 9H15V3H9V9H5L12 16L19 9ZM5 18V20H19V18H5Z" fill="#323232" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_16_7064">
+                                                            <rect width="24" height="24" fill="white" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div className="flex justify-between items-center p-3 border border-slate-300 bg-white rounded-bl-lg rounded-br-lg">
+                    <button disabled className="border border-[#D0D5DD] rounded-lg py-2 px-3 text-[#666] font-semibold text-sm">Previous</button>
+                    <span className="text-[#344054] text-sm font-medium">Page 1 of 10</span>
+                    <button className="border border-[#D0D5DD] rounded-lg py-2 px-3 text-[#344054] font-semibold text-sm">Next</button>
+                </div>
             </div>
         </div>
     );

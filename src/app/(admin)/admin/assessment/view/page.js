@@ -9,7 +9,7 @@ import { IoSaveSharp } from "react-icons/io5";
 
 export default function Assessment() {
     return (<>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center md:flexr-row flex-col gap-5">
             <div  className="flex items-center gap-3 bg-white rounded-md py-3 px-5 text-[#202123] font-semibold">
                 <Link href='/admin'>
                     <button className="flex items-center gap-2 text-[#202123] font-semibold">
@@ -29,7 +29,7 @@ export default function Assessment() {
                 <ImPencil className="w-4 h-4" /> Edit
             </button>
         </div>
-        <div className="flex gap-6 mt-5">
+        <div className="flex flex-col md:flex-row gap-6 mt-5">
             <div className="md:w-1/2">
                 <div className="md:w-3/4 mx-auto bg-[#CBFFFE] rounded-[48px] p-4">
                     <h6 className="text-[#3C3838] font-semibold text-2xl leading-9 text-center">AI-Integrated Assessment</h6>
@@ -54,21 +54,21 @@ export default function Assessment() {
                 </div>
                 <div className="flex gap-5 rounded-lg bg-white border border-[#A9A9A9] mt-5">
                     <div className="grid grid-cols-4 gap-0 w-full">
-                        <div className="p-3 rounded-tl-lg border border-[#A9A9A9] font-semibold text-xl text-center"></div>
-                        <div className="p-3 border border-[#A9A9A9] font-semibold text-xl text-center">1</div>
-                        <div className="p-3 border border-[#A9A9A9] font-semibold text-xl text-center">2</div>
-                        <div className="p-3 rounded-tr-lg border border-[#A9A9A9] font-semibold text-xl text-center">3</div>
-                        <div className="p-3 border border-[#A9A9A9] font-semibold text-base">The Shoemaker's Solitude</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 rounded-bl-lg border border-[#A9A9A9] font-semibold text-base">The Shoemaker's Solitude</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 rounded-br-lg border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                        <div className="py-3 px-1 md:px-3 rounded-tl-lg border border-[#A9A9A9] font-semibold text-xl text-center"></div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] font-semibold text-xl text-center">1</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] font-semibold text-xl text-center">2</div>
+                        <div className="py-3 px-1 md:px-3 rounded-tr-lg border border-[#A9A9A9] font-semibold text-xl text-center">3</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] font-normal md:font-semibold text-base">The Shoemaker's Solitude</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                        <div className="py-3 px-1 md:px-3 rounded-bl-lg border border-[#A9A9A9] font-normal md:font-semibold text-base">The Shoemaker's Solitude</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                        <div className="py-3 px-1 md:px-3 rounded-br-lg border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
                     </div>
                 </div>
-                <div className="grid grid-cols-6 gap-3 mt-5">
+                <div className="grid grid-cols-6 gap-1 md:gap-3 mt-5">
                     <div className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
                         <BiSolidLike className="w-7 h-7" />
                         <p className="text-[#666666] text-center text-[13px]">Like</p>
@@ -119,21 +119,21 @@ export default function Assessment() {
                 </div>
                 <div className="flex gap-5 rounded-lg bg-white border border-[#A9A9A9] mt-5">
                     <div className="grid grid-cols-4 gap-0 w-full">
-                        <div className="p-3 rounded-tl-lg border border-[#A9A9A9] font-semibold text-xl text-center"></div>
-                        <div className="p-3 border border-[#A9A9A9] font-semibold text-xl text-center">1</div>
-                        <div className="p-3 border border-[#A9A9A9] font-semibold text-xl text-center">2</div>
-                        <div className="p-3 rounded-tr-lg border border-[#A9A9A9] font-semibold text-xl text-center">3</div>
-                        <div className="p-3 border border-[#A9A9A9] font-semibold text-base">The Shoemaker's Solitude</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 rounded-bl-lg border border-[#A9A9A9] font-semibold text-base">The Shoemaker's Solitude</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
-                        <div className="p-3 rounded-br-lg border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                        <div className="py-3 px-1 md:px-3 rounded-tl-lg border border-[#A9A9A9] font-semibold text-xl text-center"></div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] font-semibold text-xl text-center">1</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] font-semibold text-xl text-center">2</div>
+                        <div className="py-3 px-1 md:px-3 rounded-tr-lg border border-[#A9A9A9] font-semibold text-xl text-center">3</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] font-normal md:font-semibold text-base">The Shoemaker's Solitude</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                        <div className="py-3 px-1 md:px-3 rounded-bl-lg border border-[#A9A9A9] font-normal md:font-semibold text-base">The Shoemaker's Solitude</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                        <div className="py-3 px-1 md:px-3 border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
+                        <div className="py-3 px-1 md:px-3 rounded-br-lg border border-[#A9A9A9] text-[#666666] font-normal text-xs">The shoemaker toils silently in his garret, immersed in the solitude of his relentless work.</div>
                     </div>
                 </div>
-                <div className="grid grid-cols-6 gap-3 mt-5">
+                <div className="grid grid-cols-6 gap-1 md:gap-3 mt-5">
                     <div className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
                         <BiSolidLike className="w-7 h-7" />
                         <p className="text-[#666666] text-center text-[13px]">Like</p>

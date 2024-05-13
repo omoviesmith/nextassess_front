@@ -62,7 +62,7 @@ export default function Subscription() {
                                     <Image src={item.icon} width={200} height={200} />
                                 </div>
                                 <div>
-                                    <h6 className="text-[#061C3D] font-semibold text-[16px] leading-[0.22px]">{item.title}</h6>
+                                    <h6 className="text-[#061C3D] font-semibold text-[16px] md:leading-[0.22px]">{item.title}</h6>
                                     <p className="text-[#42526B] text-base leading-[-0.37px] mt-4 mb-5">{item.text}</p>
                                     <Link href={item.link} className="flex gap-3 font-normal items-center text-[#0B63E5] leading-[20.83px] text-[13px]">{item.linkText} <FaArrowRightLong /></Link>
                                 </div>
