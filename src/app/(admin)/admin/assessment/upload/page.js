@@ -1,7 +1,6 @@
 'use client'
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { MdOutlineFileCopy } from "react-icons/md";

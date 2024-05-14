@@ -29,3 +29,11 @@
 .progress-container {
     background: linear-gradient(134.41deg, #BBD6EB 5.09%, #EDC1FC 32.48%, #E8E8EA 56.09%, #BAE7E4 76.39%, #C7BFEE 95.75%);
 }
+
+input::placeholder {
+    color: #000;
+}
+
+textarea::placeholder {
+    color: #000;
+}

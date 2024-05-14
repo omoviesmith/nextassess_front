@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { IoMdArrowBack } from "react-icons/io";
 import { useRouter } from 'next/navigation'
-import { MdMenuBook, MdOutlineCalendarToday } from "react-icons/md";
+import { MdMenuBook, MdOutlineCalendarToday, MdOutlineViewList, MdBlurCircular } from "react-icons/md";
 import { IoBulbOutline } from "react-icons/io5";
 import { TbChevronDown, TbChevronUp } from "react-icons/tb";
 
@@ -37,7 +37,7 @@ export default function Programmatic() {
     }, []);
     function handleSubmit(e) {
         e.preventDefault();
-        router.push('/admin/assessment/programmatic/view');
+        router.push('/admin/assessment/view');
     }
     return (
         <div>
@@ -56,11 +56,11 @@ export default function Programmatic() {
             <form onSubmit={handleSubmit} className=" md:w-1/2 mx-auto">
                 <div>
                     <MdOutlineCalendarToday className="relative top-8 left-5" />
-                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Program / Course" />
+                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Program" />
                 </div>
                 <div>
                     <IoBulbOutline className="relative top-8 left-5" />
-                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Outcomes / Objective" />
+                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Courses/Units Included" />
                 </div>
                 <div>
                     <div className="relative inline-block text-left mt-3 w-full" ref={dropdownRef}>
@@ -68,17 +68,17 @@ export default function Programmatic() {
                             <button
                                 onClick={toggleDropdown}
                                 type="button"
-                                className={`flex gap-3 items-center justify-between w-full rounded-md shadow-sm px-4 py-3 bg-white text-base font-normal focus:outline-none ${selectedValue ? 'text-black' : 'text-gray-400'}`}
+                                className={`flex gap-3 items-center justify-between w-full rounded-md shadow-sm px-4 py-3 bg-white text-base font-normal focus:outline-none text-black`}
                             >
                                     <span className="flex items-center gap-3">
-                                        <MdMenuBook className="text-black" /> {selectedValue ? selectedValue : "Assessment type preferences"}
+                                        <MdBlurCircular className="text-black" /> {selectedValue ? selectedValue : "Length of Program"}
                                     </span>
                                     { isOpen ? <TbChevronUp className="text-black" /> : <TbChevronDown className="text-black" /> }
                             </button>
                         </div>
 
                         {isOpen && (
-                            <div className="origin-top-right absolute w-full right-0 mt-1 rounded-md shadow-lg bg-white focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu" tabIndex="-1" id="dropdown-menu">
+                            <div className="origin-top-right z-10 absolute w-full right-0 mt-1 rounded-md shadow-lg bg-white focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu" tabIndex="-1" id="dropdown-menu">
                                 <div className="py-1" role="none">
                                     <span href="#" className="block cursor-pointer px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabIndex="-1" id="dropdown-item-1" onClick={() => handleItemClick('Both Assessment')}>
                                         Both Assessment
@@ -93,6 +93,10 @@ export default function Programmatic() {
                             </div>
                         )}
                     </div>
+                </div>
+                <div>
+                    <MdOutlineViewList className="relative top-8 left-5" />
+                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Learning Outcomes of Program" />
                 </div>
                 <div className="mt-4">
                     <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full" placeholder="Additional Note"></textarea>

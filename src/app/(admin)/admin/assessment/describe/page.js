@@ -1,13 +1,39 @@
 'use client'
 
 import Image from "next/image";
-import Link from "next/link";
 import { IoMdArrowBack } from "react-icons/io";
 import { useRouter } from 'next/navigation'
 import { MdOutlineCalendarToday, MdAdUnits, MdMenuBook } from "react-icons/md";
+import { MdOutlineLineWeight } from "react-icons/md";
+import { useEffect, useRef, useState } from "react";
+import { TbChevronDown, TbChevronUp } from "react-icons/tb";
 
 export default function Describe() {
     const router = useRouter();
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedValue, setSelectedValue] = useState(null);
+    const dropdownRef = useRef(null);
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+    const handleItemClick = (value) => {
+        setSelectedValue(value);
+        setIsOpen(false);
+    };
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setIsOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
     function handleSubmit(e) {
         e.preventDefault();
         router.push('/admin/assessment/view');
@@ -28,8 +54,48 @@ export default function Describe() {
             </div>
             <form onSubmit={handleSubmit} className=" md:w-1/2 mx-auto">
                 <div>
-                    <MdOutlineCalendarToday className="relative top-8 left-5" />
-                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Your level" />
+                <div className="relative inline-block text-left mt-3 w-full" ref={dropdownRef}>
+                        <div>
+                            <button
+                                onClick={toggleDropdown}
+                                type="button"
+                                className={`flex gap-3 items-center justify-between w-full rounded-md shadow-sm px-4 py-3 bg-white text-base font-normal focus:outline-none text-black`}
+                            >
+                                    <span className="flex items-center gap-3">
+                                        <MdOutlineCalendarToday className="text-black" /> {selectedValue ? selectedValue : "Your level"}
+                                    </span>
+                                    { isOpen ? <TbChevronUp className="text-black" /> : <TbChevronDown className="text-black" /> }
+                            </button>
+                        </div>
+
+                        {isOpen && (
+                            <div className="origin-top-right absolute w-full z-10 right-0 mt-1 rounded-md shadow-lg bg-white focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu" tabIndex="-1" id="dropdown-menu">
+                                <div className="py-1" role="none">
+                                    <span className="block cursor-pointer px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabIndex="-1" id="dropdown-item-1" onClick={() => handleItemClick('1st year (undergraduate)')}>
+                                        1st year (undergraduate)
+                                    </span>
+                                    <span className="block cursor-pointer px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabIndex="-1" id="dropdown-item-2" onClick={() => handleItemClick('2nd year (undergraduate)')}>
+                                        2nd year (undergraduate)
+                                    </span>
+                                    <span className="block cursor-pointer px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabIndex="-1" id="dropdown-item-3" onClick={() => handleItemClick('3rd year (undergraduate)')}>
+                                        3rd year (undergraduate)
+                                    </span>
+                                    <span className="block cursor-pointer px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabIndex="-1" id="dropdown-item-1" onClick={() => handleItemClick('4th year + (undergraduate)')}>
+                                        4th year + (undergraduate)
+                                    </span>
+                                    <span className="block cursor-pointer px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabIndex="-1" id="dropdown-item-2" onClick={() => handleItemClick('postgraduate coursework')}>
+                                        postgraduate coursework
+                                    </span>
+                                    <span className="block cursor-pointer px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabIndex="-1" id="dropdown-item-3" onClick={() => handleItemClick('postgraduate research')}>
+                                        postgraduate research
+                                    </span>
+                                    <span className="block cursor-pointer px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabIndex="-1" id="dropdown-item-3" onClick={() => handleItemClick('phD')}>
+                                        phD
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
                 <div>
                     <MdAdUnits className="relative top-8 left-5" />
@@ -39,8 +105,12 @@ export default function Describe() {
                     <MdMenuBook className="relative top-8 left-5" />
                     <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Learning Outcomes" />
                 </div>
+                <div>
+                    <MdOutlineLineWeight className="relative top-8 left-5" />
+                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Weigh" />
+                </div>
                 <div className="mt-4">
-                    <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full" placeholder="Describe Assessment"></textarea>
+                    <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full" placeholder="Additional Requirements (optional)"></textarea>
                 </div>
                 <div className="mt-3">
                     <button type="submit" className={`w-full text-center rounded-lg py-3 px-6 font-bold text-base bg-[#CBFFFE]`}>Submit</button>
