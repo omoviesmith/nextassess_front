@@ -103,11 +103,11 @@ export default function Describe() {
                 </div>
                 <div>
                     <MdMenuBook className="relative top-8 left-5" />
-                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Learning Outcomes" />
+                    <textarea rows={3} required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Learning Outcomes" />
                 </div>
                 <div>
                     <MdOutlineLineWeight className="relative top-8 left-5" />
-                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Weigh" />
+                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Weighting" />
                 </div>
                 <div className="mt-4">
                     <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full" placeholder="Additional Requirements (optional)"></textarea>

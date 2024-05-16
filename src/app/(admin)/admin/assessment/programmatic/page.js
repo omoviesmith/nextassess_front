@@ -60,7 +60,7 @@ export default function Programmatic() {
                 </div>
                 <div>
                     <IoBulbOutline className="relative top-8 left-5" />
-                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Courses/Units Included" />
+                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Units/Courses Incluses" />
                 </div>
                 <div>
                     <div className="relative inline-block text-left mt-3 w-full" ref={dropdownRef}>
@@ -96,7 +96,7 @@ export default function Programmatic() {
                 </div>
                 <div>
                     <MdOutlineViewList className="relative top-8 left-5" />
-                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Learning Outcomes of Program" />
+                    <textarea rows={3} required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Learning Outcomes of Program" />
                 </div>
                 <div className="mt-4">
                     <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full" placeholder="Additional Note"></textarea>

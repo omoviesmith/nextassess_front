@@ -51,7 +51,7 @@ export default function Assessment() {
           <p className="text-[#475467] text-base font-normal mt-2">Track, manage and forecast your presentations.</p>
         </div>
         <Link href='/admin' className="flex justify-end w-full md:w-auto">
-          <button className="text-sm text-white font-semibold bg-[#7F56D9] rounded-lg py-[10px] px-4"> + Add New Presentation</button>
+          <button className="text-sm text-white font-semibold bg-[#7F56D9] rounded-lg py-[10px] px-4"> + Create New Assessment</button>
         </Link>
       </div>
       <div className="flex justify-between mt-6">
