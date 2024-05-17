@@ -4,15 +4,23 @@ import Image from "next/image";
 import { useState } from "react";
 import { showToast } from 'react-next-toast';
 import ViewAssessment from "./View";
+import { IoMdArrowBack } from "react-icons/io";
+import { MdErrorOutline } from "react-icons/md";
 
-export default function AssessmentPreference({ text }) {
+export default function AssessmentPreference({ text, setUploadResponse }) {
     const [response, setResponse] = useState(null);
     const [type, setType] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    function reset() {
+        setResponse(null);
+        setType(null);
+        setLoading(false);
+        setError(false);
+    }
     async function handleSubmit(apiType) {
         setType(apiType);
         setLoading(true);
-        showToast.info("Please wait, while we're generating assessment for you!");
         try {
             const requestPayload = {text};
             const url = apiType === 'ai' ? 
@@ -32,30 +40,35 @@ export default function AssessmentPreference({ text }) {
                 showToast.success('Assessment generated successfully.');
             } else {
                 setLoading(false);
-                showToast.error('Error while generating assessment!');
+                setError(true);
                 console.error('Error while generating assessment!', response.statusText);
             } 
         } catch (error) {
             setLoading(false);
-            showToast.error('Error while generating assessment!')
+            setError(true);
             console.error('Error while generating assessment!:', error);
         }
     }
     return (<>
         {
-            !response ? (
+            (!response && !loading && !error) ? (<>
+                <div onClick={()=> setUploadResponse()}>
+                    <button className="flex items-center gap-2 bg-white rounded-md py-3 px-5 text-[#202123] font-semibold">
+                        <IoMdArrowBack className="w-5 h-5" /> Back
+                    </button>
+                </div>
                 <div className="my-0">
                     <div className="flex justify-center">
                         <Image className="w-14 h-14" src='/bulb-icon.png' width={64} height={64} />
                     </div>
-                    <h1 className="text-center text-[#202123] font-bold text-5xl leading-[64px] font-serif my-2">AI Generated Assessment</h1>
-                    <p className="text-[#202123] text-center font-semibold text-base leading-[18px]">Ask anything, get your Assessment</p>
+                    <h1 className="text-center text-[#202123] font-bold text-5xl leading-[64px] font-serif my-2">Assessment Preference</h1>
+                    <p className="text-[#202123] text-center font-semibold text-base leading-[18px]">Choose whether this assessment with integrate AI, or focus on human-centric skills</p>
                     <div className="flex justify-center my-3">
                         <Image src='/sun.svg' width='20' height='20' />
                     </div>
                     <div className="md:w-1/2 w-4/5 mx-auto mt-5">
                         <div onClick={()=>handleSubmit('ai')} className="flex md:flex-row flex-col rounded-xl w-full cursor-pointer relative">
-                            {(loading && type === 'ai') && <span class="animate-ping absolute inline-flex h-3 w-3 right-0 rounded-full bg-sky-400 opacity-75"></span>}
+                            {(loading && type === 'ai') && <span className="animate-ping absolute inline-flex h-3 w-3 right-0 rounded-full bg-sky-400 opacity-75"></span>}
                             <div className="bg-[#CBFFFE] p-4 rounded-tl-xl rounded-tr-xl md:rounded-tr-none md:rounded-bl-xl md:w-1/2 flex justify-center items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="263" height="68" viewBox="0 0 263 68" fill="none">
                                     <path d="M244.473 7.67098C212.179 -9.53053 68.0354 6.17085 0 16.1717V36.6736C22.5521 39.6739 86.873 49.3747 163.74 64.176C259.823 82.6776 284.839 29.1729 244.473 7.67098Z" fill="#AAF2F1" />
@@ -76,13 +89,13 @@ export default function AssessmentPreference({ text }) {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="px-4 py-6 bg-white md:rounded-bl-none rounded-bl-xl md:rounded-tr-xl rounded-br-xl md:w-1/2">
+                            <div className="px-4 py-4 bg-white md:rounded-bl-none rounded-bl-xl md:rounded-tr-xl rounded-br-xl md:w-1/2">
                                 <h6 className="text-[#3C3838] text-lg font-semibold leading-7">AI-Integrated Assessment</h6>
-                                <p className="mt-1 text-[#898686] font-semibold text-sm leading-6">Upload any thing regarding</p>
+                                <p className="mt-1 text-[#898686] font-normal text-sm leading-6">Include the use of AI in the assessment. Allows students to use AI as a collaborator, in ethical and safe ways.</p>
                             </div>
                         </div>
                         <div onClick={()=>handleSubmit('human')} className="flex md:flex-row flex-col rounded-xl mt-5 md:mt-3 w-full cursor-pointer relative">
-                            {(loading && type === 'human') && <span class="animate-ping absolute inline-flex h-3 w-3 right-0 rounded-full bg-sky-400 opacity-75"></span>}
+                            {(loading && type === 'human') && <span className="animate-ping absolute inline-flex h-3 w-3 right-0 rounded-full bg-sky-400 opacity-75"></span>}
                             <div className="bg-[#CBFFFE] p-4 rounded-tl-xl rounded-tr-xl md:rounded-tr-none md:rounded-bl-xl md:w-1/2 flex justify-center items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="263" height="68" viewBox="0 0 263 68" fill="none">
                                     <path d="M244.473 7.67098C212.179 -9.53053 68.0354 6.17085 0 16.1717V36.6736C22.5521 39.6739 86.873 49.3747 163.74 64.176C259.823 82.6776 284.839 29.1729 244.473 7.67098Z" fill="#AAF2F1" />
@@ -103,15 +116,37 @@ export default function AssessmentPreference({ text }) {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="px-4 py-6 bg-white md:rounded-bl-none rounded-bl-xl md:rounded-tr-xl rounded-br-xl md:w-1/2">
+                            <div className="px-4 py-4 bg-white md:rounded-bl-none rounded-bl-xl md:rounded-tr-xl rounded-br-xl md:w-1/2">
                                 <h6 className="text-[#3C3838] text-lg font-semibold leading-7">Human-Centric Assessment</h6>
-                                <p className="mt-1 text-[#898686] font-semibold text-sm leading-6">Upload any thing regarding</p>
+                                <p className="mt-1 text-[#898686] font-normal text-sm leading-6">Focus on skills that can not be easily replicated with AI. Ideal for when assessing the students human skill set matters most.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            ) : (
-                <ViewAssessment data={response} />
+            </>) : (
+                loading ? (
+                    <div className="flex flex-col justify-center items-center min-h-[90vh]">
+                        <svg className="animate-spin h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <h6 className="text-[#3C3838] text-lg font-semibold leading-7 mt-3">Please wait while we're generating assessment for you</h6>
+                    </div>
+                ) : (
+                    error ? (
+                        <div className="flex flex-col justify-center items-center min-h-[90vh]">
+                            <MdErrorOutline className="text-5xl text-red-500" />
+                            <h6 className="text-[#3C3838] text-lg font-semibold leading-7 my-3">Something went wrong while generating assessment!</h6>
+                            <div onClick={()=> reset()}>
+                                <button className="flex items-center gap-2 bg-white rounded-md py-3 px-5 text-[#202123] font-semibold">
+                                    <IoMdArrowBack className="w-5 h-5" /> Back
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <ViewAssessment data={response} setConvertResponse={()=> setResponse(null)} tryAgain={()=> handleSubmit(type)} type={type} />
+                    )
+                )
             )
         }
     </>)

@@ -82,7 +82,7 @@ export default function Upload() {
                     showToast.error('Error uploading file')
                     setIsClicked(false);
                     console.error('Upload failed:', response.statusText);
-                } 
+                }
             } catch (error) {
                 showToast.error('Error uploading file')
                 setIsClicked(false);
@@ -92,14 +92,14 @@ export default function Upload() {
     }
     return (
         <div>
-            <div onClick={()=> router.back()}>
-                <button className="flex items-center gap-2 bg-white rounded-md py-3 px-5 text-[#202123] font-semibold">
-                    <IoMdArrowBack className="w-5 h-5" /> Back
-                </button>
-            </div>
             {
                 !response ? (
                     <>
+                        <div onClick={() => router.back()}>
+                            <button className="flex items-center gap-2 bg-white rounded-md py-3 px-5 text-[#202123] font-semibold">
+                                <IoMdArrowBack className="w-5 h-5" /> Back
+                            </button>
+                        </div>
                         <div className="my-0">
                             <h1 className="text-center text-[#202123] font-bold text-5xl leading-[64px] font-serif my-2">Upload Assessment</h1>
                             <p className="text-[#202123] text-center font-semibold text-base leading-[18px]">Describe your assessment in detail </p>
@@ -123,7 +123,7 @@ export default function Upload() {
                                         <div className="w-full">
                                             <div className="flex justify-between">
                                                 <p className="text-xs leading-3 font-medium">{selectedFile.name}</p>
-                                                <span onClick={()=> {setSelectedFile(null); setUploadProgress(0);}} className="text-[#FD8403] font-semibold text-xs cursor-pointer">Cancel</span>
+                                                <span onClick={() => { setSelectedFile(null); setUploadProgress(0); }} className="text-[#FD8403] font-semibold text-xs cursor-pointer">Cancel</span>
                                             </div>
                                             <div className="progress-container rounded-2xl h-[6px]">
                                                 <div className="progress-bar h-full bg-[#FD8403] rounded-2xl" style={{ width: `${uploadProgress}%` }}></div>
@@ -137,14 +137,17 @@ export default function Upload() {
                                 )}
                             </div>
                             <div className="mt-8">
-                                <button type="submit" disabled={selectedFile ? false : true} className={`w-full text-center rounded-lg py-3 px-6 font-bold text-base ${selectedFile ? 'bg-[#CBFFFE]' : 'bg-[#CCCCCC]'}`}>
-                                    { isClicked ? 'Uploading...' : 'Submit' }
+                                <button type="submit" disabled={selectedFile ? false : true} className={`w-full text-center flex justify-center rounded-lg py-3 px-6 font-bold text-base ${selectedFile ? 'bg-[#CBFFFE]' : 'bg-[#CCCCCC]'}`}>
+                                    {isClicked && <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>} {isClicked ? 'Uploading...' : 'Submit'}
                                 </button>
                             </div>
                         </form>
                     </>
                 ) : (
-                    <AssessmentPreference text={text} />
+                    <AssessmentPreference text={text} setUploadResponse={() => setResponse(false)} />
                 )
             }
         </div>
