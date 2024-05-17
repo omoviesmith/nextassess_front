@@ -6,8 +6,36 @@ import { BiSolidLike, BiSolidDislike, BiSolidPencil } from "react-icons/bi";
 import { MdRefresh, MdDownload } from "react-icons/md";
 import { IoSaveSharp } from "react-icons/io5";
 import { IoMdArrowBack } from "react-icons/io";
+import generatePDF, { Resolution, Margin } from "react-to-pdf";
 
 export default function ViewAssessment({ data, setConvertResponse, tryAgain, type }) {
+    const options = {
+        filename: `${data?.title_assessment}.pdf`,
+        method: "save",
+        resolution: Resolution.MEDIUM,
+        page: {
+            margin: Margin.MEDIUM,
+            format: "A4",
+            orientation: "portrait"
+        },
+        canvas: {
+            mimeType: "image/jpeg",
+            qualityRatio: 1
+        },
+        overrides: {
+            pdf: {
+                compress: true
+            },
+            canvas: {
+                useCORS: true,
+                windowWidth: 1500,
+            }
+        }
+    };
+    const getTargetElement = () => document.getElementById("container");
+    const downloadPdf = () => {
+        generatePDF(getTargetElement, options)
+    };
     return (
         <>
             <div className="flex justify-between items-center md:flex-row flex-col gap-5 my-4">
@@ -22,7 +50,7 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                     </button>
                 </Link>
             </div>
-            <div className="mx-auto md:w-3/5 bg-white rounded-[10px] border border-[#A9A9A9] mt-5">
+            <div id="container" className="mx-auto md:w-3/5 bg-white rounded-[10px] border border-[#A9A9A9] mt-5">
                 <div className="p-8">
                     <h1 className="text-black text-3xl font-bold leading-[50px] mb-3">
                         {data?.title_assessment}
@@ -159,7 +187,7 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                     <BiSolidPencil className="w-7 h-7" />
                     <p className="text-[#666666] text-center text-[13px]">Edit</p>
                 </Link>
-                <div className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
+                <div onClick={()=> downloadPdf()} className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
                     <MdDownload className="w-7 h-7" />
                     <p className="text-[#666666] text-center text-[13px]">Download</p>
                 </div>
