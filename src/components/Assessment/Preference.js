@@ -24,8 +24,8 @@ export default function AssessmentPreference({ text, setUploadResponse }) {
         try {
             const requestPayload = {text};
             const url = apiType === 'ai' ? 
-                'https://assessment-microservice-latest.onrender.com/api/generate-ai-assessment' : 
-                'https://assessment-microservice-latest.onrender.com/api/generate-assessment';
+                'https://e4eap2uqdz.ap-southeast-2.awsapprunner.com/api/generate-ai-assessment' : 
+                'https://e4eap2uqdz.ap-southeast-2.awsapprunner.com/api/generate-assessment';
             const res = await fetch(url, {
                 method: 'POST',
                 headers: {

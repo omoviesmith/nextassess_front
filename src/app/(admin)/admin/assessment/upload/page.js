@@ -43,7 +43,7 @@ export default function Upload() {
     };
     async function getFileData(file) {
         try {
-            const res = await fetch(`https://assessment-microservice-latest.onrender.com/api/files/convert/${file}`, {
+            const res = await fetch(`https://e4eap2uqdz.ap-southeast-2.awsapprunner.com/api/files/convert/${file}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -70,7 +70,7 @@ export default function Upload() {
             formData.append('file', selectedFile);
             setIsClicked(true);
             try {
-                const response = await fetch('https://assessment-microservice-latest.onrender.com/api/files/upload', {
+                const response = await fetch('https://e4eap2uqdz.ap-southeast-2.awsapprunner.com/api/files/upload', {
                     method: 'POST',
                     body: formData
                 });
