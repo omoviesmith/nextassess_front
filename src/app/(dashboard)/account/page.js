@@ -13,7 +13,7 @@ export default function Account() {
                             <Image src='/account.png' width={120} height={120} />
                         </div>
                         <div>
-                            <h3 className="text-[#061C3D] text-[22px] leading-7 font-semibold">Jack Adams</h3>
+                            <h3 className="text-[#061C3D] text-[22px] leading-7 font-semibold">Nici Adams</h3>
                             <h6 className="text-[#42526B] font-medium text-base leading-[25px] my-2">Product Designer</h6>
                             <p className="text-[#42526B] leading-[25px] text-base font-normal">Los Angeles, California, USA</p>
                         </div>
@@ -32,7 +32,7 @@ export default function Account() {
                     <div className="flex mt-8 mb-2 gap-6 justify-between md:w-1/2">
                         <div>
                             <h3 className="text-[#061C3D] text-lg leading-7 font-semibold">First Name</h3>
-                            <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">Jack</p>
+                            <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">Nici</p>
                         </div>
                         <div>
                             <h3 className="text-[#061C3D] text-lg leading-7 font-semibold">Last Name</h3>
@@ -42,7 +42,7 @@ export default function Account() {
                     <div className="flex mt-8 mb-2 gap-6 justify-between md:w-1/2">
                         <div>
                             <h3 className="text-[#061C3D] text-lg leading-7 font-semibold">Email address</h3>
-                            <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">jackadams@gmail.com</p>
+                            <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">niciadams@gmail.com</p>
                         </div>
                         <div>
                             <h3 className="text-[#061C3D] text-lg leading-7 font-semibold">Phone</h3>
@@ -66,7 +66,7 @@ export default function Account() {
                     <div className="flex mt-8 mb-2 gap-6 justify-between md:w-1/2">
                         <div>
                             <h3 className="text-[#061C3D] text-lg leading-7 font-semibold">Country</h3>
-                            <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">Jack</p>
+                            <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">Nici</p>
                         </div>
                         <div>
                             <h3 className="text-[#061C3D] text-lg leading-7 font-semibold">City/State</h3>
@@ -76,7 +76,7 @@ export default function Account() {
                     <div className="flex mt-8 mb-2 gap-6 justify-between md:w-1/2">
                         <div>
                             <h3 className="text-[#061C3D] text-lg leading-7 font-semibold">Postal Code</h3>
-                            <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">jackadams@gmail.com</p>
+                            <p className="text-[#42526B] font-medium text-sm leading-[25px] mt-1">niciadams@gmail.com</p>
                         </div>
                         <div>
                             <h3 className="text-[#061C3D] text-lg leading-7 font-semibold">TAX ID</h3>

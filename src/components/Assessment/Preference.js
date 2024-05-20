@@ -62,7 +62,7 @@ export default function AssessmentPreference({ text, setUploadResponse }) {
                         <Image className="w-14 h-14" src='/bulb-icon.png' width={64} height={64} />
                     </div>
                     <h1 className="text-center text-[#202123] font-bold text-5xl leading-[64px] font-serif my-2">Assessment Preference</h1>
-                    <p className="text-[#202123] text-center font-semibold text-base leading-[18px]">Choose whether this assessment with integrate AI, or focus on human-centric skills</p>
+                    <p className="text-[#202123] text-center font-semibold text-base leading-[18px]">Choose whether this assessment will integrate AI, or focus on human-centric skills</p>
                     <div className="flex justify-center my-3">
                         <Image src='/sun.svg' width='20' height='20' />
                     </div>

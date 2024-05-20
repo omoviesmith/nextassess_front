@@ -4,36 +4,36 @@ const users = [
     {
         date: '12/12/2023',
         time: '10:00 AM',
-        name: 'Jack Adam',
-        email: 'jack@gmail.com',
+        name: 'Nici Adam',
+        email: 'Nici@gmail.com',
         status: 2
     },
     {
         date: '12/12/2023',
         time: '10:00 AM',
-        name: 'Jack Adam',
-        email: '$29',
+        name: 'Nici Adam',
+        email: 'Nici@gmail.com',
         status: 1
     },
     {
         date: '12/12/2023',
         time: '10:00 AM',
-        name: 'Jack Adam',
-        email: '$29',
+        name: 'Nici Adam',
+        email: 'Nici@gmail.com',
         status: 0
     },
     {
         date: '12/12/2023',
         time: '10:00 AM',
-        name: 'Jack Adam',
-        email: '$29',
+        name: 'Nici Adam',
+        email: 'Nici@gmail.com',
         status: 1
     },
     {
         date: '12/12/2023',
         time: '10:00 AM',
-        name: 'Jack Adam',
-        email: '$29',
+        name: 'Nici Adam',
+        email: 'Nici@gmail.com',
         status: 0
     },
 ]
@@ -72,7 +72,7 @@ export default function Users() {
         <div>
             <div className="flex justify-between items-center md:flex-row flex-col gap-3">
                 <div>
-                    <h3 className="text-[#101828] text-3xl font-semibold">Welcome back, Jack</h3>
+                    <h3 className="text-[#101828] text-3xl font-semibold">Welcome back, Nici</h3>
                     <p className="text-[#475467] text-base font-normal mt-2">Track, manage and forecast your users.</p>
                 </div>
                 <Link className="flex justify-end w-full md:w-auto" href='/users'>
