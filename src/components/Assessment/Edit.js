@@ -53,9 +53,8 @@ export default function EditAssessment({ data, back = () => { window.history.bac
         setTempData({ ...tempData, [field]: e.target.value });
     };
 
-    const handleLearningOutcomeChange = (index, value) => {
-        const updatedLearningOutcomes = [...tempData.learning_outcome];
-        updatedLearningOutcomes[index] = value;
+    const handleLearningOutcomeChange = (e) => {
+        const updatedLearningOutcomes = e.target.value.split('\n');
         setTempData({ ...tempData, learning_outcome: updatedLearningOutcomes });
     };
 
@@ -70,7 +69,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
         let updatedDescription = [];
         let currentSection = {};
         let currentKey = "";
-    
+
         lines.forEach(line => {
             if (line.trim() !== "") {
                 if (!currentKey) {
@@ -87,13 +86,13 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                 }
             }
         });
-    
+
         if (currentKey) {
             updatedDescription.push(currentSection);
         }
-    
+
         setTempData({ ...tempData, assessment_description: updatedDescription });
-    };    
+    };
 
     const handleSave = async (field) => {
         if (field === 'learningOutcomes') {
@@ -162,7 +161,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                             </div>
                         ) : (
                             <>
-                                <h1 className="text-black text-2xl font-bold mb-3">
+                                <h1 className="text-black text-3xl font-bold mb-3">
                                     {formData?.title_assessment}
                                 </h1>
                                 <div className="w-[10%] flex justify-center">
@@ -449,11 +448,11 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         </div>
                     ) : (
                         <div>
-                            <ul className="list-disc pl-4">
+                            <ul>
                                 {formData.assessment_description.map((item, sectionIndex) => (
                                     Object.keys(item).map((sectionKey) => (
                                         item[sectionKey].map((listItem, itemIndex) => (
-                                            <li key={`${sectionIndex}-${sectionKey}-${itemIndex}`} className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
+                                            <li key={`${sectionIndex}-${sectionKey}-${itemIndex}`} className="text-[#666666] font-normal text-[15px] leading-[26px] mb-1">
                                                 {listItem}
                                             </li>
                                         ))
@@ -463,53 +462,53 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         </div>
                     )}
                 </div>
-
                 <div className="p-4 bg-[#E8E9FC] rounded mt-4">
                     <div className="flex items-start justify-between gap-4">
                         <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                            Learning Outcome:
+                            Learning Outcomes:
                         </h6>
+                        {isEditing.learningOutcomes === -1 && (
+                            <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
+                                onClick={() => setIsEditing({ ...isEditing, learningOutcomes: 0 })}
+                            >
+                                <ImPencil className="text-sm" />
+                            </div>
+                        )}
                     </div>
-                    <ul className="m-0 list-disc mt-3">
-                        {formData.learning_outcome.map((outcome, index) => (
-                            <li key={index} className="text-[#666666] font-normal text-sm leading-[26px] flex justify-between items-center my-2">
-                                {isEditing.learningOutcomes === index ? (
-                                    <div className="w-full">
-                                        <input className="rounded-md outline-none px-5 py-3 w-full"
-                                            value={tempData.learning_outcome[index]}
-                                            onChange={(e) => handleLearningOutcomeChange(index, e.target.value)}
-                                        />
-                                        <div className="flex gap-3 md:w-1/2 mt-3 mx-auto">
-                                            <button
-                                                className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
-                                                onClick={() => handleSave('learningOutcomes')}
-                                            >
-                                                Save
-                                            </button>
-                                            <button
-                                                className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
-                                                onClick={() => handleCancel('learningOutcomes')}
-                                            >
-                                                Cancel
-                                            </button>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <>
-                                        {outcome}
-                                        <div className="w-[10%] flex justify-center">
-                                            <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
-                                                onClick={() => setIsEditing({ ...isEditing, learningOutcomes: index })}
-                                            >
-                                                <ImPencil className="text-sm" />
-                                            </div>
-                                        </div>
-                                    </>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
+                    {isEditing.learningOutcomes !== -1 ? (
+                        <div>
+                            <textarea
+                                value={tempData.learning_outcome.join('\n')}
+                                onChange={handleLearningOutcomeChange}
+                                className="w-full border border-gray-300 rounded px-2 py-1"
+                                rows="10"
+                            />
+                            <div className="flex gap-3 mt-3">
+                                <button
+                                    onClick={() => handleSave('learningOutcomes')}
+                                    className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    onClick={() => handleCancel('learningOutcomes')}
+                                    className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <ul className="m-0 list-disc mt-3 pl-4">
+                            {formData.learning_outcome.map((outcome, index) => (
+                                <li key={index} className="text-[#666666] font-normal text-sm leading-[26px] mb-1">
+                                    {outcome}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
                 </div>
+
                 <div className="w-full py-8 px-4">
                     <h6 className="text-black font-bold text-[15px] leading-[26px] mb-2">
                         Marking Rubric:{" "}

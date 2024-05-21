@@ -57,12 +57,12 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                 </div>
                 <div ref={targetRef} id="container" className="mx-auto md:w-2/3 bg-white rounded-[10px] border border-[#A9A9A9] mt-5">
                     <div className="p-8">
-                        <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                            Title:{" "}
-                        </h6>
-                        <p className="text-[#666666] font-normal text-[15px] leading-[26px] my-2">
+                        <h1 className="text-black text-3xl font-bold mb-3">
                             {data?.title_assessment}
-                        </p>
+                        </h1>
+                    </div>
+                    <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
+                    <div className="px-8 py-6">
                         <h6 className="text-black font-bold text-[15px] leading-[26px] mb-2">
                             Overview And Rationale:{" "}
                         </h6>
@@ -71,45 +71,45 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                         </p>
                     </div>
                     <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
-                    <div className="p-8">
-                        <h6 className="text-black font-bold text-[15px] leading-[26px] mb-2">
-                            Methodology:{" "}
-                        </h6>
-                        <p dangerouslySetInnerHTML={{ __html: formattedMethodology }} className="text-[#666666] font-normal text-[15px] leading-[26px]">
-                        </p>
-                    </div>
-                    <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
-                    <div className="p-8">
-                        <h6 className="text-[#666666] font-bold text-[15px] leading-[26px]">
+                    <div className="px-8 py-6">
+                        <h6 className="text-black font-bold text-[15px] leading-[26px]">
                             Assessment Unit:{" "}
                         </h6>
                         <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
                             {data?.assessment_unit}
                         </p>
-                        <h6 className="text-[#666666] font-bold text-[15px] leading-[26px]">
+                    </div>
+                    <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
+                    <div className="px-8 py-6">
+                        <h6 className="text-black font-bold text-[15px] leading-[26px]">
                             Weighting:{" "}
                         </h6>
                         <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
                             {data?.percentage_weighting}
                         </p>
-                        <h6 className="text-[#666666] font-bold text-[15px] leading-[26px]">
+                    </div>
+                    <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
+                    <div className="px-8 py-6">
+                        <h6 className="text-black font-bold text-[15px] leading-[26px]">
                             Due Date:{" "}
                         </h6>
                         <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
                             {data?.due_date}
                         </p>
-                        <h6 className="text-[#666666] font-bold text-[15px] leading-[26px]">
+                    </div>
+                    <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
+                    <div className="px-8 py-6">
+                        <h6 className="text-black font-bold text-[15px] leading-[26px]">
                             Assessment Description:{" "}
                         </h6>
                         {
                             data?.assessment_description?.map((item, index) => (
                                 <div key={index}>
                                     {Object.keys(item).map((sectionKey) => (
-                                        <div key={sectionKey} className="mb-3">
-                                            <h6 className="text-[#666666] font-bold text-[15px] leading-[26px] capitalize">{sectionKey.replace(/_/g, ' ')}</h6>
-                                            <ul className="m-0 list-disc pl-4">
+                                        <div key={sectionKey} className="mb-1">
+                                            <ul>
                                                 {item[sectionKey].map((listItem, itemIndex) => (
-                                                <li key={itemIndex} className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
+                                                <li key={itemIndex} className="text-[#666666] font-normal text-[15px] leading-[26px]">
                                                     {listItem}
                                                 </li>
                                                 ))}
@@ -119,7 +119,10 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                                 </div>
                             ))
                         }
-                        <h6 className="text-[#666666] font-bold text-[15px] leading-[26px]">
+                    </div>
+                    <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
+                    <div className="px-8 py-6">
+                        <h6 className="text-black font-bold text-[15px] leading-[26px]">
                             Learning Outcomes
                         </h6>
                         <ul className="m-0 list-disc pl-4">
@@ -131,6 +134,14 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                                 ))
                             }
                         </ul>
+                    </div>
+                    <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
+                    <div className="px-8 py-6">
+                        <h6 className="text-black font-bold text-[15px] leading-[26px] mb-2">
+                            Methodology:{" "}
+                        </h6>
+                        <p dangerouslySetInnerHTML={{ __html: formattedMethodology }} className="text-[#666666] font-normal text-[15px] leading-[26px]">
+                        </p>
                     </div>
                     <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
                     <div className="w-full py-8 px-4">
