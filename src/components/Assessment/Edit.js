@@ -450,13 +450,24 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         <div>
                             <ul>
                                 {formData.assessment_description.map((item, sectionIndex) => (
-                                    Object.keys(item).map((sectionKey) => (
-                                        item[sectionKey].map((listItem, itemIndex) => (
-                                            <li key={`${sectionIndex}-${sectionKey}-${itemIndex}`} className="text-[#666666] font-normal text-[15px] leading-[26px] mb-1">
-                                                {listItem}
-                                            </li>
-                                        ))
-                                    ))
+                                    <div key={sectionIndex}>
+                                        {Object.keys(item).map((sectionKey) => (
+                                            <div key={sectionKey} className="mb-1">
+                                                <h6 className="text-[#666666] font-bold text-[15px] leading-[26px] capitalize">
+                                                    {sectionKey.replace(/_/g, ' ')}
+                                                </h6>
+                                                <ul>
+                                                    {
+                                                        item[sectionKey].map((listItem, itemIndex) => (
+                                                            <li key={`${sectionIndex}-${sectionKey}-${itemIndex}`} className="text-[#666666] font-normal text-[15px] leading-[26px] mb-1">
+                                                                {listItem}
+                                                            </li>
+                                                        ))
+                                                    }
+                                                </ul>
+                                            </div>
+                                        ))}
+                                    </div>
                                 ))}
                             </ul>
                         </div>

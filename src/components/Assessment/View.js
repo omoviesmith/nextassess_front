@@ -107,6 +107,9 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                                 <div key={index}>
                                     {Object.keys(item).map((sectionKey) => (
                                         <div key={sectionKey} className="mb-1">
+                                            <h6 className="text-[#666666] font-bold text-[15px] leading-[26px] capitalize">
+                                                {sectionKey.replace(/_/g, ' ')}
+                                            </h6>
                                             <ul>
                                                 {item[sectionKey].map((listItem, itemIndex) => (
                                                 <li key={itemIndex} className="text-[#666666] font-normal text-[15px] leading-[26px]">
