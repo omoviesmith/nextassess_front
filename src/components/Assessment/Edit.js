@@ -7,33 +7,43 @@ import { IoMdArrowBack } from "react-icons/io";
 import { useState } from "react";
 import { TiTick } from "react-icons/ti";
 import { RxCross1 } from "react-icons/rx";
+import { showToast } from "react-next-toast";
 
 export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
     const [isEditing, setIsEditing] = useState({
+        id: null,
         title_assessment: false,
         overview: false,
         methodology: false,
         details: false,
         learningOutcomes: -1,
-        marking_rubric: -1
+        marking_rubric: -1,
+        assessment_description: -1,
+        descriptionIndex: -1, // Added to track item index being edited
+        sectionKey: null,
     });
 
     const [formData, setFormData] = useState({
+        id: data?.id,
         title_assessment: data?.title_assessment || '',
         overview_and_rationale: data?.overview_and_rationale || '',
         methodology: data?.methodology || '',
         assessment_unit: data?.assessment_unit || '',
         percentage_weighting: data?.percentage_weighting || '',
         due_date: data?.due_date || '',
-        assessment_description: data?.assessment_description || '',
+        assessment_description: data?.assessment_description || [],
         learning_outcome: data?.learning_outcome || [],
         marking_rubric: data?.marking_rubric || [],
     });
 
     const [tempData, setTempData] = useState({ ...formData });
 
-    const handleEditClick = (field) => {
-        setIsEditing({ ...isEditing, [field]: field === 'learningOutcomes' ? 0 : !isEditing[field] });
+    const handleEditClick = (field, sectionIndex = null, itemIndex = null, sectionKey = null) => {
+        if (field === 'assessment_description') {
+            setIsEditing({ ...isEditing, [field]: sectionIndex, descriptionIndex: itemIndex, sectionKey: sectionKey });
+        } else {
+            setIsEditing({ ...isEditing, [field]: field === 'learningOutcomes' ? 0 : !isEditing[field] });
+        }
         setTempData({ ...formData });
     };
 
@@ -52,23 +62,47 @@ export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
         updatedRubric[index] = { ...updatedRubric[index], [field]: value };
         setTempData({ ...tempData, marking_rubric: updatedRubric });
     };
-    
-    const handleSave = (field, index = null) => {
+
+    const handleAssessmentDescriptionChange = (sectionIndex, sectionKey, itemIndex, value) => {
+        const updatedAssessmentDescription = [...tempData.assessment_description];
+        updatedAssessmentDescription[sectionIndex][sectionKey][itemIndex] = value;
+        setTempData({ ...tempData, assessment_description: updatedAssessmentDescription });
+    };
+
+    async function handleSave(field, sectionIndex = null, itemIndex = null) {
         if (field === 'learningOutcomes') {
             setFormData({ ...formData, learning_outcome: tempData.learning_outcome });
             setIsEditing({ ...isEditing, learningOutcomes: -1 });
         } else if (field === 'marking_rubric') {
             setFormData({ ...formData, marking_rubric: tempData.marking_rubric });
             setIsEditing({ ...isEditing, marking_rubric: -1 });
+        } else if (field === 'assessment_description') {
+            setFormData({ ...formData, assessment_description: tempData.assessment_description });
+            setIsEditing({ ...isEditing, assessment_description: -1, descriptionIndex: -1 });
         } else {
             setFormData({ ...tempData });
             setIsEditing({ ...isEditing, [field]: false });
         }
+
+        try {
+            const res = await fetch(`https://e4eap2uqdz.ap-southeast-2.awsapprunner.com/api/assessments/${formData.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            const data = await res.json();
+            showToast.success('Edited successfully!');
+        } catch (error) {
+            showToast.error('Something went wrong while editing');
+            throw new Error(error);
+        }
     };
-    
+
     const handleCancel = (field) => {
         setTempData({ ...formData });
-        setIsEditing({ ...isEditing, [field]: field === 'marking_rubric' ? -1 : false });
+        setIsEditing({ ...isEditing, [field]: field === 'marking_rubric' || field === 'assessment_description' ? -1 : false, descriptionIndex: -1 });
     };
     return (<>
         <div onClick={() => back()}>
@@ -174,8 +208,7 @@ export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
                             </div>
                         ) : (
                             <>
-                                <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
-                                    {formData?.methodology}
+                                <p dangerouslySetInnerHTML={{ __html: formData?.methodology?.replace(/\n/g, '<br />') }} className="text-[#666666] font-normal text-[15px] leading-[26px]">
                                 </p>
                                 <div className="w-[10%]">
                                     <div onClick={() => handleEditClick('methodology')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
@@ -186,7 +219,7 @@ export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
                         )
                     }
                 </div>
-                <div className="p-4 bg-[#E8E9FC] rounded flex items-start gap-4 mt-4">
+                <div className="p-4 bg-[#E8E9FC] rounded flex justify-between items-start gap-4 mt-4">
                     {
                         isEditing.details ? (
                             <div className="w-full">
@@ -195,7 +228,7 @@ export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
                                 </h6>
                                 <div>
                                     <MdAdUnits className="relative top-8 left-5" />
-                                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" 
+                                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full"
                                         type="text"
                                         value={tempData.assessment_unit}
                                         onChange={(e) => handleChange(e, 'assessment_unit')} />
@@ -205,17 +238,20 @@ export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
                                 </h6>
                                 <div>
                                     <MdOutlineLineWeight className="relative top-8 left-5" />
-                                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" 
+                                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full"
                                         type="text"
                                         value={tempData.percentage_weighting}
                                         onChange={(e) => handleChange(e, 'percentage_weighting')} />
                                 </div>
                                 <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                                    Description:{" "}
+                                    Due Date:{" "}
                                 </h6>
-                                <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full"
-                                    value={tempData.assessment_description}
-                                    onChange={(e) => handleChange(e, 'assessment_description')} />
+                                <div>
+                                    <input required className="rounded-md outline-none px-3 py-3 w-full"
+                                        type="date"
+                                        value={tempData.due_date}
+                                        onChange={(e) => handleChange(e, 'due_date')} />
+                                </div>
                                 <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
                                     <button
                                         className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
@@ -252,12 +288,6 @@ export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
                                     <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
                                         {formData?.due_date}
                                     </p>
-                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                                        Description:{" "}
-                                    </h6>
-                                    <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
-                                        {formData?.assessment_description}
-                                    </p>
                                 </div>
                                 <div className="w-[10%]">
                                     <div onClick={() => handleEditClick('details')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
@@ -268,6 +298,60 @@ export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
                         )
                     }
                 </div>
+                <div className="p-4 bg-[#E8E9FC] rounded mt-4">
+                    {formData?.assessment_description?.map((item, sectionIndex) => (
+                        <div key={sectionIndex}>
+                            {Object.keys(item).map((sectionKey) => (
+                                <div key={sectionKey} className="mb-3">
+                                    <h6 className="text-[#666666] font-bold text-[15px] leading-[26px] capitalize">
+                                        {sectionKey.replace(/_/g, ' ')}
+                                    </h6>
+                                    <ul>
+                                        {item[sectionKey].map((listItem, itemIndex) => (
+                                            <li key={itemIndex} className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3 flex items-center justify-between">
+                                                {isEditing.assessment_description === sectionIndex && isEditing.descriptionIndex === itemIndex && isEditing.sectionKey === sectionKey ? (
+                                                    <div className="w-full">
+                                                        <input
+                                                            type="text"
+                                                            value={tempData.assessment_description[sectionIndex][sectionKey][itemIndex]}
+                                                            onChange={(e) =>
+                                                                handleAssessmentDescriptionChange(sectionIndex, sectionKey, itemIndex, e.target.value)
+                                                            }
+                                                            className="w-full border border-gray-300 rounded px-2 py-1"
+                                                        />
+                                                        <div className="flex gap-2 ml-2">
+                                                            <button
+                                                                onClick={() => handleSave('assessment_description', sectionIndex, itemIndex)}
+                                                                className="rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                                            >
+                                                                Save
+                                                            </button>
+                                                            <button
+                                                                onClick={() => handleCancel('assessment_description')}
+                                                                className="rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                                            >
+                                                                Cancel
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <>
+                                                        {listItem}
+                                                        <div className="flex justify-center cursor-pointer items-center border border-black rounded-full min-w-[10%] w-14 h-10 ml-2"
+                                                            onClick={() => handleEditClick('assessment_description', sectionIndex, itemIndex, sectionKey)}>
+                                                            <ImPencil className="text-sm" />
+                                                        </div>
+                                                    </>
+                                                )}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+
                 <div className="p-4 bg-[#E8E9FC] rounded mt-4">
                     <div className="flex items-start justify-between gap-4">
                         <h6 className="text-black font-bold text-[15px] leading-[26px]">
@@ -465,7 +549,7 @@ export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
                 </div>
             </div>
             <div className="grid grid-cols-3 gap-1 md:gap-3 mt-5 justify-center md:w-1/4 mx-auto">
-                <div onClick={()=> tryAgain()} className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
+                <div onClick={() => tryAgain()} className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
                     <MdRefresh className="w-7 h-7 text-[#FF0000]" />
                     <p className="text-[#FF0000] text-center text-[13px]">Try Again</p>
                 </div>
@@ -473,7 +557,7 @@ export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
                     <IoSaveSharp className="w-7 h-7" />
                     <p className="text-[#666666] text-center text-[13px]">Save</p>
                 </div>
-                <div onClick={()=> downloadPdf()} className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
+                <div onClick={() => downloadPdf()} className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
                     <MdDownload className="w-7 h-7" />
                     <p className="text-[#666666] text-center text-[13px]">Download</p>
                 </div>

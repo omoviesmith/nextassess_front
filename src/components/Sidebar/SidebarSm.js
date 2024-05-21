@@ -39,7 +39,7 @@ export default function SidebarSm() {
                     <div className="py-3 px-1 md:w-[22%] min-h-[80vh] z-10 w-full">
                         <div className="mt-8">
                             <ul className="side-links">
-                                <Link href='/assessment' onClick={toggleNav} className={`flex items-center gap-2 px-3 py-3 mb-2 rounded-md ${currentPath === '/assessment' ? 'bg-white text-[#2D68A2] active-link' : 'text-[#181A1B]'} hover:bg-white hover:text-[#2D68A2]`}>
+                                <Link href='/assessments' onClick={toggleNav} className={`flex items-center gap-2 px-3 py-3 mb-2 rounded-md ${currentPath === '/assessment' ? 'bg-white text-[#2D68A2] active-link' : 'text-[#181A1B]'} hover:bg-white hover:text-[#2D68A2]`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" className="transition-colors duration-300">
                                         <g clipPath="url(#clip0_16_6862)">
                                             <path d="M9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17ZM19.5 19.1H4.5V5H19.5V19.1ZM19.5 3H4.5C3.4 3 2.5 3.9 2.5 5V19C2.5 20.1 3.4 21 4.5 21H19.5C20.6 21 21.5 20.1 21.5 19V5C21.5 3.9 20.6 3 19.5 3Z" fill="#323232"/>

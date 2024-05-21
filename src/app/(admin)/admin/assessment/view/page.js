@@ -63,6 +63,7 @@ export default function Assessment({ data }) {
         "title_assessment": "DMTH137 Discrete Mathematics I: Applied Problem Solving and Analysis",
         "year_level": "First Year (AQF Level 7)"
     }
+    const formattedMethodology = responseData?.methodology?.replace(/\n/g, '<br />');
     return (
         <>
             <div className="flex justify-between items-center md:flex-row flex-col gap-5 my-4">
@@ -88,8 +89,7 @@ export default function Assessment({ data }) {
                 </div>
                 <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
                 <div className="p-8">
-                    <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
-                        {responseData?.methodology}
+                    <p dangerouslySetInnerHTML={{ __html: formattedMethodology }} className="text-[#666666] font-normal text-[15px] leading-[26px]">
                     </p>
                 </div>
                 <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>

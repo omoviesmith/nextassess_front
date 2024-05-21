@@ -38,6 +38,7 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
         generatePDF(targetRef, options)
     };
     const [edit, setEdit] = useState(false);
+    const formattedMethodology = data?.methodology?.replace(/\n/g, '<br />');
     return (
         <>
         {
@@ -65,8 +66,7 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                     </div>
                     <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
                     <div className="p-8">
-                        <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
-                            {data?.methodology}
+                        <p dangerouslySetInnerHTML={{ __html: formattedMethodology }} className="text-[#666666] font-normal text-[15px] leading-[26px]">
                         </p>
                     </div>
                     <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
@@ -89,12 +89,24 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                         <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
                             {data?.due_date}
                         </p>
-                        <h6 className="text-[#666666] font-bold text-[15px] leading-[26px]">
-                            Description:{" "}
-                        </h6>
-                        <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
-                            {data?.assessment_description}
-                        </p>
+                        {
+                            data?.assessment_description?.map((item, index) => (
+                                <div key={index}>
+                                    {Object.keys(item).map((sectionKey) => (
+                                        <div key={sectionKey} className="mb-3">
+                                            <h6 className="text-[#666666] font-bold text-[15px] leading-[26px] capitalize">{sectionKey.replace(/_/g, ' ')}</h6>
+                                            <ul>
+                                                {item[sectionKey].map((listItem, itemIndex) => (
+                                                <li key={itemIndex} className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
+                                                    {listItem}
+                                                </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </div>
+                            ))
+                        }
                         <h6 className="text-[#666666] font-bold text-[15px] leading-[26px]">
                             Learning Outcomes
                         </h6>

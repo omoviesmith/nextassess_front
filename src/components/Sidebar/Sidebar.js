@@ -24,7 +24,7 @@ export default function Sidebar() {
                                 </clipPath>
                             </defs>
                         </svg>
-                        <Link className="text-sm transition-colors duration-200 font-medium" href='/assessment'>Assessment Panel</Link>
+                        <Link className="text-sm transition-colors duration-200 font-medium" href='/assessments'>Assessment Panel</Link>
                     </li>
                     <li className={`flex items-center gap-2 px-3 py-3 mb-2 rounded-md ${currentPath === '/subscription' ? 'bg-white text-[#2D68A2] active-link' : 'text-[#181A1B]'} text-[#181A1B] hover:bg-white hover:text-[#2D68A2]`}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

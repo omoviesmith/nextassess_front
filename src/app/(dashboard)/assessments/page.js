@@ -1,54 +1,29 @@
+import DeleteAssessment from "@/components/Assessment/Delete";
 import Link from "next/link";
 
-const assessments = [
-  {
-    date: '12/12/2023',
-    time: '10:00 AM',
-    assessmentType: 'Upload Assessment',
-    title: 'Historical Tale: A Tale of Two Cities',
-    description: 'Brings all your news into one place',
-    progress: '45%',
-  },
-  {
-    date: '12/12/2023',
-    time: '10:00 AM',
-    assessmentType: 'Describe Assessment',
-    title: 'Design software',
-    description: 'Super lightweight design app',
-    progress: '45%',
-  },
-  {
-    date: '12/12/2023',
-    time: '10:00 AM',
-    assessmentType: 'Upload Assessment',
-    title: 'Data prediction',
-    description: 'AI and machine learning data',
-    progress: '45%',
-  },
-  {
-    date: '12/12/2023',
-    time: '10:00 AM',
-    assessmentType: 'Upload Assessment',
-    title: 'Productivity app',
-    description: 'Time management and productivity',
-    progress: '45%',
-  },
-  {
-    date: '12/12/2023',
-    time: '10:00 AM',
-    assessmentType: 'Describe Assessment',
-    title: 'Web app integrations',
-    description: 'Connect web apps seamlessly',
-    progress: '45%',
-  },
-]
-export default function Assessment() {
+const fetchData = async () => {
+  try {
+    const res = await fetch('https://e4eap2uqdz.ap-southeast-2.awsapprunner.com/api/assessments', {
+      cache: 'no-store', // to ensure fresh data on every request
+    });
+    if (!res.ok) {
+      throw new Error('Failed to fetch data');
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return null;
+  }
+};
+
+export default async function Assessment() {
+  const data = await fetchData();
   return (
     <div>
       <div className="flex justify-between items-center flex-col md:flex-row gap-3">
         <div>
           <h3 className="text-[#101828] text-3xl font-semibold">Welcome back, Nici</h3>
-          <p className="text-[#475467] text-base font-normal mt-2">Track, manage and forecast your presentations.</p>
+          <p className="text-[#475467] text-base font-normal mt-2">Track and manage your assessments.</p>
         </div>
         <Link href='/admin' className="flex justify-end w-full md:w-auto">
           <button className="text-sm text-white font-semibold bg-[#7F56D9] rounded-lg py-[10px] px-4"> + Create New Assessment</button>
@@ -80,53 +55,44 @@ export default function Assessment() {
           <table className="table-auto border-collapse overflow-auto md:w-full md:overflow-hidden border border-slate-300 rounded-tl-lg rounded-tr-lg">
             <thead>
               <tr>
-                <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Date</th>
-                <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Assessments</th>
-                <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Title</th>
-                <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Progress</th>
+                <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">ID</th>
+                <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Assessment Title</th>
+                <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Year Level</th>
+                <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">Assessment Unit</th>
                 <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold"></th>
               </tr>
             </thead>
             <tbody>
               {
-                assessments.map((assessment, index) => (
+                data.map((assessment, index) => (
                   <tr key={index}>
                     <td className="border-b border-slate-300 bg-white p-3">
-                      <span className="block text-[#101828] text-sm font-normal">{assessment.date}</span>
-                      <span className="block text-[#475467] text-sm font-normal">{assessment.time}</span>
+                      <span className="block text-[#101828] text-sm font-normal">{assessment.id}</span>
                     </td>
-                    <td className="border-b border-slate-300 bg-white p-3 text-sm font-medium text-[#101828]">Upload Assessment</td>
+                    <td className="border-b border-slate-300 bg-white p-3 text-sm font-medium text-[#101828]">
+                      {assessment.title_assessment}
+                    </td>
                     <td className="border-b border-slate-300 bg-white p-3">
-                      <span className="block text-[#101828] text-sm">{assessment.title}</span>
-                      <span className="block text-[#475467] text-sm">{assessment.description}</span>
+                      <span className="block text-[#101828] text-sm">{assessment.year_level}</span>
                     </td>
                     <td className="border-b border-slate-300 bg-white p-3 min-w-36">
-                      <div className="w-full bg-[#F2F4F7] rounded-full h-2.5 dark:bg-gray-700">
-                        <div className={`bg-[#FB8DBB] h-2.5 rounded-full w-[45%]`}></div>
-                      </div>
+                      {assessment.assessment_unit}
                     </td>
                     <td className="border-b border-slate-300 bg-white p-3">
                       <div className="flex gap-2 justify-center">
-                        <svg className="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                          <g clipPath="url(#clip0_16_11464)">
-                            <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5Z" fill="#323232" />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_16_11464">
-                              <rect width="24" height="24" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                        <svg className="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                          <g clipPath="url(#clip0_16_14087)">
-                            <path d="M14.06 9.02L14.98 9.94L5.92 19H5V18.08L14.06 9.02ZM17.66 3C17.41 3 17.15 3.1 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63L18.37 3.29C18.17 3.09 17.92 3 17.66 3ZM14.06 6.19L3 17.25V21H6.75L17.81 9.94L14.06 6.19Z" fill="#323232" />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_16_14087">
-                              <rect width="24" height="24" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
+                        <DeleteAssessment id={assessment.id} />
+                        <Link href={`/assessment/${assessment.id}`}>
+                          <svg className="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <g clipPath="url(#clip0_16_14087)">
+                              <path d="M14.06 9.02L14.98 9.94L5.92 19H5V18.08L14.06 9.02ZM17.66 3C17.41 3 17.15 3.1 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63L18.37 3.29C18.17 3.09 17.92 3 17.66 3ZM14.06 6.19L3 17.25V21H6.75L17.81 9.94L14.06 6.19Z" fill="#323232" />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_16_14087">
+                                <rect width="24" height="24" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </Link>
                         <svg className="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                           <g clipPath="url(#clip0_16_7064)">
                             <path d="M19 9H15V3H9V9H5L12 16L19 9ZM5 18V20H19V18H5Z" fill="#323232" />

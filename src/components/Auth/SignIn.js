@@ -31,7 +31,7 @@ export default function SignIn({ isOpen, onClose }) {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        router.push('/assessment');
+        router.push('/assessments');
     }
     return (<>
         {
