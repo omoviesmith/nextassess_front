@@ -54,7 +54,7 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                         </button>
                     </div>
                 </div>
-                <div ref={targetRef} id="container" className="mx-auto md:w-3/5 bg-white rounded-[10px] border border-[#A9A9A9] mt-5">
+                <div ref={targetRef} id="container" className="mx-auto md:w-2/3 bg-white rounded-[10px] border border-[#A9A9A9] mt-5">
                     <div className="p-8">
                         <h1 className="text-black text-3xl font-bold leading-[50px] mb-3">
                             {data?.title_assessment}

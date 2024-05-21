@@ -1,11 +1,75 @@
 'use client'
 
 import { ImPencil } from "react-icons/im";
-import { MdRefresh, MdDownload } from "react-icons/md";
+import { MdRefresh, MdDownload, MdAdUnits, MdOutlineLineWeight } from "react-icons/md";
 import { IoSaveSharp } from "react-icons/io5";
 import { IoMdArrowBack } from "react-icons/io";
+import { useState } from "react";
+import { TiTick } from "react-icons/ti";
+import { RxCross1 } from "react-icons/rx";
 
 export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
+    const [isEditing, setIsEditing] = useState({
+        title_assessment: false,
+        overview: false,
+        methodology: false,
+        details: false,
+        learningOutcomes: -1,
+        marking_rubric: -1
+    });
+
+    const [formData, setFormData] = useState({
+        title_assessment: data?.title_assessment || '',
+        overview_and_rationale: data?.overview_and_rationale || '',
+        methodology: data?.methodology || '',
+        assessment_unit: data?.assessment_unit || '',
+        percentage_weighting: data?.percentage_weighting || '',
+        due_date: data?.due_date || '',
+        assessment_description: data?.assessment_description || '',
+        learning_outcome: data?.learning_outcome || [],
+        marking_rubric: data?.marking_rubric || [],
+    });
+
+    const [tempData, setTempData] = useState({ ...formData });
+
+    const handleEditClick = (field) => {
+        setIsEditing({ ...isEditing, [field]: field === 'learningOutcomes' ? 0 : !isEditing[field] });
+        setTempData({ ...formData });
+    };
+
+    const handleChange = (e, field) => {
+        setTempData({ ...tempData, [field]: e.target.value });
+    };
+
+    const handleLearningOutcomeChange = (index, value) => {
+        const updatedLearningOutcomes = [...tempData.learning_outcome];
+        updatedLearningOutcomes[index] = value;
+        setTempData({ ...tempData, learning_outcome: updatedLearningOutcomes });
+    };
+
+    const handleRubricChange = (index, field, value) => {
+        const updatedRubric = [...tempData.marking_rubric];
+        updatedRubric[index] = { ...updatedRubric[index], [field]: value };
+        setTempData({ ...tempData, marking_rubric: updatedRubric });
+    };
+    
+    const handleSave = (field, index = null) => {
+        if (field === 'learningOutcomes') {
+            setFormData({ ...formData, learning_outcome: tempData.learning_outcome });
+            setIsEditing({ ...isEditing, learningOutcomes: -1 });
+        } else if (field === 'marking_rubric') {
+            setFormData({ ...formData, marking_rubric: tempData.marking_rubric });
+            setIsEditing({ ...isEditing, marking_rubric: -1 });
+        } else {
+            setFormData({ ...tempData });
+            setIsEditing({ ...isEditing, [field]: false });
+        }
+    };
+    
+    const handleCancel = (field) => {
+        setTempData({ ...formData });
+        setIsEditing({ ...isEditing, [field]: field === 'marking_rubric' ? -1 : false });
+    };
     return (<>
         <div onClick={() => back()}>
             <button className="flex items-center gap-2 bg-white rounded-md py-3 px-5 text-[#202123] font-semibold">
@@ -13,88 +77,245 @@ export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
             </button>
         </div>
         <div className="my-7">
-            <h1 className="text-black text-3xl font-bold leading-[50px] mb-3 mx-auto md:w-3/5">
-                {data?.title_assessment}
-            </h1>
-            <div className="md:w-3/5 mx-auto bg-white rounded-[10px] border border-[#A9A9A9] p-7">
+            <div className="flex justify-between items-center md:w-2/3 mx-auto">
+                {
+                    isEditing.title_assessment ? (
+                        <div className="w-full mb-3">
+                            <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full"
+                                value={tempData.title_assessment}
+                                onChange={(e) => handleChange(e, 'title_assessment')} />
+                            <div className="flex gap-3 md:w-1/2 mx-auto mt-2">
+                                <button
+                                    className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                    onClick={() => handleSave('title_assessment')}
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                    onClick={() => handleCancel('title_assessment')}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <>
+                            <h1 className="text-black text-3xl font-bold leading-[50px] mb-3 mx-auto md:w-2/3">
+                                {formData?.title_assessment}
+                            </h1>
+                            <div className="w-[10%]">
+                                <div onClick={() => handleEditClick('title_assessment')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
+                                    <ImPencil className="text-sm" />
+                                </div>
+                            </div>
+                        </>
+                    )
+                }
+            </div>
+            <div className="md:w-2/3 mx-auto bg-white rounded-[10px] border border-[#A9A9A9] p-7">
                 <div className="p-4 bg-[#E8E9FC] rounded flex items-start gap-4">
-                    <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
-                        {data?.overview_and_rationale}
-                    </p>
-                    <div className="w-[10%]">
-                        <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
-                            <ImPencil className="text-sm" />
-                        </div>
-                    </div>
+                    {
+                        isEditing.overview ? (
+                            <div className="w-full">
+                                <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full"
+                                    value={tempData.overview_and_rationale}
+                                    onChange={(e) => handleChange(e, 'overview_and_rationale')} />
+                                <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
+                                    <button
+                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                        onClick={() => handleSave('overview')}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                        onClick={() => handleCancel('overview')}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                                <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
+                                    {formData?.overview_and_rationale}
+                                </p>
+                                <div className="w-[10%]">
+                                    <div onClick={() => handleEditClick('overview')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
+                                        <ImPencil className="text-sm" />
+                                    </div>
+                                </div>
+                            </>
+                        )
+                    }
                 </div>
                 <div className="p-4 bg-[#E8E9FC] rounded flex items-start gap-4 mt-4">
-                    <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
-                        {data?.methodology}
-                    </p>
-                    <div className="w-[10%]">
-                        <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
-                            <ImPencil className="text-sm" />
-                        </div>
-                    </div>
+                    {
+                        isEditing.methodology ? (
+                            <div className="w-full">
+                                <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full"
+                                    value={tempData.methodology}
+                                    onChange={(e) => handleChange(e, 'methodology')} />
+                                <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
+                                    <button
+                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                        onClick={() => handleSave('methodology')}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                        onClick={() => handleCancel('methodology')}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                                <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
+                                    {formData?.methodology}
+                                </p>
+                                <div className="w-[10%]">
+                                    <div onClick={() => handleEditClick('methodology')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
+                                        <ImPencil className="text-sm" />
+                                    </div>
+                                </div>
+                            </>
+                        )
+                    }
                 </div>
                 <div className="p-4 bg-[#E8E9FC] rounded flex items-start gap-4 mt-4">
-                    <div>
-                        <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                            Subject:{" "}
-                        </h6>
-                        <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
-                            {data?.assessment_unit}
-                        </p>
-                        <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                            Weight:{" "}
-                        </h6>
-                        <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
-                            {data?.percentage_weighting}
-                        </p>
-                        <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                            Due Date:{" "}
-                        </h6>
-                        <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
-                            {data?.due_date}
-                        </p>
-                        <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                            Description:{" "}
-                        </h6>
-                        <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
-                            {data?.assessment_description}
-                        </p>
-                    </div>
-                    <div className="w-[10%]">
-                        <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
-                            <ImPencil className="text-sm" />
-                        </div>
-                    </div>
+                    {
+                        isEditing.details ? (
+                            <div className="w-full">
+                                <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                    Subject:{" "}
+                                </h6>
+                                <div>
+                                    <MdAdUnits className="relative top-8 left-5" />
+                                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" 
+                                        type="text"
+                                        value={tempData.assessment_unit}
+                                        onChange={(e) => handleChange(e, 'assessment_unit')} />
+                                </div>
+                                <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                    Weight:{" "}
+                                </h6>
+                                <div>
+                                    <MdOutlineLineWeight className="relative top-8 left-5" />
+                                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" 
+                                        type="text"
+                                        value={tempData.percentage_weighting}
+                                        onChange={(e) => handleChange(e, 'percentage_weighting')} />
+                                </div>
+                                <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                    Description:{" "}
+                                </h6>
+                                <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full"
+                                    value={tempData.assessment_description}
+                                    onChange={(e) => handleChange(e, 'assessment_description')} />
+                                <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
+                                    <button
+                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                        onClick={() => handleSave('details')}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                        onClick={() => handleCancel('details')}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                                <div>
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                        Subject:{" "}
+                                    </h6>
+                                    <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
+                                        {formData?.assessment_unit}
+                                    </p>
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                        Weight:{" "}
+                                    </h6>
+                                    <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
+                                        {formData?.percentage_weighting}
+                                    </p>
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                        Due Date:{" "}
+                                    </h6>
+                                    <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
+                                        {formData?.due_date}
+                                    </p>
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                        Description:{" "}
+                                    </h6>
+                                    <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
+                                        {formData?.assessment_description}
+                                    </p>
+                                </div>
+                                <div className="w-[10%]">
+                                    <div onClick={() => handleEditClick('details')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
+                                        <ImPencil className="text-sm" />
+                                    </div>
+                                </div>
+                            </>
+                        )
+                    }
                 </div>
                 <div className="p-4 bg-[#E8E9FC] rounded mt-4">
                     <div className="flex items-start justify-between gap-4">
                         <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                            Learning Outcome:{" "}
+                            Learning Outcome:
                         </h6>
-                        <div className="w-[10%]">
-                            <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
-                                <ImPencil className="text-sm" />
-                            </div>
-                        </div>
                     </div>
-                    <ul className="m-0 list-disc">
-                        {
-                            data?.learning_outcome.map((outcome, index) => (
-                                <li key={index} className="text-[#666666] font-normal text-sm leading-[26px]">
-                                    {outcome}
-                                </li>
-                            ))
-                        }
+                    <ul className="m-0 list-disc mt-3">
+                        {formData.learning_outcome.map((outcome, index) => (
+                            <li key={index} className="text-[#666666] font-normal text-sm leading-[26px] flex justify-between items-center my-2">
+                                {isEditing.learningOutcomes === index ? (
+                                    <div className="w-full">
+                                        <input className="rounded-md outline-none px-5 py-3 w-full"
+                                            value={tempData.learning_outcome[index]}
+                                            onChange={(e) => handleLearningOutcomeChange(index, e.target.value)}
+                                        />
+                                        <div className="flex gap-3 md:w-1/2 mt-3 mx-auto">
+                                            <button
+                                                className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                                onClick={() => handleSave('learningOutcomes')}
+                                            >
+                                                Save
+                                            </button>
+                                            <button
+                                                className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                                onClick={() => handleCancel('learningOutcomes')}
+                                            >
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <>
+                                        {outcome}
+                                        <div className="flex justify-center cursor-pointer items-center border border-black rounded-full max-w-[10%] w-14 h-10 ml-2"
+                                            onClick={() => setIsEditing({ ...isEditing, learningOutcomes: index })}
+                                        >
+                                            <ImPencil className="text-sm" />
+                                        </div>
+                                    </>
+                                )}
+                            </li>
+                        ))}
                     </ul>
                 </div>
                 <div className="w-full py-8 px-4">
                     <div className="overflow-x-auto">
                         <div className="min-w-full">
-                            <table className="w-full min-w-max  table-fixed">
+                            <table className="w-full min-w-max table-fixed">
                                 <thead>
                                     <tr>
                                         <th scope="col" className="py-3 px-1 md:px-3 w-32 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
@@ -118,31 +339,122 @@ export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
                                         <th scope="col" className="py-3 px-1 md:px-3 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
                                             High Distinction
                                         </th>
+                                        <th scope="col" className="py-3 px-1 md:px-3 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
+                                            Actions
+                                        </th>
                                     </tr>
                                 </thead>
-                                <tbody className="">
-                                    {data?.marking_rubric.map((item, index) => (
+                                <tbody>
+                                    {formData.marking_rubric.map((item, index) => (
                                         <tr key={index} className='bg-white'>
                                             <td className="py-3 px-1 md:px-3 font-normal md:font-semibold text-sm border border-[#A9A9A9]">
-                                                {item.criteria}
+                                                {isEditing.marking_rubric === index ? (
+                                                    <input
+                                                        type="text"
+                                                        value={tempData.marking_rubric[index].criteria}
+                                                        onChange={(e) => handleRubricChange(index, 'criteria', e.target.value)}
+                                                        className="rounded-md outline-none px-2 py-2 w-full"
+                                                    />
+                                                ) : (
+                                                    item.criteria
+                                                )}
                                             </td>
                                             <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
-                                                {item.weighting}
+                                                {isEditing.marking_rubric === index ? (
+                                                    <input
+                                                        type="text"
+                                                        value={tempData.marking_rubric[index].weighting}
+                                                        onChange={(e) => handleRubricChange(index, 'weighting', e.target.value)}
+                                                        className="rounded-md outline-none px-2 py-2 w-full"
+                                                    />
+                                                ) : (
+                                                    item.weighting
+                                                )}
                                             </td>
                                             <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
-                                                {item.fail}
+                                                {isEditing.marking_rubric === index ? (
+                                                    <input
+                                                        type="text"
+                                                        value={tempData.marking_rubric[index].fail}
+                                                        onChange={(e) => handleRubricChange(index, 'fail', e.target.value)}
+                                                        className="rounded-md outline-none px-2 py-2 w-full"
+                                                    />
+                                                ) : (
+                                                    item.fail
+                                                )}
                                             </td>
                                             <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
-                                                {item.pass_grade}
+                                                {isEditing.marking_rubric === index ? (
+                                                    <input
+                                                        type="text"
+                                                        value={tempData.marking_rubric[index].pass_grade}
+                                                        onChange={(e) => handleRubricChange(index, 'pass_grade', e.target.value)}
+                                                        className="rounded-md outline-none px-2 py-2 w-full"
+                                                    />
+                                                ) : (
+                                                    item.pass_grade
+                                                )}
                                             </td>
                                             <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
-                                                {item.credit}
+                                                {isEditing.marking_rubric === index ? (
+                                                    <input
+                                                        type="text"
+                                                        value={tempData.marking_rubric[index].credit}
+                                                        onChange={(e) => handleRubricChange(index, 'credit', e.target.value)}
+                                                        className="rounded-md outline-none px-2 py-2 w-full"
+                                                    />
+                                                ) : (
+                                                    item.credit
+                                                )}
                                             </td>
                                             <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
-                                                {item.distinction}
+                                                {isEditing.marking_rubric === index ? (
+                                                    <input
+                                                        type="text"
+                                                        value={tempData.marking_rubric[index].distinction}
+                                                        onChange={(e) => handleRubricChange(index, 'distinction', e.target.value)}
+                                                        className="rounded-md outline-none px-2 py-2 w-full"
+                                                    />
+                                                ) : (
+                                                    item.distinction
+                                                )}
                                             </td>
                                             <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
-                                                {item.high_distinction}
+                                                {isEditing.marking_rubric === index ? (
+                                                    <input
+                                                        type="text"
+                                                        value={tempData.marking_rubric[index].high_distinction}
+                                                        onChange={(e) => handleRubricChange(index, 'high_distinction', e.target.value)}
+                                                        className="rounded-md outline-none px-2 py-2 w-full"
+                                                    />
+                                                ) : (
+                                                    item.high_distinction
+                                                )}
+                                            </td>
+                                            <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
+                                                {isEditing.marking_rubric === index ? (
+                                                    <div className="flex gap-2">
+                                                        <button
+                                                            className="p-2 bg-green-500 text-white rounded"
+                                                            onClick={() => handleSave('marking_rubric', index)}
+                                                        >
+                                                            <TiTick />
+                                                        </button>
+                                                        <button
+                                                            className="p-2 bg-red-500 text-white rounded"
+                                                            onClick={() => handleCancel('marking_rubric')}
+                                                        >
+                                                            <RxCross1 />
+                                                        </button>
+                                                    </div>
+                                                ) : (
+                                                    <div
+                                                        className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
+                                                        onClick={() => setIsEditing({ ...isEditing, marking_rubric: index })}
+                                                    >
+                                                        <ImPencil className="text-sm" />
+                                                    </div>
+                                                )}
                                             </td>
                                         </tr>
                                     ))}
