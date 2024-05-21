@@ -57,28 +57,37 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                 </div>
                 <div ref={targetRef} id="container" className="mx-auto md:w-2/3 bg-white rounded-[10px] border border-[#A9A9A9] mt-5">
                     <div className="p-8">
-                        <h1 className="text-black text-3xl font-bold leading-[50px] mb-3">
+                        <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                            Title:{" "}
+                        </h6>
+                        <p className="text-[#666666] font-normal text-[15px] leading-[26px] my-2">
                             {data?.title_assessment}
-                        </h1>
+                        </p>
+                        <h6 className="text-black font-bold text-[15px] leading-[26px] mb-2">
+                            Overview And Rationale:{" "}
+                        </h6>
                         <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
                             {data?.overview_and_rationale}
                         </p>
                     </div>
                     <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
                     <div className="p-8">
+                        <h6 className="text-black font-bold text-[15px] leading-[26px] mb-2">
+                            Methodology:{" "}
+                        </h6>
                         <p dangerouslySetInnerHTML={{ __html: formattedMethodology }} className="text-[#666666] font-normal text-[15px] leading-[26px]">
                         </p>
                     </div>
                     <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
                     <div className="p-8">
                         <h6 className="text-[#666666] font-bold text-[15px] leading-[26px]">
-                            Subject:{" "}
+                            Assessment Unit:{" "}
                         </h6>
                         <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
                             {data?.assessment_unit}
                         </p>
                         <h6 className="text-[#666666] font-bold text-[15px] leading-[26px]">
-                            Weight:{" "}
+                            Weighting:{" "}
                         </h6>
                         <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
                             {data?.percentage_weighting}
@@ -89,6 +98,9 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                         <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
                             {data?.due_date}
                         </p>
+                        <h6 className="text-[#666666] font-bold text-[15px] leading-[26px]">
+                            Assessment Description:{" "}
+                        </h6>
                         {
                             data?.assessment_description?.map((item, index) => (
                                 <div key={index}>
@@ -122,6 +134,9 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                     </div>
                     <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
                     <div className="w-full py-8 px-4">
+                        <h6 className="text-black font-bold text-[15px] leading-[26px] mb-2">
+                            Marking Rubric:{" "}
+                        </h6>
                         <div className="overflow-x-auto">
                             <div className="min-w-full">
                                 <table className="w-full min-w-max  table-fixed">

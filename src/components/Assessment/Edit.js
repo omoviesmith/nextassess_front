@@ -15,7 +15,9 @@ export default function EditAssessment({ data, back = () => { window.history.bac
         title_assessment: false,
         overview: false,
         methodology: false,
-        details: false,
+        assessment_unit: false,
+        percentage_weighting: false,
+        due_date: false,
         learningOutcomes: -1,
         marking_rubric: -1,
         assessment_description: -1,
@@ -40,7 +42,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
 
     const handleEditClick = (field, sectionIndex = null, itemIndex = null, sectionKey = null) => {
         if (field === 'assessment_description') {
-            setIsEditing({ ...isEditing, [field]: sectionIndex, descriptionIndex: itemIndex, sectionKey: sectionKey });
+            setIsEditing({ ...isEditing, [field]: 0 });
         } else {
             setIsEditing({ ...isEditing, [field]: field === 'learningOutcomes' ? 0 : !isEditing[field] });
         }
@@ -63,13 +65,37 @@ export default function EditAssessment({ data, back = () => { window.history.bac
         setTempData({ ...tempData, marking_rubric: updatedRubric });
     };
 
-    const handleAssessmentDescriptionChange = (sectionIndex, sectionKey, itemIndex, value) => {
-        const updatedAssessmentDescription = [...tempData.assessment_description];
-        updatedAssessmentDescription[sectionIndex][sectionKey][itemIndex] = value;
-        setTempData({ ...tempData, assessment_description: updatedAssessmentDescription });
-    };
+    const handleTextareaChange = (e) => {
+        const lines = e.target.value.split('\n');
+        let updatedDescription = [];
+        let currentSection = {};
+        let currentKey = "";
+    
+        lines.forEach(line => {
+            if (line.trim() !== "") {
+                if (!currentKey) {
+                    currentKey = line.trim();
+                    currentSection[currentKey] = [];
+                } else {
+                    currentSection[currentKey].push(line.trim());
+                }
+            } else {
+                if (currentKey) {
+                    updatedDescription.push(currentSection);
+                    currentSection = {};
+                    currentKey = "";
+                }
+            }
+        });
+    
+        if (currentKey) {
+            updatedDescription.push(currentSection);
+        }
+    
+        setTempData({ ...tempData, assessment_description: updatedDescription });
+    };    
 
-    async function handleSave(field, sectionIndex = null, itemIndex = null) {
+    const handleSave = async (field) => {
         if (field === 'learningOutcomes') {
             setFormData({ ...formData, learning_outcome: tempData.learning_outcome });
             setIsEditing({ ...isEditing, learningOutcomes: -1 });
@@ -148,10 +174,13 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         )
                     }
                 </div>
-                <div className="p-4 bg-[#E8E9FC] rounded flex items-start gap-4">
+                <div className="p-4 bg-[#E8E9FC] rounded flex items-start gap-4 mt-4">
                     {
                         isEditing.overview ? (
                             <div className="w-full">
+                                <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                    Overview And Rationale:{" "}
+                                </h6>
                                 <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full"
                                     value={tempData.overview_and_rationale}
                                     onChange={(e) => handleChange(e, 'overview_and_rationale')} />
@@ -172,9 +201,14 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                             </div>
                         ) : (
                             <>
-                                <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
-                                    {formData?.overview_and_rationale}
-                                </p>
+                                <div>
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                        Overview And Rationale:{" "}
+                                    </h6>
+                                    <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
+                                        {formData?.overview_and_rationale}
+                                    </p>
+                                </div>
                                 <div className="w-[10%] flex justify-center">
                                     <div onClick={() => handleEditClick('overview')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
                                         <ImPencil className="text-sm" />
@@ -188,6 +222,9 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                     {
                         isEditing.methodology ? (
                             <div className="w-full">
+                                <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                    Methodology:{" "}
+                                </h6>
                                 <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full"
                                     value={tempData.methodology}
                                     onChange={(e) => handleChange(e, 'methodology')} />
@@ -208,8 +245,13 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                             </div>
                         ) : (
                             <>
-                                <p dangerouslySetInnerHTML={{ __html: formData?.methodology?.replace(/\n/g, '<br />') }} className="text-[#666666] font-normal text-[15px] leading-[26px]">
-                                </p>
+                                <div>
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                        Methodology:{" "}
+                                    </h6>
+                                    <p dangerouslySetInnerHTML={{ __html: formData?.methodology?.replace(/\n/g, '<br />') }} className="text-[#666666] font-normal text-[15px] leading-[26px]">
+                                    </p>
+                                </div>
                                 <div className="w-[10%] flex justify-center">
                                     <div onClick={() => handleEditClick('methodology')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
                                         <ImPencil className="text-sm" />
@@ -221,10 +263,10 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                 </div>
                 <div className="p-4 bg-[#E8E9FC] rounded flex justify-between items-start gap-4 mt-4">
                     {
-                        isEditing.details ? (
+                        isEditing.assessment_unit ? (
                             <div className="w-full">
                                 <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                                    Subject:{" "}
+                                    Assessment Unit:{" "}
                                 </h6>
                                 <div>
                                     <MdAdUnits className="relative top-8 left-5" />
@@ -233,8 +275,46 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                                         value={tempData.assessment_unit}
                                         onChange={(e) => handleChange(e, 'assessment_unit')} />
                                 </div>
+                                <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
+                                    <button
+                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                        onClick={() => handleSave('assessment_unit')}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                        onClick={() => handleCancel('assessment_unit')}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                                <div>
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                        Assessment Unit:{" "}
+                                    </h6>
+                                    <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
+                                        {formData?.assessment_unit}
+                                    </p>
+                                </div>
+                                <div className="w-[10%] flex justify-center">
+                                    <div onClick={() => handleEditClick('assessment_unit')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
+                                        <ImPencil className="text-sm" />
+                                    </div>
+                                </div>
+                            </>
+                        )
+                    }
+                </div>
+                <div className="p-4 bg-[#E8E9FC] rounded flex justify-between items-start gap-4 mt-4">
+                    {
+                        isEditing.percentage_weighting ? (
+                            <div className="w-full">
                                 <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                                    Weight:{" "}
+                                    Weighting:{" "}
                                 </h6>
                                 <div>
                                     <MdOutlineLineWeight className="relative top-8 left-5" />
@@ -243,6 +323,44 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                                         value={tempData.percentage_weighting}
                                         onChange={(e) => handleChange(e, 'percentage_weighting')} />
                                 </div>
+                                <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
+                                    <button
+                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                        onClick={() => handleSave('percentage_weighting')}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                        onClick={() => handleCancel('percentage_weighting')}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                                <div>
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                        Weighting:{" "}
+                                    </h6>
+                                    <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
+                                        {formData?.percentage_weighting}
+                                    </p>
+                                </div>
+                                <div className="w-[10%] flex justify-center">
+                                    <div onClick={() => handleEditClick('percentage_weighting')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
+                                        <ImPencil className="text-sm" />
+                                    </div>
+                                </div>
+                            </>
+                        )
+                    }
+                </div>
+                <div className="p-4 bg-[#E8E9FC] rounded flex justify-between items-start gap-4 mt-4">
+                    {
+                        isEditing.due_date ? (
+                            <div className="w-full">
                                 <h6 className="text-black font-bold text-[15px] leading-[26px]">
                                     Due Date:{" "}
                                 </h6>
@@ -255,13 +373,13 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                                 <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
                                     <button
                                         className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
-                                        onClick={() => handleSave('details')}
+                                        onClick={() => handleSave('due_date')}
                                     >
                                         Save
                                     </button>
                                     <button
                                         className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
-                                        onClick={() => handleCancel('details')}
+                                        onClick={() => handleCancel('due_date')}
                                     >
                                         Cancel
                                     </button>
@@ -271,18 +389,6 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                             <>
                                 <div>
                                     <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                                        Subject:{" "}
-                                    </h6>
-                                    <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
-                                        {formData?.assessment_unit}
-                                    </p>
-                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                                        Weight:{" "}
-                                    </h6>
-                                    <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
-                                        {formData?.percentage_weighting}
-                                    </p>
-                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
                                         Due Date:{" "}
                                     </h6>
                                     <p className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
@@ -290,7 +396,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                                     </p>
                                 </div>
                                 <div className="w-[10%] flex justify-center">
-                                    <div onClick={() => handleEditClick('details')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
+                                    <div onClick={() => handleEditClick('due_date')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
                                         <ImPencil className="text-sm" />
                                     </div>
                                 </div>
@@ -299,59 +405,63 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                     }
                 </div>
                 <div className="p-4 bg-[#E8E9FC] rounded mt-4">
-                    {formData?.assessment_description?.map((item, sectionIndex) => (
-                        <div key={sectionIndex}>
-                            {Object.keys(item).map((sectionKey) => (
-                                <div key={sectionKey} className="mb-3">
-                                    <h6 className="text-black font-bold text-[15px] leading-[26px] capitalize">
-                                        {sectionKey.replace(/_/g, ' ')}
-                                    </h6>
-                                    <ul>
-                                        {item[sectionKey].map((listItem, itemIndex) => (
-                                            <li key={itemIndex} className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3 flex items-center justify-between">
-                                                {isEditing.assessment_description === sectionIndex && isEditing.descriptionIndex === itemIndex && isEditing.sectionKey === sectionKey ? (
-                                                    <div className="w-full">
-                                                        <input
-                                                            type="text"
-                                                            value={tempData.assessment_description[sectionIndex][sectionKey][itemIndex]}
-                                                            onChange={(e) =>
-                                                                handleAssessmentDescriptionChange(sectionIndex, sectionKey, itemIndex, e.target.value)
-                                                            }
-                                                            className="w-full border border-gray-300 rounded px-2 py-1"
-                                                        />
-                                                        <div className="flex gap-2 ml-2">
-                                                            <button
-                                                                onClick={() => handleSave('assessment_description', sectionIndex, itemIndex)}
-                                                                className="rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
-                                                            >
-                                                                Save
-                                                            </button>
-                                                            <button
-                                                                onClick={() => handleCancel('assessment_description')}
-                                                                className="rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
-                                                            >
-                                                                Cancel
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                ) : (
-                                                    <>
-                                                        {listItem}
-                                                        <div className="w-[10%] flex justify-center">
-                                                            <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
-                                                                onClick={() => handleEditClick('assessment_description', sectionIndex, itemIndex, sectionKey)}>
-                                                                <ImPencil className="text-sm" />
-                                                            </div>
-                                                        </div>
-                                                    </>
-                                                )}
-                                            </li>
-                                        ))}
-                                    </ul>
+                    <div className="flex justify-between items-center">
+                        <h6 className="text-black font-bold text-[15px] leading-[26px] capitalize">
+                            Assessment Description
+                        </h6>
+                        {
+                            isEditing.assessment_description < 1 && (
+                                <div className="w-[10%] flex justify-center">
+                                    <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
+                                        onClick={() => handleEditClick('assessment_description')}>
+                                        <ImPencil className="text-sm" />
+                                    </div>
                                 </div>
-                            ))}
+                            )
+                        }
+                    </div>
+                    {isEditing.assessment_description !== -1 ? (
+                        <div>
+                            <textarea
+                                value={tempData.assessment_description.map(section =>
+                                    Object.keys(section).map(key =>
+                                        [key, ...section[key]].join('\n')
+                                    ).join('\n\n')
+                                ).join('\n\n')}
+                                onChange={(e) => handleTextareaChange(e)}
+                                className="w-full border border-gray-300 rounded px-2 py-1"
+                                rows="10"
+                            />
+                            <div className="flex gap-3 mt-3">
+                                <button
+                                    onClick={() => handleSave('assessment_description')}
+                                    className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    onClick={() => handleCancel('assessment_description')}
+                                    className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
-                    ))}
+                    ) : (
+                        <div>
+                            <ul className="list-disc pl-4">
+                                {formData.assessment_description.map((item, sectionIndex) => (
+                                    Object.keys(item).map((sectionKey) => (
+                                        item[sectionKey].map((listItem, itemIndex) => (
+                                            <li key={`${sectionIndex}-${sectionKey}-${itemIndex}`} className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
+                                                {listItem}
+                                            </li>
+                                        ))
+                                    ))
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
 
                 <div className="p-4 bg-[#E8E9FC] rounded mt-4">
@@ -401,6 +511,9 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                     </ul>
                 </div>
                 <div className="w-full py-8 px-4">
+                    <h6 className="text-black font-bold text-[15px] leading-[26px] mb-2">
+                        Marking Rubric:{" "}
+                    </h6>
                     <div className="overflow-x-auto">
                         <div className="min-w-full">
                             <table className="w-full min-w-max table-fixed">
