@@ -111,43 +111,43 @@ export default function EditAssessment({ data, back = () => { window.history.bac
             </button>
         </div>
         <div className="my-7">
-            <div className="flex justify-between items-center md:w-2/3 mx-auto">
-                {
-                    isEditing.title_assessment ? (
-                        <div className="w-full mb-3">
-                            <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full"
-                                value={tempData.title_assessment}
-                                onChange={(e) => handleChange(e, 'title_assessment')} />
-                            <div className="flex gap-3 md:w-1/2 mx-auto mt-2">
-                                <button
-                                    className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
-                                    onClick={() => handleSave('title_assessment')}
-                                >
-                                    Save
-                                </button>
-                                <button
-                                    className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
-                                    onClick={() => handleCancel('title_assessment')}
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    ) : (
-                        <>
-                            <h1 className="text-black text-3xl font-bold leading-[50px] mb-3 mx-auto md:w-2/3">
-                                {formData?.title_assessment}
-                            </h1>
-                            <div className="w-[10%]">
-                                <div onClick={() => handleEditClick('title_assessment')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
-                                    <ImPencil className="text-sm" />
+            <div className="md:w-2/3 mx-auto bg-white rounded-[10px] border border-[#A9A9A9] p-7">
+                <div className="flex justify-between items-center p-4 bg-[#E8E9FC] rounded">
+                    {
+                        isEditing.title_assessment ? (
+                            <div className="w-full mb-3">
+                                <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full"
+                                    value={tempData.title_assessment}
+                                    onChange={(e) => handleChange(e, 'title_assessment')} />
+                                <div className="flex gap-3 md:w-1/2 mx-auto mt-2">
+                                    <button
+                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                        onClick={() => handleSave('title_assessment')}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                        onClick={() => handleCancel('title_assessment')}
+                                    >
+                                        Cancel
+                                    </button>
                                 </div>
                             </div>
-                        </>
-                    )
-                }
-            </div>
-            <div className="md:w-2/3 mx-auto bg-white rounded-[10px] border border-[#A9A9A9] p-7">
+                        ) : (
+                            <>
+                                <h1 className="text-black text-2xl font-bold mb-3">
+                                    {formData?.title_assessment}
+                                </h1>
+                                <div className="w-[10%] flex justify-center">
+                                    <div onClick={() => handleEditClick('title_assessment')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
+                                        <ImPencil className="text-sm" />
+                                    </div>
+                                </div>
+                            </>
+                        )
+                    }
+                </div>
                 <div className="p-4 bg-[#E8E9FC] rounded flex items-start gap-4">
                     {
                         isEditing.overview ? (
@@ -175,7 +175,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                                 <p className="text-[#666666] font-normal text-[15px] leading-[26px]">
                                     {formData?.overview_and_rationale}
                                 </p>
-                                <div className="w-[10%]">
+                                <div className="w-[10%] flex justify-center">
                                     <div onClick={() => handleEditClick('overview')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
                                         <ImPencil className="text-sm" />
                                     </div>
@@ -210,7 +210,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                             <>
                                 <p dangerouslySetInnerHTML={{ __html: formData?.methodology?.replace(/\n/g, '<br />') }} className="text-[#666666] font-normal text-[15px] leading-[26px]">
                                 </p>
-                                <div className="w-[10%]">
+                                <div className="w-[10%] flex justify-center">
                                     <div onClick={() => handleEditClick('methodology')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
                                         <ImPencil className="text-sm" />
                                     </div>
@@ -289,7 +289,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                                         {formData?.due_date}
                                     </p>
                                 </div>
-                                <div className="w-[10%]">
+                                <div className="w-[10%] flex justify-center">
                                     <div onClick={() => handleEditClick('details')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
                                         <ImPencil className="text-sm" />
                                     </div>
@@ -303,7 +303,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         <div key={sectionIndex}>
                             {Object.keys(item).map((sectionKey) => (
                                 <div key={sectionKey} className="mb-3">
-                                    <h6 className="text-[#666666] font-bold text-[15px] leading-[26px] capitalize">
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px] capitalize">
                                         {sectionKey.replace(/_/g, ' ')}
                                     </h6>
                                     <ul>
@@ -337,9 +337,11 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                                                 ) : (
                                                     <>
                                                         {listItem}
-                                                        <div className="flex justify-center cursor-pointer items-center border border-black rounded-full min-w-[10%] w-14 h-10 ml-2"
-                                                            onClick={() => handleEditClick('assessment_description', sectionIndex, itemIndex, sectionKey)}>
-                                                            <ImPencil className="text-sm" />
+                                                        <div className="w-[10%] flex justify-center">
+                                                            <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
+                                                                onClick={() => handleEditClick('assessment_description', sectionIndex, itemIndex, sectionKey)}>
+                                                                <ImPencil className="text-sm" />
+                                                            </div>
                                                         </div>
                                                     </>
                                                 )}
@@ -385,10 +387,12 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                                 ) : (
                                     <>
                                         {outcome}
-                                        <div className="flex justify-center cursor-pointer items-center border border-black rounded-full max-w-[10%] w-14 h-10 ml-2"
-                                            onClick={() => setIsEditing({ ...isEditing, learningOutcomes: index })}
-                                        >
-                                            <ImPencil className="text-sm" />
+                                        <div className="w-[10%] flex justify-center">
+                                            <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
+                                                onClick={() => setIsEditing({ ...isEditing, learningOutcomes: index })}
+                                            >
+                                                <ImPencil className="text-sm" />
+                                            </div>
                                         </div>
                                     </>
                                 )}

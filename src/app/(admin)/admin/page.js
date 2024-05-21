@@ -8,7 +8,7 @@ export default function Admin() {
     return (
         <div>
             <div>
-                <Link href='/assessment'>
+                <Link href='/assessments'>
                     <button className="flex items-center gap-2 bg-white rounded-md py-3 px-5 text-[#202123] font-semibold">
                         <MdHome className="w-5 h-5" /> Home
                     </button>

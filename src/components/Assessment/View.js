@@ -95,7 +95,7 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                                     {Object.keys(item).map((sectionKey) => (
                                         <div key={sectionKey} className="mb-3">
                                             <h6 className="text-[#666666] font-bold text-[15px] leading-[26px] capitalize">{sectionKey.replace(/_/g, ' ')}</h6>
-                                            <ul>
+                                            <ul className="m-0 list-disc pl-4">
                                                 {item[sectionKey].map((listItem, itemIndex) => (
                                                 <li key={itemIndex} className="text-[#666666] font-normal text-[15px] leading-[26px] mb-3">
                                                     {listItem}
@@ -110,7 +110,7 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                         <h6 className="text-[#666666] font-bold text-[15px] leading-[26px]">
                             Learning Outcomes
                         </h6>
-                        <ul className="m-0 list-disc">
+                        <ul className="m-0 list-disc pl-4">
                             {
                                 data?.learning_outcome.map((outcome, index) => (
                                     <li key={index} className="text-[#666666] font-normal text-sm leading-[26px]">
