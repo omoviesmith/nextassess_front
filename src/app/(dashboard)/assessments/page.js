@@ -64,49 +64,47 @@ export default async function Assessment() {
             </thead>
             <tbody>
               {
-                data.map((assessment, index) => (
-                  <tr key={index}>
-                    <td className="border-b border-slate-300 bg-white p-3">
-                      <span className="block text-[#101828] text-sm font-normal">{assessment.id}</span>
-                    </td>
-                    <td className="border-b border-slate-300 bg-white p-3 text-sm font-medium text-[#101828]">
-                      {assessment.title_assessment}
-                    </td>
-                    <td className="border-b border-slate-300 bg-white p-3">
-                      <span className="block text-[#101828] text-sm">{assessment.year_level}</span>
-                    </td>
-                    <td className="border-b border-slate-300 bg-white p-3 min-w-36">
-                      {assessment.assessment_unit}
-                    </td>
-                    <td className="border-b border-slate-300 bg-white p-3">
-                      <div className="flex gap-2 justify-center">
-                        <DeleteAssessment id={assessment.id} />
-                        <Link href={`/assessment/${assessment.id}`}>
-                          <svg className="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <g clipPath="url(#clip0_16_14087)">
-                              <path d="M14.06 9.02L14.98 9.94L5.92 19H5V18.08L14.06 9.02ZM17.66 3C17.41 3 17.15 3.1 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63L18.37 3.29C18.17 3.09 17.92 3 17.66 3ZM14.06 6.19L3 17.25V21H6.75L17.81 9.94L14.06 6.19Z" fill="#323232" />
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_16_14087">
-                                <rect width="24" height="24" fill="white" />
-                              </clipPath>
-                            </defs>
-                          </svg>
-                        </Link>
-                        <svg className="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                          <g clipPath="url(#clip0_16_7064)">
-                            <path d="M19 9H15V3H9V9H5L12 16L19 9ZM5 18V20H19V18H5Z" fill="#323232" />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_16_7064">
-                              <rect width="24" height="24" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
+                data?.length > 0 ? (
+                  data?.map((assessment, index) => (
+                    <tr key={index}>
+                      <td className="border-b border-slate-300 bg-white p-3">
+                        <span className="block text-[#101828] text-sm font-normal">{assessment?.id}</span>
+                      </td>
+                      <td className="border-b border-slate-300 bg-white p-3 text-sm font-medium text-[#101828]">
+                        {assessment?.title_assessment}
+                      </td>
+                      <td className="border-b border-slate-300 bg-white p-3">
+                        <span className="block text-[#101828] text-sm">{assessment?.year_level}</span>
+                      </td>
+                      <td className="border-b border-slate-300 bg-white p-3 min-w-36">
+                        {assessment?.assessment_unit}
+                      </td>
+                      <td className="border-b border-slate-300 bg-white p-3">
+                        <div className="flex gap-2 justify-center">
+                          <DeleteAssessment id={assessment?.id} />
+                          <Link href={`/assessment/${assessment?.id}`}>
+                            <svg className="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                              <g clipPath="url(#clip0_16_14087)">
+                                <path d="M14.06 9.02L14.98 9.94L5.92 19H5V18.08L14.06 9.02ZM17.66 3C17.41 3 17.15 3.1 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63L18.37 3.29C18.17 3.09 17.92 3 17.66 3ZM14.06 6.19L3 17.25V21H6.75L17.81 9.94L14.06 6.19Z" fill="#323232" />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_16_14087">
+                                  <rect width="24" height="24" fill="white" />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </Link>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td className="border-b border-slate-300 bg-white p-3" colSpan="5">
+                      <span className="block text-[#101828] text-sm font-normal text-center">No data found</span>
                     </td>
                   </tr>
-                ))
+                )
               }
             </tbody>
           </table>
