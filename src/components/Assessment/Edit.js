@@ -9,7 +9,7 @@ import { TiTick } from "react-icons/ti";
 import { RxCross1 } from "react-icons/rx";
 import { showToast } from "react-next-toast";
 
-export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
+export default function EditAssessment({ data, back = () => { window.history.back(); }, tryAgain, downloadPdf }) {
     const [isEditing, setIsEditing] = useState({
         id: null,
         title_assessment: false,
