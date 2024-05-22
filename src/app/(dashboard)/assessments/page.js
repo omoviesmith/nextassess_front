@@ -1,5 +1,9 @@
-import DeleteAssessment from "@/components/Assessment/Delete";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+
+const DeleteAssessment = dynamic(() => import('@/components/Assessment/Delete'),{
+  ssr: false
+})
 
 const fetchData = async () => {
   try {

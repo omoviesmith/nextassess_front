@@ -8,8 +8,11 @@ import { useState } from "react";
 import { TiTick } from "react-icons/ti";
 import { RxCross1 } from "react-icons/rx";
 import { showToast } from "react-next-toast";
+import Modal from "./Modal/Modal";
 
 export default function EditAssessment({ data, back = () => { window.history.back(); }, tryAgain, downloadPdf }) {
+    const [showModal, setShowModal] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [isEditing, setIsEditing] = useState({
         id: null,
         title_assessment: false,
@@ -41,6 +44,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
     const [tempData, setTempData] = useState({ ...formData });
 
     const handleEditClick = (field, sectionIndex = null, itemIndex = null, sectionKey = null) => {
+        setShowModal(true);
         if (field === 'assessment_description') {
             setIsEditing({ ...isEditing, [field]: 0 });
         } else {
@@ -108,7 +112,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
             setFormData({ ...tempData });
             setIsEditing({ ...isEditing, [field]: false });
         }
-
+        setLoading(true);
         try {
             const res = await fetch(`https://e4eap2uqdz.ap-southeast-2.awsapprunner.com/api/assessments/${formData.id}`, {
                 method: 'PUT',
@@ -119,14 +123,19 @@ export default function EditAssessment({ data, back = () => { window.history.bac
             });
             const data = await res.json();
             showToast.success('Edited successfully!');
+            setLoading(false);
+            setShowModal(false);
         } catch (error) {
+            setLoading(false);
             showToast.error('Something went wrong while editing');
             throw new Error(error);
         }
     };
 
     const handleCancel = (field) => {
+        setShowModal(false);
         setTempData({ ...formData });
+        setLoading(false);
         setIsEditing({ ...isEditing, [field]: field === 'marking_rubric' || field === 'assessment_description' ? -1 : false, descriptionIndex: -1 });
     };
     return (<>
@@ -140,25 +149,31 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                 <div className="flex justify-between items-center p-4 bg-[#E8E9FC] rounded">
                     {
                         isEditing.title_assessment ? (
-                            <div className="w-full mb-3">
-                                <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full"
-                                    value={tempData.title_assessment}
-                                    onChange={(e) => handleChange(e, 'title_assessment')} />
-                                <div className="flex gap-3 md:w-1/2 mx-auto mt-2">
-                                    <button
-                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
-                                        onClick={() => handleSave('title_assessment')}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
-                                        onClick={() => handleCancel('title_assessment')}
-                                    >
-                                        Cancel
-                                    </button>
+                            <Modal isOpen={showModal} onClose={() => handleCancel('title_assessment')}>
+                                <div className="w-full mb-3">
+                                    <textarea rows={5} className="border-gray-300 border rounded px-5 py-3 w-full"
+                                        value={tempData.title_assessment}
+                                        onChange={(e) => handleChange(e, 'title_assessment')} />
+                                    <div className="flex gap-3 md:w-1/2 mx-auto mt-2">
+                                        <button
+                                            className="w-full text-center rounded-lg py-2 px-3 font-semibold flex justify-center text-sm bg-[#CBFFFE]"
+                                            onClick={() => handleSave('title_assessment')}
+                                        >
+                                            {loading && <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                            </svg>}
+                                            Save
+                                        </button>
+                                        <button
+                                            className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                            onClick={() => handleCancel('title_assessment')}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </Modal>
                         ) : (
                             <>
                                 <h1 className="text-black text-3xl font-bold mb-3">
@@ -176,28 +191,30 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                 <div className="p-4 bg-[#E8E9FC] rounded flex items-start gap-4 mt-4">
                     {
                         isEditing.overview ? (
-                            <div className="w-full">
-                                <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                                    Overview And Rationale:{" "}
-                                </h6>
-                                <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full"
-                                    value={tempData.overview_and_rationale}
-                                    onChange={(e) => handleChange(e, 'overview_and_rationale')} />
-                                <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
-                                    <button
-                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
-                                        onClick={() => handleSave('overview')}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
-                                        onClick={() => handleCancel('overview')}
-                                    >
-                                        Cancel
-                                    </button>
+                            <Modal isOpen={showModal} onClose={() => handleCancel('overview')}>
+                                <div className="w-full">
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                        Overview And Rationale:{" "}
+                                    </h6>
+                                    <textarea rows={5} className="border-gray-300 border rounded px-5 py-3 w-full"
+                                        value={tempData.overview_and_rationale}
+                                        onChange={(e) => handleChange(e, 'overview_and_rationale')} />
+                                    <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
+                                        <button
+                                            className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                            onClick={() => handleSave('overview')}
+                                        >
+                                            Save
+                                        </button>
+                                        <button
+                                            className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                            onClick={() => handleCancel('overview')}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </Modal>
                         ) : (
                             <>
                                 <div>
@@ -220,28 +237,30 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                 <div className="p-4 bg-[#E8E9FC] rounded flex items-start gap-4 mt-4">
                     {
                         isEditing.methodology ? (
-                            <div className="w-full">
-                                <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                                    Methodology:{" "}
-                                </h6>
-                                <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full"
-                                    value={tempData.methodology}
-                                    onChange={(e) => handleChange(e, 'methodology')} />
-                                <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
-                                    <button
-                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
-                                        onClick={() => handleSave('methodology')}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
-                                        onClick={() => handleCancel('methodology')}
-                                    >
-                                        Cancel
-                                    </button>
+                            <Modal isOpen={showModal} onClose={() => handleCancel('methodology')}>
+                                <div className="w-full">
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                        Methodology:{" "}
+                                    </h6>
+                                    <textarea rows={5} className="border-gray-300 border rounded px-5 py-3 w-full"
+                                        value={tempData.methodology}
+                                        onChange={(e) => handleChange(e, 'methodology')} />
+                                    <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
+                                        <button
+                                            className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                            onClick={() => handleSave('methodology')}
+                                        >
+                                            Save
+                                        </button>
+                                        <button
+                                            className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                            onClick={() => handleCancel('methodology')}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </Modal>
                         ) : (
                             <>
                                 <div>
@@ -263,32 +282,34 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                 <div className="p-4 bg-[#E8E9FC] rounded flex justify-between items-start gap-4 mt-4">
                     {
                         isEditing.assessment_unit ? (
-                            <div className="w-full">
-                                <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                                    Assessment Unit:{" "}
-                                </h6>
-                                <div>
-                                    <MdAdUnits className="relative top-8 left-5" />
-                                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full"
-                                        type="text"
-                                        value={tempData.assessment_unit}
-                                        onChange={(e) => handleChange(e, 'assessment_unit')} />
+                            <Modal isOpen={showModal} onClose={() => handleCancel('assessment_unit')}>
+                                <div className="w-full">
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                        Assessment Unit:{" "}
+                                    </h6>
+                                    <div>
+                                        <MdAdUnits className="relative top-8 left-5" />
+                                        <input required className="border border-gray-300 rounded pl-12 pr-5 py-3 w-full"
+                                            type="text"
+                                            value={tempData.assessment_unit}
+                                            onChange={(e) => handleChange(e, 'assessment_unit')} />
+                                    </div>
+                                    <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
+                                        <button
+                                            className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                            onClick={() => handleSave('assessment_unit')}
+                                        >
+                                            Save
+                                        </button>
+                                        <button
+                                            className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                            onClick={() => handleCancel('assessment_unit')}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
-                                    <button
-                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
-                                        onClick={() => handleSave('assessment_unit')}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
-                                        onClick={() => handleCancel('assessment_unit')}
-                                    >
-                                        Cancel
-                                    </button>
-                                </div>
-                            </div>
+                            </Modal>
                         ) : (
                             <>
                                 <div>
@@ -311,32 +332,34 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                 <div className="p-4 bg-[#E8E9FC] rounded flex justify-between items-start gap-4 mt-4">
                     {
                         isEditing.percentage_weighting ? (
-                            <div className="w-full">
-                                <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                                    Weighting:{" "}
-                                </h6>
-                                <div>
-                                    <MdOutlineLineWeight className="relative top-8 left-5" />
-                                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full"
-                                        type="text"
-                                        value={tempData.percentage_weighting}
-                                        onChange={(e) => handleChange(e, 'percentage_weighting')} />
+                            <Modal isOpen={showModal} onClose={() => handleCancel('percentage_weighting')}>
+                                <div className="w-full">
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                        Weighting:{" "}
+                                    </h6>
+                                    <div>
+                                        <MdOutlineLineWeight className="relative top-8 left-5" />
+                                        <input required className="border border-gray-300 rounded pl-12 pr-5 py-3 w-full"
+                                            type="text"
+                                            value={tempData.percentage_weighting}
+                                            onChange={(e) => handleChange(e, 'percentage_weighting')} />
+                                    </div>
+                                    <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
+                                        <button
+                                            className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                            onClick={() => handleSave('percentage_weighting')}
+                                        >
+                                            Save
+                                        </button>
+                                        <button
+                                            className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                            onClick={() => handleCancel('percentage_weighting')}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
-                                    <button
-                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
-                                        onClick={() => handleSave('percentage_weighting')}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
-                                        onClick={() => handleCancel('percentage_weighting')}
-                                    >
-                                        Cancel
-                                    </button>
-                                </div>
-                            </div>
+                            </Modal>
                         ) : (
                             <>
                                 <div>
@@ -359,31 +382,33 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                 <div className="p-4 bg-[#E8E9FC] rounded flex justify-between items-start gap-4 mt-4">
                     {
                         isEditing.due_date ? (
-                            <div className="w-full">
-                                <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                                    Due Date:{" "}
-                                </h6>
-                                <div>
-                                    <input required className="rounded-md outline-none px-3 py-3 w-full"
-                                        type="date"
-                                        value={tempData.due_date}
-                                        onChange={(e) => handleChange(e, 'due_date')} />
+                            <Modal isOpen={showModal} onClose={() => handleCancel('due_date')}>
+                                <div className="w-full">
+                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                                        Due Date:{" "}
+                                    </h6>
+                                    <div>
+                                        <input required className="border border-gray-300 rounded px-3 py-3 w-full"
+                                            type="date"
+                                            value={tempData.due_date}
+                                            onChange={(e) => handleChange(e, 'due_date')} />
+                                    </div>
+                                    <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
+                                        <button
+                                            className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                            onClick={() => handleSave('due_date')}
+                                        >
+                                            Save
+                                        </button>
+                                        <button
+                                            className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                            onClick={() => handleCancel('due_date')}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
-                                    <button
-                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
-                                        onClick={() => handleSave('due_date')}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
-                                        onClick={() => handleCancel('due_date')}
-                                    >
-                                        Cancel
-                                    </button>
-                                </div>
-                            </div>
+                            </Modal>
                         ) : (
                             <>
                                 <div>
@@ -420,32 +445,34 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         }
                     </div>
                     {isEditing.assessment_description !== -1 ? (
-                        <div>
-                            <textarea
-                                value={tempData.assessment_description.map(section =>
-                                    Object.keys(section).map(key =>
-                                        [key, ...section[key]].join('\n')
-                                    ).join('\n\n')
-                                ).join('\n\n')}
-                                onChange={(e) => handleTextareaChange(e)}
-                                className="w-full border border-gray-300 rounded px-2 py-1"
-                                rows="10"
-                            />
-                            <div className="flex gap-3 mt-3">
-                                <button
-                                    onClick={() => handleSave('assessment_description')}
-                                    className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
-                                >
-                                    Save
-                                </button>
-                                <button
-                                    onClick={() => handleCancel('assessment_description')}
-                                    className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
-                                >
-                                    Cancel
-                                </button>
+                        <Modal isOpen={showModal} onClose={() => handleCancel('assessment_description')}>
+                            <div>
+                                <textarea
+                                    value={tempData.assessment_description.map(section =>
+                                        Object.keys(section).map(key =>
+                                            [key, ...section[key]].join('\n')
+                                        ).join('\n\n')
+                                    ).join('\n\n')}
+                                    onChange={(e) => handleTextareaChange(e)}
+                                    className="w-full border border-gray-300 rounded px-2 py-1"
+                                    rows="10"
+                                />
+                                <div className="flex gap-3 mt-3">
+                                    <button
+                                        onClick={() => handleSave('assessment_description')}
+                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        onClick={() => handleCancel('assessment_description')}
+                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </Modal>
                     ) : (
                         <div>
                             <ul>
@@ -480,35 +507,37 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         </h6>
                         {isEditing.learningOutcomes === -1 && (
                             <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
-                                onClick={() => setIsEditing({ ...isEditing, learningOutcomes: 0 })}
+                                onClick={() => {setIsEditing({ ...isEditing, learningOutcomes: 0 }); setShowModal(true)}}
                             >
                                 <ImPencil className="text-sm" />
                             </div>
                         )}
                     </div>
                     {isEditing.learningOutcomes !== -1 ? (
-                        <div>
-                            <textarea
-                                value={tempData.learning_outcome.join('\n')}
-                                onChange={handleLearningOutcomeChange}
-                                className="w-full border border-gray-300 rounded px-2 py-1"
-                                rows="10"
-                            />
-                            <div className="flex gap-3 mt-3">
-                                <button
-                                    onClick={() => handleSave('learningOutcomes')}
-                                    className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
-                                >
-                                    Save
-                                </button>
-                                <button
-                                    onClick={() => handleCancel('learningOutcomes')}
-                                    className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
-                                >
-                                    Cancel
-                                </button>
+                        <Modal isOpen={showModal} onClose={() => handleCancel('learningOutcomes')}>
+                            <div>
+                                <textarea
+                                    value={tempData.learning_outcome.join('\n')}
+                                    onChange={handleLearningOutcomeChange}
+                                    className="w-full border border-gray-300 rounded px-2 py-1"
+                                    rows="10"
+                                />
+                                <div className="flex gap-3 mt-3">
+                                    <button
+                                        onClick={() => handleSave('learningOutcomes')}
+                                        className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        onClick={() => handleCancel('learningOutcomes')}
+                                        className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </Modal>
                     ) : (
                         <ul className="m-0 list-disc mt-3 pl-4">
                             {formData.learning_outcome.map((outcome, index) => (
@@ -520,7 +549,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                     )}
                 </div>
 
-                <div className="w-full py-8 px-4">
+                <div className="w-full py-8">
                     <h6 className="text-black font-bold text-[15px] leading-[26px] mb-2">
                         Marking Rubric:{" "}
                     </h6>
