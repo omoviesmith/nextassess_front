@@ -558,28 +558,28 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                             <table className="w-full min-w-max table-fixed">
                                 <thead>
                                     <tr>
-                                        <th scope="col" className="py-3 px-1 md:px-3 w-32 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
+                                        <th scope="col" className="py-3 px-1 w-32 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
                                             Criteria
                                         </th>
-                                        <th scope="col" className="py-3 px-1 md:px-3 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
+                                        <th scope="col" className="py-3 px-1 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
                                             Weighting
                                         </th>
-                                        <th scope="col" className="py-3 px-1 md:px-3 w-20 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
+                                        <th scope="col" className="py-3 px-1 w-20 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
                                             Fail
                                         </th>
-                                        <th scope="col" className="py-3 px-1 md:px-3 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
+                                        <th scope="col" className="py-3 px-1 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
                                             Pass Grade
                                         </th>
-                                        <th scope="col" className="py-3 px-1 md:px-3 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
+                                        <th scope="col" className="py-3 px-1 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
                                             Credit
                                         </th>
-                                        <th scope="col" className="py-3 px-1 md:px-3 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
+                                        <th scope="col" className="py-3 px-1 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
                                             Distinction
                                         </th>
-                                        <th scope="col" className="py-3 px-1 md:px-3 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
+                                        <th scope="col" className="py-3 px-1 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
                                             High Distinction
                                         </th>
-                                        <th scope="col" className="py-3 px-1 md:px-3 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
+                                        <th scope="col" className="py-3 px-1 w-24 font-normal md:font-semibold text-sm uppercase border border-[#A9A9A9]">
                                             Actions
                                         </th>
                                     </tr>
@@ -587,28 +587,28 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                                 <tbody>
                                     {formData.marking_rubric.map((item, index) => (<>
                                         <tr key={index} className='bg-white'>
-                                            <td className="py-3 px-1 md:px-3 font-normal md:font-semibold text-sm border border-[#A9A9A9]">
+                                            <td className="py-3 px-1 font-normal md:font-semibold text-sm border border-[#A9A9A9]">
                                                 {item.criteria}
                                             </td>
-                                            <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
+                                            <td className="py-3 px-1 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
                                                 {item.weighting}
                                             </td>
-                                            <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
+                                            <td className="py-3 px-1 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
                                                 {item.fail}
                                             </td>
-                                            <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
+                                            <td className="py-3 px-1 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
                                                 {item.pass_grade}
                                             </td>
-                                            <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
+                                            <td className="py-3 px-1 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
                                                 {item.credit}
                                             </td>
-                                            <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
+                                            <td className="py-3 px-1 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
                                                 {item.distinction}
                                             </td>
-                                            <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
+                                            <td className="py-3 px-1 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
                                                 {item.high_distinction}
                                             </td>
-                                            <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
+                                            <td className="py-3 px-1 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
                                                 <div
                                                     className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
                                                     onClick={() => { setIsEditing({ ...isEditing, marking_rubric: index }); setShowModal(true); }}
