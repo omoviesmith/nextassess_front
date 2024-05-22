@@ -507,7 +507,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         </h6>
                         {isEditing.learningOutcomes === -1 && (
                             <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
-                                onClick={() => {setIsEditing({ ...isEditing, learningOutcomes: 0 }); setShowModal(true)}}
+                                onClick={() => { setIsEditing({ ...isEditing, learningOutcomes: 0 }); setShowModal(true) }}
                             >
                                 <ImPencil className="text-sm" />
                             </div>
@@ -585,125 +585,128 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {formData.marking_rubric.map((item, index) => (
+                                    {formData.marking_rubric.map((item, index) => (<>
                                         <tr key={index} className='bg-white'>
                                             <td className="py-3 px-1 md:px-3 font-normal md:font-semibold text-sm border border-[#A9A9A9]">
-                                                {isEditing.marking_rubric === index ? (
-                                                    <input
-                                                        type="text"
-                                                        value={tempData.marking_rubric[index].criteria}
-                                                        onChange={(e) => handleRubricChange(index, 'criteria', e.target.value)}
-                                                        className="rounded-md outline-none px-2 py-2 w-full"
-                                                    />
-                                                ) : (
-                                                    item.criteria
-                                                )}
+                                                {item.criteria}
                                             </td>
                                             <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
-                                                {isEditing.marking_rubric === index ? (
-                                                    <input
-                                                        type="text"
-                                                        value={tempData.marking_rubric[index].weighting}
-                                                        onChange={(e) => handleRubricChange(index, 'weighting', e.target.value)}
-                                                        className="rounded-md outline-none px-2 py-2 w-full"
-                                                    />
-                                                ) : (
-                                                    item.weighting
-                                                )}
+                                                {item.weighting}
                                             </td>
                                             <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
-                                                {isEditing.marking_rubric === index ? (
-                                                    <input
-                                                        type="text"
-                                                        value={tempData.marking_rubric[index].fail}
-                                                        onChange={(e) => handleRubricChange(index, 'fail', e.target.value)}
-                                                        className="rounded-md outline-none px-2 py-2 w-full"
-                                                    />
-                                                ) : (
-                                                    item.fail
-                                                )}
+                                                {item.fail}
                                             </td>
                                             <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
-                                                {isEditing.marking_rubric === index ? (
-                                                    <input
-                                                        type="text"
-                                                        value={tempData.marking_rubric[index].pass_grade}
-                                                        onChange={(e) => handleRubricChange(index, 'pass_grade', e.target.value)}
-                                                        className="rounded-md outline-none px-2 py-2 w-full"
-                                                    />
-                                                ) : (
-                                                    item.pass_grade
-                                                )}
+                                                {item.pass_grade}
                                             </td>
                                             <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
-                                                {isEditing.marking_rubric === index ? (
-                                                    <input
-                                                        type="text"
-                                                        value={tempData.marking_rubric[index].credit}
-                                                        onChange={(e) => handleRubricChange(index, 'credit', e.target.value)}
-                                                        className="rounded-md outline-none px-2 py-2 w-full"
-                                                    />
-                                                ) : (
-                                                    item.credit
-                                                )}
+                                                {item.credit}
                                             </td>
                                             <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
-                                                {isEditing.marking_rubric === index ? (
-                                                    <input
-                                                        type="text"
-                                                        value={tempData.marking_rubric[index].distinction}
-                                                        onChange={(e) => handleRubricChange(index, 'distinction', e.target.value)}
-                                                        className="rounded-md outline-none px-2 py-2 w-full"
-                                                    />
-                                                ) : (
-                                                    item.distinction
-                                                )}
+                                                {item.distinction}
                                             </td>
                                             <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
-                                                {isEditing.marking_rubric === index ? (
-                                                    <input
-                                                        type="text"
-                                                        value={tempData.marking_rubric[index].high_distinction}
-                                                        onChange={(e) => handleRubricChange(index, 'high_distinction', e.target.value)}
-                                                        className="rounded-md outline-none px-2 py-2 w-full"
-                                                    />
-                                                ) : (
-                                                    item.high_distinction
-                                                )}
+                                                {item.high_distinction}
                                             </td>
                                             <td className="py-3 px-1 md:px-3 font-normal text-xs text-[#666666] border border-[#A9A9A9]">
-                                                {isEditing.marking_rubric === index ? (
-                                                    <div className="flex gap-2">
-                                                        <button
-                                                            className="p-2 bg-green-500 text-white rounded"
-                                                            onClick={() => handleSave('marking_rubric', index)}
-                                                        >
-                                                            <TiTick />
-                                                        </button>
-                                                        <button
-                                                            className="p-2 bg-red-500 text-white rounded"
-                                                            onClick={() => handleCancel('marking_rubric')}
-                                                        >
-                                                            <RxCross1 />
-                                                        </button>
-                                                    </div>
-                                                ) : (
-                                                    <div
-                                                        className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
-                                                        onClick={() => setIsEditing({ ...isEditing, marking_rubric: index })}
-                                                    >
-                                                        <ImPencil className="text-sm" />
-                                                    </div>
-                                                )}
+                                                <div
+                                                    className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
+                                                    onClick={() => { setIsEditing({ ...isEditing, marking_rubric: index }); setShowModal(true); }}
+                                                >
+                                                    <ImPencil className="text-sm" />
+                                                </div>
                                             </td>
                                         </tr>
-                                    ))}
+                                    </>))}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
+            {
+                isEditing.marking_rubric !== -1 && (
+                    <Modal isOpen={showModal} onClose={() => handleCancel('marking_rubric')}>
+                        <div className="mb-3">
+                            <label className="mb-3 text-black text-sm font-semibold">Criteria</label>
+                            <input
+                                type="text"
+                                value={tempData.marking_rubric[isEditing.marking_rubric].criteria}
+                                onChange={(e) => handleRubricChange(isEditing.marking_rubric, 'criteria', e.target.value)}
+                                className="border-gray-300 border rounded px-2 py-2 w-full"
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="mb-3 text-black text-sm font-semibold">Weighting</label>
+                            <input
+                                type="text"
+                                value={tempData.marking_rubric[isEditing.marking_rubric].weighting}
+                                onChange={(e) => handleRubricChange(isEditing.marking_rubric, 'weighting', e.target.value)}
+                                className="border-gray-300 border rounded px-2 py-2 w-full"
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="mb-3 text-black text-sm font-semibold">Fail</label>
+                            <input
+                                type="text"
+                                value={tempData.marking_rubric[isEditing.marking_rubric].fail}
+                                onChange={(e) => handleRubricChange(isEditing.marking_rubric, 'fail', e.target.value)}
+                                className="border-gray-300 border rounded px-2 py-2 w-full"
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="mb-3 text-black text-sm font-semibold">Pass Grade</label>
+                            <input
+                                type="text"
+                                value={tempData.marking_rubric[isEditing.marking_rubric].pass_grade}
+                                onChange={(e) => handleRubricChange(isEditing.marking_rubric, 'pass_grade', e.target.value)}
+                                className="border-gray-300 border rounded px-2 py-2 w-full"
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="mb-3 text-black text-sm font-semibold">Credit</label>
+                            <input
+                                type="text"
+                                value={tempData.marking_rubric[isEditing.marking_rubric].credit}
+                                onChange={(e) => handleRubricChange(isEditing.marking_rubric, 'credit', e.target.value)}
+                                className="border-gray-300 border rounded px-2 py-2 w-full"
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="mb-3 text-black text-sm font-semibold">Distinction</label>
+                            <input
+                                type="text"
+                                value={tempData.marking_rubric[isEditing.marking_rubric].distinction}
+                                onChange={(e) => handleRubricChange(isEditing.marking_rubric, 'distinction', e.target.value)}
+                                className="border-gray-300 border rounded px-2 py-2 w-full"
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="mb-3 text-black text-sm font-semibold">High Distinction</label>
+                            <input
+                                type="text"
+                                value={tempData.marking_rubric[isEditing.marking_rubric].high_distinction}
+                                onChange={(e) => handleRubricChange(isEditing.marking_rubric, 'high_distinction', e.target.value)}
+                                className="border-gray-300 border rounded px-2 py-2 w-full"
+                            />
+                        </div>
+                        <div className="flex gap-3 mt-3 md:w-1/2 mx-auto">
+                            <button
+                                onClick={() => handleSave('marking_rubric', isEditing.marking_rubric)}
+                                className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
+                            >
+                                Save
+                            </button>
+                            <button
+                                onClick={() => {handleCancel('marking_rubric'); setIsEditing({ ...isEditing, marking_rubric: -1 })}}
+                                className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </Modal>
+                )
+            }
             <div className="grid grid-cols-3 gap-1 md:gap-3 mt-5 justify-center md:w-1/4 mx-auto">
                 <div onClick={() => tryAgain()} className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
                     <MdRefresh className="w-7 h-7 text-[#FF0000]" />

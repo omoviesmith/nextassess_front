@@ -147,7 +147,7 @@ export default function ViewAssessment({ data, setConvertResponse, tryAgain, typ
                         </p>
                     </div>
                     <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
-                    <div className="w-full py-8">
+                    <div className="w-full py-8 px-4">
                         <h6 className="text-black font-bold text-[15px] leading-[26px] mb-2">
                             Marking Rubric:{" "}
                         </h6>
