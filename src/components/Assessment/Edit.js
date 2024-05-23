@@ -5,8 +5,6 @@ import { MdRefresh, MdDownload, MdAdUnits, MdOutlineLineWeight } from "react-ico
 import { IoSaveSharp } from "react-icons/io5";
 import { IoMdArrowBack } from "react-icons/io";
 import { useState } from "react";
-import { TiTick } from "react-icons/ti";
-import { RxCross1 } from "react-icons/rx";
 import { showToast } from "react-next-toast";
 import Modal from "./Modal/Modal";
 
@@ -17,11 +15,10 @@ export default function EditAssessment({ data, back = () => { window.history.bac
         id: null,
         title_assessment: false,
         overview: false,
-        methodology: false,
         assessment_unit: false,
         percentage_weighting: false,
         due_date: false,
-        learningOutcomes: -1,
+        submission_requirements: -1,
         marking_rubric: -1,
         assessment_description: -1,
         descriptionIndex: -1, // Added to track item index being edited
@@ -32,12 +29,11 @@ export default function EditAssessment({ data, back = () => { window.history.bac
         id: data?.id,
         title_assessment: data?.title_assessment || '',
         overview_and_rationale: data?.overview_and_rationale || '',
-        methodology: data?.methodology || '',
         assessment_unit: data?.assessment_unit || '',
         percentage_weighting: data?.percentage_weighting || '',
         due_date: data?.due_date || '',
         assessment_description: data?.assessment_description || [],
-        learning_outcome: data?.learning_outcome || [],
+        submission_requirements: data?.submission_requirements || [],
         marking_rubric: data?.marking_rubric || [],
     });
 
@@ -48,7 +44,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
         if (field === 'assessment_description') {
             setIsEditing({ ...isEditing, [field]: 0 });
         } else {
-            setIsEditing({ ...isEditing, [field]: field === 'learningOutcomes' ? 0 : !isEditing[field] });
+            setIsEditing({ ...isEditing, [field]: field === 'submission_requirements' ? 0 : !isEditing[field] });
         }
         setTempData({ ...formData });
     };
@@ -59,7 +55,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
 
     const handleLearningOutcomeChange = (e) => {
         const updatedLearningOutcomes = e.target.value.split('\n');
-        setTempData({ ...tempData, learning_outcome: updatedLearningOutcomes });
+        setTempData({ ...tempData, submission_requirements: updatedLearningOutcomes });
     };
 
     const handleRubricChange = (index, field, value) => {
@@ -99,9 +95,9 @@ export default function EditAssessment({ data, back = () => { window.history.bac
     };
 
     const handleSave = async (field) => {
-        if (field === 'learningOutcomes') {
-            setFormData({ ...formData, learning_outcome: tempData.learning_outcome });
-            setIsEditing({ ...isEditing, learningOutcomes: -1 });
+        if (field === 'submission_requirements') {
+            setFormData({ ...formData, submission_requirements: tempData.submission_requirements });
+            setIsEditing({ ...isEditing, submission_requirements: -1 });
         } else if (field === 'marking_rubric') {
             setFormData({ ...formData, marking_rubric: tempData.marking_rubric });
             setIsEditing({ ...isEditing, marking_rubric: -1 });
@@ -227,51 +223,6 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                                 </div>
                                 <div className="w-[10%] flex justify-center">
                                     <div onClick={() => handleEditClick('overview')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
-                                        <ImPencil className="text-sm" />
-                                    </div>
-                                </div>
-                            </>
-                        )
-                    }
-                </div>
-                <div className="p-4 bg-[#E8E9FC] rounded flex items-start gap-4 mt-4">
-                    {
-                        isEditing.methodology ? (
-                            <Modal isOpen={showModal} onClose={() => handleCancel('methodology')}>
-                                <div className="w-full">
-                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                                        Methodology:{" "}
-                                    </h6>
-                                    <textarea rows={5} className="border-gray-300 border rounded px-5 py-3 w-full"
-                                        value={tempData.methodology}
-                                        onChange={(e) => handleChange(e, 'methodology')} />
-                                    <div className="flex gap-2 md:w-1/2 mx-auto mt-2">
-                                        <button
-                                            className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
-                                            onClick={() => handleSave('methodology')}
-                                        >
-                                            Save
-                                        </button>
-                                        <button
-                                            className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
-                                            onClick={() => handleCancel('methodology')}
-                                        >
-                                            Cancel
-                                        </button>
-                                    </div>
-                                </div>
-                            </Modal>
-                        ) : (
-                            <>
-                                <div>
-                                    <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                                        Methodology:{" "}
-                                    </h6>
-                                    <p dangerouslySetInnerHTML={{ __html: formData?.methodology?.replace(/\n/g, '<br />') }} className="text-[#666666] font-normal text-[15px] leading-[26px]">
-                                    </p>
-                                </div>
-                                <div className="w-[10%] flex justify-center">
-                                    <div onClick={() => handleEditClick('methodology')} className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10">
                                         <ImPencil className="text-sm" />
                                     </div>
                                 </div>
@@ -503,34 +454,34 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                 <div className="p-4 bg-[#E8E9FC] rounded mt-4">
                     <div className="flex items-start justify-between gap-4">
                         <h6 className="text-black font-bold text-[15px] leading-[26px]">
-                            Learning Outcomes:
+                            Submission Requirements:
                         </h6>
-                        {isEditing.learningOutcomes === -1 && (
+                        {isEditing.submission_requirements === -1 && (
                             <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
-                                onClick={() => { setIsEditing({ ...isEditing, learningOutcomes: 0 }); setShowModal(true) }}
+                                onClick={() => { setIsEditing({ ...isEditing, submission_requirements: 0 }); setShowModal(true) }}
                             >
                                 <ImPencil className="text-sm" />
                             </div>
                         )}
                     </div>
-                    {isEditing.learningOutcomes !== -1 ? (
-                        <Modal isOpen={showModal} onClose={() => handleCancel('learningOutcomes')}>
+                    {isEditing.submission_requirements !== -1 ? (
+                        <Modal isOpen={showModal} onClose={() => handleCancel('submission_requirements')}>
                             <div>
                                 <textarea
-                                    value={tempData.learning_outcome.join('\n')}
+                                    value={tempData.submission_requirements.join('\n')}
                                     onChange={handleLearningOutcomeChange}
                                     className="w-full border border-gray-300 rounded px-2 py-1"
                                     rows="10"
                                 />
                                 <div className="flex gap-3 mt-3">
                                     <button
-                                        onClick={() => handleSave('learningOutcomes')}
+                                        onClick={() => handleSave('submission_requirements')}
                                         className="w-full text-center rounded-lg py-2 px-3 font-semibold text-sm bg-[#CBFFFE]"
                                     >
                                         Save
                                     </button>
                                     <button
-                                        onClick={() => handleCancel('learningOutcomes')}
+                                        onClick={() => handleCancel('submission_requirements')}
                                         className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
                                     >
                                         Cancel
@@ -540,7 +491,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         </Modal>
                     ) : (
                         <ul className="m-0 list-disc mt-3 pl-4">
-                            {formData.learning_outcome.map((outcome, index) => (
+                            {formData.submission_requirements.map((outcome, index) => (
                                 <li key={index} className="text-[#666666] font-normal text-sm leading-[26px] mb-1">
                                     {outcome}
                                 </li>
