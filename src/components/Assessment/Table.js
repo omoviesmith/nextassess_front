@@ -4,7 +4,7 @@ import Link from "next/link";
 import DeleteAssessment from "./Delete";
 import { useState } from "react";
 
-export default function Table({ data }) {
+export default function Table({ data = [] }) {
     // Client-side state for pagination
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10; // Number of items per page
@@ -109,9 +109,9 @@ export default function Table({ data }) {
                     </table>
                 </div>
                 <div className="flex justify-between items-center p-3 border border-slate-300 bg-white rounded-bl-lg rounded-br-lg">
-                    <button onClick={handlePreviousPage} disabled={currentPage === 1} className="border border-[#D0D5DD] rounded-lg py-2 px-3 text-[#666] font-semibold text-sm">Previous</button>
+                    <button onClick={handlePreviousPage} disabled={currentPage === 1} className={`border border-[#D0D5DD] rounded-lg py-2 px-3 ${currentPage === 1 ? 'text-[#666]' : 'text-[#344054]'} font-semibold text-sm`}>Previous</button>
                     <span className="text-[#344054] text-sm font-medium">Page {currentPage} of {Math.ceil(data.length / itemsPerPage)}</span>
-                    <button onClick={handleNextPage} disabled={currentPage === Math.ceil(data.length / itemsPerPage)} className="border border-[#D0D5DD] rounded-lg py-2 px-3 text-[#344054] font-semibold text-sm">Next</button>
+                    <button onClick={handleNextPage} disabled={currentPage === Math.ceil(data.length / itemsPerPage)} className={`border border-[#D0D5DD] rounded-lg py-2 px-3 ${currentPage === Math.ceil(data.length / itemsPerPage) ? 'text-[#666]' : 'text-[#344054]'} font-semibold text-sm`}>Next</button>
                 </div>
             </div>
         </>
