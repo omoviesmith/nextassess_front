@@ -75,7 +75,7 @@ export default function Upload() {
                     body: formData
                 });
                 if (response.ok) {
-                    const parsedResponse = await res.json();
+                    const parsedResponse = await response.json();
                     console.log(parsedResponse);
                     const parts = parsedResponse?.file_url.split('/');
                     const filename = parts[parts.length - 1];
