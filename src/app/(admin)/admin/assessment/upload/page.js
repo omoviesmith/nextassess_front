@@ -75,8 +75,12 @@ export default function Upload() {
                     body: formData
                 });
                 if (response.ok) {
+                    const parsedResponse = await res.json();
+                    console.log(parsedResponse);
+                    const parts = parsedResponse?.file_url.split('/');
+                    const filename = parts[parts.length - 1];
                     showToast.success('File uploaded successfully');
-                    await getFileData(selectedFile.name);
+                    await getFileData(filename);
                     setIsClicked(false);
                 } else {
                     showToast.error('Error uploading file')
