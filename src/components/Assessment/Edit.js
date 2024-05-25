@@ -110,12 +110,13 @@ export default function EditAssessment({ data, back = () => { window.history.bac
         }
         setLoading(true);
         try {
+            const updatedData = { ...formData, [field]: tempData[field] };
             const res = await fetch(`https://e4eap2uqdz.ap-southeast-2.awsapprunner.com/api/assessments/${formData.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(updatedData)
             });
             const data = await res.json();
             showToast.success('Edited successfully!');
