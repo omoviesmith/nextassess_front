@@ -56,11 +56,9 @@ export default function Upload() {
                 setText(parsedResponse.text_content);
             } else {
                 showToast.error('Something went wrong while converting file!')
-                console.error('Error:', res.statusText);
             }
         } catch (error) {
             showToast.error('Something went wrong while converting file!')
-            console.log(error);
         }
     }
     async function handleSubmit(e) {
@@ -76,7 +74,6 @@ export default function Upload() {
                 });
                 if (response.ok) {
                     const parsedResponse = await response.json();
-                    console.log(parsedResponse);
                     const parts = parsedResponse?.file_url.split('/');
                     const filename = parts[parts.length - 1];
                     showToast.success('File uploaded successfully');
@@ -85,12 +82,10 @@ export default function Upload() {
                 } else {
                     showToast.error('Error uploading file')
                     setIsClicked(false);
-                    console.error('Upload failed:', response.statusText);
                 }
             } catch (error) {
                 showToast.error('Error uploading file')
                 setIsClicked(false);
-                console.error('Error uploading file:', error);
             }
         }
     }

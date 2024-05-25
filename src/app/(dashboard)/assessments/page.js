@@ -1,8 +1,10 @@
+import Loading from "@/components/Loading/Loading";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
 const Table = dynamic(() => import('@/components/Assessment/Table'),{
-  ssr: false
+  ssr: false,
+  loading: () => <Loading />
 })
 
 const fetchData = async () => {
