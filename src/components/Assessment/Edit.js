@@ -173,7 +173,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                             </Modal>
                         ) : (
                             <>
-                                <h1 className="text-black text-3xl font-bold mb-3">
+                                <h1 className="text-black text-3xl font-bold mb-3 w-[90%]">
                                     {formData?.title_assessment}
                                 </h1>
                                 <div className="w-[10%] flex justify-center">
@@ -185,7 +185,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         )
                     }
                 </div>
-                <div className="p-4 bg-[#E8E9FC] rounded flex items-start gap-4 mt-4">
+                <div className="p-4 bg-[#E8E9FC] rounded flex items-start mt-4">
                     {
                         isEditing.overview ? (
                             <Modal isOpen={showModal} onClose={() => handleCancel('overview')}>
@@ -214,7 +214,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                             </Modal>
                         ) : (
                             <>
-                                <div>
+                                <div className=" w-[90%]">
                                     <h6 className="text-black font-bold text-[15px] leading-[26px]">
                                         Overview And Rationale:{" "}
                                     </h6>
@@ -231,7 +231,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         )
                     }
                 </div>
-                <div className="p-4 bg-[#E8E9FC] rounded flex justify-between items-start gap-4 mt-4">
+                <div className="p-4 bg-[#E8E9FC] rounded flex justify-between items-start mt-4">
                     {
                         isEditing.assessment_unit ? (
                             <Modal isOpen={showModal} onClose={() => handleCancel('assessment_unit')}>
@@ -264,7 +264,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                             </Modal>
                         ) : (
                             <>
-                                <div>
+                                <div className=" w-[90%]">
                                     <h6 className="text-black font-bold text-[15px] leading-[26px]">
                                         Assessment Unit:{" "}
                                     </h6>
@@ -281,7 +281,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         )
                     }
                 </div>
-                <div className="p-4 bg-[#E8E9FC] rounded flex justify-between items-start gap-4 mt-4">
+                <div className="p-4 bg-[#E8E9FC] rounded flex justify-between items-start mt-4">
                     {
                         isEditing.percentage_weighting ? (
                             <Modal isOpen={showModal} onClose={() => handleCancel('percentage_weighting')}>
@@ -314,7 +314,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                             </Modal>
                         ) : (
                             <>
-                                <div>
+                                <div className=" w-[90%]">
                                     <h6 className="text-black font-bold text-[15px] leading-[26px]">
                                         Weighting:{" "}
                                     </h6>
@@ -331,7 +331,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         )
                     }
                 </div>
-                <div className="p-4 bg-[#E8E9FC] rounded flex justify-between items-start gap-4 mt-4">
+                <div className="p-4 bg-[#E8E9FC] rounded flex justify-between items-start mt-4">
                     {
                         isEditing.due_date ? (
                             <Modal isOpen={showModal} onClose={() => handleCancel('due_date')}>
@@ -363,7 +363,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                             </Modal>
                         ) : (
                             <>
-                                <div>
+                                <div className=" w-[90%]">
                                     <h6 className="text-black font-bold text-[15px] leading-[26px]">
                                         Due Date:{" "}
                                     </h6>
@@ -382,7 +382,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                 </div>
                 <div className="p-4 bg-[#E8E9FC] rounded mt-4">
                     <div className="flex justify-between items-center">
-                        <h6 className="text-black font-bold text-[15px] leading-[26px] capitalize">
+                        <h6 className="text-black font-bold text-[15px] leading-[26px] capitalize w-[90%]">
                             Assessment Description
                         </h6>
                         {
@@ -453,15 +453,17 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                     )}
                 </div>
                 <div className="p-4 bg-[#E8E9FC] rounded mt-4">
-                    <div className="flex items-start justify-between gap-4">
-                        <h6 className="text-black font-bold text-[15px] leading-[26px]">
+                    <div className="flex items-start justify-between">
+                        <h6 className="text-black font-bold text-[15px] leading-[26px] w-[90%]">
                             Submission Requirements:
                         </h6>
                         {isEditing.submission_requirements === -1 && (
-                            <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
-                                onClick={() => { setIsEditing({ ...isEditing, submission_requirements: 0 }); setShowModal(true) }}
-                            >
-                                <ImPencil className="text-sm" />
+                            <div className="w-[10%] flex justify-center">
+                                <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
+                                    onClick={() => { setIsEditing({ ...isEditing, submission_requirements: 0 }); setShowModal(true) }}
+                                >
+                                    <ImPencil className="text-sm" />
+                                </div>
                             </div>
                         )}
                     </div>
