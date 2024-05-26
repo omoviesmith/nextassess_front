@@ -388,7 +388,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                         {
                             isEditing.assessment_description < 1 && (
                                 <div className="w-[10%] flex justify-center">
-                                    <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10 ml-2"
+                                    <div className="flex justify-center cursor-pointer items-center border border-black rounded-full w-10 h-10"
                                         onClick={() => handleEditClick('assessment_description')}>
                                         <ImPencil className="text-sm" />
                                     </div>
