@@ -1,4 +1,7 @@
-import EditAssessment from "@/components/Assessment/Edit";
+import dynamic from "next/dynamic";
+const EditAssessment = dynamic(() => import('@/components/Assessment/Edit'),{
+  ssr: false
+})
 
 const fetchData = async (id) => {
     try {
