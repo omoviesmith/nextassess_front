@@ -1,0 +1,30 @@
+@media print {
+    .container-pdf {
+        height: inherit;
+        overflow: initial;
+        page-break-inside: always;
+        break-inside: auto;
+    }
+
+    table {
+        page-break-after: auto;
+    }
+
+    td {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    th {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tfoot {
+        display: table-footer-group;
+    }
+}

@@ -47,7 +47,6 @@ export default function Describe() {
             learning_outcome: formData.get('learning_outcome'),
             marking_rubric: formData.get('marking_rubric')
         };
-        console.log(formValues)
         setText(JSON.stringify(formValues));
         setResponse(true);
     }

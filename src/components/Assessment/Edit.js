@@ -4,11 +4,33 @@ import { ImPencil } from "react-icons/im";
 import { MdRefresh, MdDownload, MdAdUnits, MdOutlineLineWeight } from "react-icons/md";
 import { IoSaveSharp } from "react-icons/io5";
 import { IoMdArrowBack } from "react-icons/io";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { showToast } from "react-next-toast";
 import Modal from "./Modal/Modal";
+import { useReactToPrint } from "react-to-print";
+import Html2Pdf from "js-html2pdf";
+import PDF from "./PDF/PDF";
 
 export default function EditAssessment({ data, back = () => { window.history.back(); }, tryAgain, downloadPdf }) {
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        onPrintError: (error) => console.log(error),
+        print: async (printIframe) => {
+            const document = printIframe.contentDocument;
+            if (document) {
+                const ticketElement = document.getElementsByClassName("container-pdf")[0];
+                ticketElement.style.display = "block";
+                const options = {
+                    margin: 0,
+                    filename: `${data.title_assessment}.pdf`,
+                    jsPDF: { unit: "in", format: 'a4', orientation: "landscape" },
+                };
+                const exporter = new Html2Pdf(ticketElement, options);
+                await exporter.getPdf(options);
+            }
+        },
+    });
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isEditing, setIsEditing] = useState({
@@ -652,7 +674,7 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                                 Save
                             </button>
                             <button
-                                onClick={() => {handleCancel('marking_rubric'); setIsEditing({ ...isEditing, marking_rubric: -1 })}}
+                                onClick={() => { handleCancel('marking_rubric'); setIsEditing({ ...isEditing, marking_rubric: -1 }) }}
                                 className="w-full text-center rounded-lg text-black py-2 px-3 font-semibold text-sm border border-black"
                             >
                                 Cancel
@@ -670,11 +692,12 @@ export default function EditAssessment({ data, back = () => { window.history.bac
                     <IoSaveSharp className="w-7 h-7" />
                     <p className="text-[#666666] text-center text-[13px]">Save</p>
                 </div>
-                <div onClick={() => downloadPdf()} className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
+                <div onClick={handlePrint} className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
                     <MdDownload className="w-7 h-7" />
                     <p className="text-[#666666] text-center text-[13px]">Download</p>
                 </div>
             </div>
         </div>
+        <PDF data={tempData} ref={componentRef} />
     </>);
 }
