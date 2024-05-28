@@ -155,7 +155,7 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
         setShowModal(false);
         setTempData({ ...formData });
         setLoading(false);
-        setIsEditing({ ...isEditing, [field]: field === 'marking_rubric' || field === 'assessment_description' ? -1 : false, descriptionIndex: -1 });
+        setIsEditing({ ...isEditing, [field]: field === 'marking_rubric' || field === 'assessment_description' || field === 'submission_requirements' ? -1 : false, descriptionIndex: -1 });
     };
     return (<>
         <div onClick={() => back()}>
