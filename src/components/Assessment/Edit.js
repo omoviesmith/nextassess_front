@@ -11,7 +11,7 @@ import { useReactToPrint } from "react-to-print";
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
 import PDF from "./PDF/PDF";
 
-export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
+export default function EditAssessment({ data, back = () => { window?.history.back(); }, tryAgain, downloadPdf }) {
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,

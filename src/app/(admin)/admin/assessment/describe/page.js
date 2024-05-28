@@ -8,6 +8,7 @@ import { MdOutlineLineWeight } from "react-icons/md";
 import { useEffect, useRef, useState } from "react";
 import { TbChevronDown, TbChevronUp } from "react-icons/tb";
 import AssessmentPreference from "@/components/Assessment/Preference";
+import Markdown from "@/components/Markdown/Markdown";
 
 export default function Describe() {
     const router = useRouter();
@@ -15,6 +16,8 @@ export default function Describe() {
     const [selectedValue, setSelectedValue] = useState(null);
     const [response, setResponse] = useState(false);
     const [text, setText] = useState(null);
+    const [submissionRequirements, setSubmissionRequirements] = useState("");
+    const [assessmentDescription, setAssessmentDescription] = useState("");
     const dropdownRef = useRef(null);
 
     const toggleDropdown = () => {
@@ -44,8 +47,8 @@ export default function Describe() {
             year_level: selectedValue,
             assessment_unit: formData.get('assessment_unit'),
             percentage_weighting: formData.get('percentage_weighting'),
-            learning_outcome: formData.get('learning_outcome'),
-            marking_rubric: formData.get('marking_rubric')
+            submission_requirements: submissionRequirements,
+            assessment_description: assessmentDescription
         };
         setText(JSON.stringify(formValues));
         setResponse(true);
@@ -103,12 +106,11 @@ export default function Describe() {
                             <MdOutlineLineWeight className="relative top-8 left-5" />
                             <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" name="percentage_weighting" placeholder="Weighting" />
                         </div>
-                        <div>
-                            <MdMenuBook className="relative top-8 left-5" />
-                            <textarea rows={3} required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" name="learning_outcome" placeholder="Learning Outcomes" />
+                        <div className="mt-3">
+                            <Markdown value={submissionRequirements} setValue={setSubmissionRequirements} placeholder="Submission Requirements" />
                         </div>
-                        <div className="mt-4">
-                            <textarea rows={3} className="rounded-md outline-none px-5 py-3 w-full" name="marking_rubric" placeholder="Additional Requirements (optional)"></textarea>
+                        <div className="mt-3">
+                            <Markdown value={assessmentDescription} setValue={setAssessmentDescription} placeholder="Additional Requirements (optional)" />
                         </div>
                         <div className="mt-3">
                             <button type="submit" className={`w-full text-center rounded-lg py-3 px-6 font-bold text-base bg-[#CBFFFE]`}>Submit</button>

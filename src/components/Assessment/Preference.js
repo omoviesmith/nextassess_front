@@ -127,10 +127,10 @@ export default function AssessmentPreference({ text, setUploadResponse }) {
                 loading ? (
                     <div className="flex flex-col justify-center items-center min-h-[90vh]">
                         <div className="flex justify-center items-center">
-                            <div class="loader">
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                                <span class="dot"></span>
+                            <div className="loader">
+                                <span className="dot"></span>
+                                <span className="dot"></span>
+                                <span className="dot"></span>
                             </div>
                         </div>
                         <h6 className="text-[#3C3838] text-lg font-semibold leading-7 my-3 text-center">NextAssess takes care of everything, so you can concentrate on what matters most – teaching and student success</h6>
