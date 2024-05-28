@@ -3,7 +3,7 @@ import { Editor } from '@tinymce/tinymce-react';
 export default function Markdown({ value, setValue, placeholder }) {
     return (
         <Editor
-            apiKey='v1oaw3yn9un79c63uodd74j2ecckl6kpejp444c7divbpm6m'
+            apiKey='q4ctmfpax5jsjpa2wn7qc7wdvvq58jw7xwez5bizhdnp8e6x'
             onEditorChange={setValue} 
             value={value} 
             init={{
