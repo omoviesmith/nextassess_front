@@ -7,8 +7,48 @@ import { IoMdArrowBack } from "react-icons/io";
 import { useRef, useState } from "react";
 import { showToast } from "react-next-toast";
 import Modal from "./Modal/Modal";
+import { useReactToPrint } from "react-to-print";
+import generatePDF, { Resolution, Margin } from "react-to-pdf";
+import PDF from "./PDF/PDF";
 
 export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        onPrintError: (error) => console.log(error),
+        print: async (printIframe) => {
+            const document = printIframe.contentDocument;
+            if (document) {
+                const ticketElement = document.getElementsByClassName("container-pdf")[0];
+                ticketElement.style.display = "block";
+                const options = {
+                    filename: `${data?.title_assessment}.pdf`,
+                    method: "save",
+                    resolution: Resolution.MEDIUM,
+                    page: {
+                        margin: Margin.MEDIUM,
+                        format: "A4",
+                        orientation: "portrait"
+                    },
+                    canvas: {
+                        mimeType: "image/jpeg",
+                        qualityRatio: 1
+                    },
+                    overrides: {
+                        pdf: {
+                            compress: true
+                        },
+                        canvas: {
+                            useCORS: true,
+                            windowWidth: 1400,
+                        }
+                    }
+                };
+                const getTargetElement = () => document.getElementsByClassName('container-pdf')[0];
+                await generatePDF(getTargetElement, options)
+            }
+        },
+    });
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isEditing, setIsEditing] = useState({
@@ -670,11 +710,12 @@ export default function EditAssessment({ data, back, tryAgain, downloadPdf }) {
                     <IoSaveSharp className="w-7 h-7" />
                     <p className="text-[#666666] text-center text-[13px]">Save</p>
                 </div>
-                <div onClick={()=> downloadPdf()} className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
+                <div onClick={handlePrint} className="py-4 cursor-pointer flex justify-center items-center bg-white flex-col gap-1 border border-[#A9A9A9] rounded-lg">
                     <MdDownload className="w-7 h-7" />
                     <p className="text-[#666666] text-center text-[13px]">Download</p>
                 </div>
             </div>
         </div>
+        <PDF data={tempData} ref={componentRef} />
     </>);
 }
