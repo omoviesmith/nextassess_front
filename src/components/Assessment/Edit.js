@@ -10,6 +10,7 @@ import Modal from "./Modal/Modal";
 import { useReactToPrint } from "react-to-print";
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
 import PDF from "./PDF/PDF";
+import Markdown from "../Markdown/Markdown";
 
 export default function EditAssessment({ data, back = () => { window?.history.back(); }, tryAgain, downloadPdf }) {
     const componentRef = useRef();
@@ -73,7 +74,7 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
         percentage_weighting: data?.percentage_weighting || '',
         due_date: data?.due_date || '',
         assessment_description: data?.assessment_description || [],
-        submission_requirements: data?.submission_requirements || [],
+        submission_requirements: `<ul>${data.submission_requirements?.map(item => `<li>${item}</li>`).join('')}</ul>` || null,
         marking_rubric: data?.marking_rubric || [],
     });
 
@@ -93,9 +94,9 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
         setTempData({ ...tempData, [field]: e.target.value });
     };
 
-    const handleLearningOutcomeChange = (e) => {
-        const updatedLearningOutcomes = e.target.value.split('\n');
-        setTempData({ ...tempData, submission_requirements: updatedLearningOutcomes });
+    const handleSubmissionRequirementsChange = (value) => {
+        console.log(value);
+        setTempData({ ...tempData, submission_requirements: value })
     };
 
     const handleRubricChange = (index, field, value) => {
@@ -135,7 +136,12 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
     };
 
     const handleSave = async (field) => {
+        let requirementsArray = null;
         if (field === 'submission_requirements') {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(tempData.submission_requirements, 'text/html');
+            const listItems = htmlDoc.querySelectorAll('li');
+            requirementsArray = Array.from(listItems).map(li => li.innerText);
             setFormData({ ...formData, submission_requirements: tempData.submission_requirements });
             setIsEditing({ ...isEditing, submission_requirements: -1 });
         } else if (field === 'marking_rubric') {
@@ -151,12 +157,13 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
         setLoading(true);
         try {
             const updatedData = { ...formData, [field]: tempData[field] };
+            const requestBody = { ...updatedData, submission_requirements: requirementsArray };
             const res = await fetch(`https://e4eap2uqdz.ap-southeast-2.awsapprunner.com/api/assessments/${formData.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(updatedData)
+                body: JSON.stringify(requestBody)
             });
             const data = await res.json();
             showToast.success('Edited successfully!');
@@ -168,6 +175,7 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
             throw new Error(error);
         }
     };
+    
 
     const handleCancel = (field) => {
         setShowModal(false);
@@ -181,7 +189,7 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
                 <IoMdArrowBack className="w-5 h-5" /> Back
             </button>
         </div>
-        <div className="my-7">
+        <div className="my-7 edit-container">
             <div className="md:w-2/3 mx-auto bg-white rounded-[10px] border border-[#A9A9A9] p-7">
                 <div className="flex justify-between items-center p-4 bg-[#E8E9FC] rounded">
                     {
@@ -510,12 +518,13 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
                     {isEditing.submission_requirements !== -1 ? (
                         <Modal isOpen={showModal} onClose={() => handleCancel('submission_requirements')}>
                             <div>
-                                <textarea
-                                    value={tempData.submission_requirements.join('\n')}
-                                    onChange={handleLearningOutcomeChange}
+                                <Markdown value={tempData.submission_requirements} setValue={handleSubmissionRequirementsChange} />
+                                {/* <textarea
+                                    value={tempData.submission_requirements.map(item => `• ${item}`).join('\n')}
+                                    onChange={handleSubmissionRequirementsChange}
                                     className="w-full border border-gray-300 rounded px-2 py-1"
                                     rows="10"
-                                />
+                                /> */}
                                 <div className="flex gap-3 mt-3">
                                     <button
                                         onClick={() => handleSave('submission_requirements')}
@@ -533,13 +542,14 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
                             </div>
                         </Modal>
                     ) : (
-                        <ul className="m-0 list-disc mt-3 pl-4">
-                            {formData.submission_requirements.map((outcome, index) => (
-                                <li key={index} className="text-[#666666] font-normal text-sm leading-[26px] mb-1">
-                                    {outcome}
-                                </li>
-                            ))}
-                        </ul>
+                        <div className="mt-3 pl-4" dangerouslySetInnerHTML={{ __html: formData.submission_requirements }}></div>
+                        // <ul className="m-0 list-disc mt-3 pl-4">
+                        //     {formData.submission_requirements.map((outcome, index) => (
+                        //         <li key={index} className="text-[#666666] font-normal text-sm leading-[26px] mb-1">
+                        //             {outcome}
+                        //         </li>
+                        //     ))}
+                        // </ul>
                     )}
                 </div>
 

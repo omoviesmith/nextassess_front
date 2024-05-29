@@ -5,7 +5,7 @@ import './pdf.css'
 
 const PDF = forwardRef((props, ref) => {
     return (
-        <div id="container" ref={ref} className="w-full bg-white container-pdf rounded-[10px] border border-[#A9A9A9] mt-5 hidden">
+        <div id="container" ref={ref} className="w-full edit-container bg-white container-pdf rounded-[10px] border border-[#A9A9A9] mt-5 hidden">
             <div className="p-8">
                 <h1 className="text-black text-3xl font-bold mb-3">
                     {props?.data?.title_assessment}
@@ -78,15 +78,7 @@ const PDF = forwardRef((props, ref) => {
                 <h6 className="text-black font-bold text-[15px] leading-[26px]">
                     Submission Requirements
                 </h6>
-                <ul className="m-0 list-disc pl-4">
-                    {
-                        props?.data?.submission_requirements.map((outcome, index) => (
-                            <li key={index} className="text-[#666666] font-normal text-sm leading-[26px]">
-                                {outcome}
-                            </li>
-                        ))
-                    }
-                </ul>
+                <div className="pl-4" dangerouslySetInnerHTML={{ __html: props?.data?.submission_requirements }}></div>
             </div>
             <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
             <div className="w-full py-8 px-4">
