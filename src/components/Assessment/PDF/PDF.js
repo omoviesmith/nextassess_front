@@ -52,26 +52,7 @@ const PDF = forwardRef((props, ref) => {
                 <h6 className="text-black font-bold text-[15px] leading-[26px]">
                     Assessment Description:{" "}
                 </h6>
-                {
-                    props?.data?.assessment_description?.map((item, index) => (
-                        <div key={index}>
-                            {Object.keys(item).map((sectionKey) => (
-                                <div key={sectionKey} className="mb-1">
-                                    <h6 className="text-[#666666] font-bold text-[15px] leading-[26px] capitalize">
-                                        {sectionKey.replace(/_/g, ' ')}
-                                    </h6>
-                                    <ul>
-                                        {item[sectionKey].map((listItem, itemIndex) => (
-                                            <li key={itemIndex} className="text-[#666666] font-normal text-[15px] leading-[26px]">
-                                                {listItem}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
-                        </div>
-                    ))
-                }
+                <div className="assessment-description pl-4" dangerouslySetInnerHTML={{ __html: props?.data?.assessment_description }}></div>
             </div>
             <div className="m-0 h-[1px] bg-[#A9A9A9]"></div>
             <div className="px-8 py-6">

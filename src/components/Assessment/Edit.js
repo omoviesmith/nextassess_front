@@ -73,7 +73,16 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
         assessment_unit: data?.assessment_unit || '',
         percentage_weighting: data?.percentage_weighting || '',
         due_date: data?.due_date || '',
-        assessment_description: data?.assessment_description || [],
+        assessment_description: data.assessment_description
+            ? data.assessment_description.map(section =>
+                Object.entries(section).map(([key, value]) =>
+                    `<div>
+                        <h6 className='text-capitalize'>${key.replace(/_/g, ' ')}</h6>
+                        <ul>${value.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>`
+                ).join('')
+            ).join('')
+            : null,
         submission_requirements: `<ul>${data.submission_requirements?.map(item => `<li>${item}</li>`).join('')}</ul>` || null,
         marking_rubric: data?.marking_rubric || [],
     });
@@ -95,8 +104,8 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
     };
 
     const handleSubmissionRequirementsChange = (value) => {
-        console.log(value);
         setTempData({ ...tempData, submission_requirements: value })
+        setFormData({ ...formData, submission_requirements: value })
     };
 
     const handleRubricChange = (index, field, value) => {
@@ -105,49 +114,33 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
         setTempData({ ...tempData, marking_rubric: updatedRubric });
     };
 
-    const handleTextareaChange = (e) => {
-        const lines = e.target.value.split('\n');
-        let updatedDescription = [];
-        let currentSection = {};
-        let currentKey = "";
-
-        lines.forEach(line => {
-            if (line.trim() !== "") {
-                if (!currentKey) {
-                    currentKey = line.trim();
-                    currentSection[currentKey] = [];
-                } else {
-                    currentSection[currentKey].push(line.trim());
-                }
-            } else {
-                if (currentKey) {
-                    updatedDescription.push(currentSection);
-                    currentSection = {};
-                    currentKey = "";
-                }
-            }
-        });
-
-        if (currentKey) {
-            updatedDescription.push(currentSection);
-        }
-
-        setTempData({ ...tempData, assessment_description: updatedDescription });
+    const handleTextareaChange = (value) => {
+        setTempData({ ...tempData, assessment_description: value });
+        setFormData({ ...formData, assessment_description: value });
     };
 
     const handleSave = async (field) => {
         let requirementsArray = null;
+        let assessmentDescriptionObject = null;
         if (field === 'submission_requirements') {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(tempData.submission_requirements, 'text/html');
             const listItems = htmlDoc.querySelectorAll('li');
             requirementsArray = Array.from(listItems).map(li => li.innerText);
-            setFormData({ ...formData, submission_requirements: tempData.submission_requirements });
             setIsEditing({ ...isEditing, submission_requirements: -1 });
         } else if (field === 'marking_rubric') {
             setFormData({ ...formData, marking_rubric: tempData.marking_rubric });
             setIsEditing({ ...isEditing, marking_rubric: -1 });
         } else if (field === 'assessment_description') {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(tempData.assessment_description, 'text/html');
+            const sections = htmlDoc.querySelectorAll('div');
+            assessmentDescriptionObject = Array.from(sections).reduce((acc, section) => {
+                const key = section.querySelector('h6').innerText.replace(/ /g, '_');
+                const values = Array.from(section.querySelectorAll('li')).map(li => li.innerText);
+                acc[key] = values;
+                return acc;
+            }, {});
             setFormData({ ...formData, assessment_description: tempData.assessment_description });
             setIsEditing({ ...isEditing, assessment_description: -1, descriptionIndex: -1 });
         } else {
@@ -156,8 +149,15 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
         }
         setLoading(true);
         try {
-            const updatedData = { ...formData, [field]: tempData[field] };
-            const requestBody = { ...updatedData, submission_requirements: requirementsArray };
+            let requestBody;
+            const updatedData = { [field]: tempData[field] };
+            if(field === 'submission_requirements') {
+                requestBody = { submission_requirements: requirementsArray };
+            } else if (field === 'assessment_description') {
+                requestBody = { assessment_description: [assessmentDescriptionObject] };
+            } else {
+                requestBody = updatedData;
+            }
             const res = await fetch(`https://e4eap2uqdz.ap-southeast-2.awsapprunner.com/api/assessments/${formData.id}`, {
                 method: 'PUT',
                 headers: {
@@ -447,16 +447,7 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
                     {isEditing.assessment_description !== -1 ? (
                         <Modal isOpen={showModal} onClose={() => handleCancel('assessment_description')}>
                             <div>
-                                <textarea
-                                    value={tempData.assessment_description.map(section =>
-                                        Object.keys(section).map(key =>
-                                            [key, ...section[key]].join('\n')
-                                        ).join('\n\n')
-                                    ).join('\n\n')}
-                                    onChange={(e) => handleTextareaChange(e)}
-                                    className="w-full border border-gray-300 rounded px-2 py-1"
-                                    rows="10"
-                                />
+                                <Markdown value={tempData.assessment_description} setValue={handleTextareaChange} />
                                 <div className="flex gap-3 mt-3">
                                     <button
                                         onClick={() => handleSave('assessment_description')}
@@ -474,30 +465,7 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
                             </div>
                         </Modal>
                     ) : (
-                        <div>
-                            <ul>
-                                {formData.assessment_description.map((item, sectionIndex) => (
-                                    <div key={sectionIndex}>
-                                        {Object.keys(item).map((sectionKey) => (
-                                            <div key={sectionKey} className="mb-1">
-                                                <h6 className="text-[#666666] font-bold text-[15px] leading-[26px] capitalize">
-                                                    {sectionKey.replace(/_/g, ' ')}
-                                                </h6>
-                                                <ul>
-                                                    {
-                                                        item[sectionKey].map((listItem, itemIndex) => (
-                                                            <li key={`${sectionIndex}-${sectionKey}-${itemIndex}`} className="text-[#666666] font-normal text-[15px] leading-[26px] mb-1">
-                                                                {listItem}
-                                                            </li>
-                                                        ))
-                                                    }
-                                                </ul>
-                                            </div>
-                                        ))}
-                                    </div>
-                                ))}
-                            </ul>
-                        </div>
+                        <div className="assessment-description pl-4" dangerouslySetInnerHTML={{ __html: tempData.assessment_description }}></div>
                     )}
                 </div>
                 <div className="p-4 bg-[#E8E9FC] rounded mt-4">

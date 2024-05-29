@@ -77,3 +77,19 @@ textarea::placeholder {
 .edit-container ul {
     list-style: disc !important;
 }
+
+.assessment-description h6 {
+    color: #666666;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 26px;
+    text-transform: capitalize;
+}
+
+.assessment-description li {
+    color: #666666;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 26px;
+    margin-bottom: 5px;
+}
