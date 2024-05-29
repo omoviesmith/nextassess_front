@@ -66,7 +66,7 @@ export default function Describe() {
                         <h1 className="text-center text-[#202123] font-bold text-5xl leading-[64px] font-serif mb-1">Describe Assessment</h1>
                         <p className="text-[#202123] text-center font-semibold text-base leading-[18px]">Describe your assessment in detail </p>
                         <div className="flex justify-center mt-2">
-                            <Image src='/sun.svg' width='20' height='20' />
+                            <Image src='/sun.svg' alt="sun" width='20' height='20' />
                         </div>
                     </div>
                     <form onSubmit={handleSubmit} className=" md:w-1/2 mx-auto">

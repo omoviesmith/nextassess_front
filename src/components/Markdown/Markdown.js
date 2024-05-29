@@ -9,14 +9,12 @@ export default function Markdown({ value, setValue, placeholder }) {
             init={{
                 placeholder:`${placeholder}`,
                 height:300,
-                plugins:[
-                    'fullscreen',
-                    'wordcount','table',],
+                plugins:['wordcount', 'lists'],
                 toolbar: 'undo redo | styles | ' +
-                    'bold italic backcolor | alignleft aligncenter ' +
+                    'bold italic | alignleft aligncenter ' +
                     'alignright alignjustify | bullist numlist outdent indent | ' +
-                    'removeformat | fullscreen',
-                menubar: 'file edit view insert format'
+                    'removeformat',
+                menubar: false
             }} 
         />
     )
