@@ -10,10 +10,8 @@ export default function Markdown({ value, setValue, placeholder }) {
                 placeholder:`${placeholder}`,
                 height:300,
                 plugins:['wordcount', 'lists'],
-                toolbar: 'undo redo | styles | ' +
-                    'bold italic | alignleft aligncenter ' +
-                    'alignright alignjustify | bullist numlist outdent indent | ' +
-                    'removeformat',
+                toolbar: 'bold italic | bullist numlist outdent indent | undo redo | styles | ' +
+                    'alignleft aligncenter alignright alignjustify | ' + 'removeformat',
                 menubar: false
             }} 
         />
