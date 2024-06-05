@@ -27,6 +27,9 @@ export default function Admin() {
                     <Link href='/admin/assessment/upload' className="m-0 cursor-pointer shadow-[0px 4px 19.5px 0px #0000001A] relative">
                         <div className="bg-[#CBFFFE] rounded-tl-xl rounded-tr-xl flex justify-center items-center p-3 h-48">
                             <svg width="293" height="196" viewBox="0 0 293 196" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 14C0 6.26802 6.26801 0 14 0H279C286.732 0 293 6.26801 293 14V196H0V14Z" fill="#CBFFFE"></path><path d="M42 73.4702C42 68.5178 46.4542 64.7551 51.337 65.5828L145.163 81.4876C146.048 81.6377 146.952 81.6377 147.837 81.4876L241.663 65.5828C246.546 64.7551 251 68.5178 251 73.4702V178.032C251 183.149 246.264 186.95 241.269 185.843L148.231 165.219C147.091 164.966 145.909 164.966 144.769 165.219L51.7314 185.843C46.7363 186.95 42 183.149 42 178.032V73.4702Z" fill="#AAF2F1"></path><rect x="65" y="101" width="164" height="5" rx="2.5" fill="white"></rect><rect x="65" y="127" width="164" height="5" rx="2.5" fill="white"></rect><rect x="65" y="114" width="85" height="5" rx="2.5" fill="white"></rect><rect x="65" y="140" width="85" height="5" rx="2.5" fill="white"></rect><rect x="157" y="114" width="72" height="5" rx="2.5" fill="white"></rect><rect x="157" y="140" width="72" height="5" rx="2.5" fill="white"></rect></svg>
+                            <div className="absolute right-0 top-5 bg-[#D2CEFE] rounded-l-full py-1 px-4">
+                                <span className="text-[#3C3838] font-bold text-sm">Popular</span>
+                            </div>
                         </div>
                         <div className="bg-white py-4 px-4">
                             <h3 className="text-[#3C3838] text-lg font-semibold leading-[27px]">Upload Assessment</h3>
