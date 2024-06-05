@@ -26,19 +26,7 @@ export default function Admin() {
                 <div className="grid grid-col-1 md:grid-cols-3 gap-6 w-4/5 md:w-3/4 mx-auto">
                     <Link href='/admin/assessment/upload' className="m-0 cursor-pointer shadow-[0px 4px 19.5px 0px #0000001A] relative">
                         <div className="bg-[#CBFFFE] rounded-tl-xl rounded-tr-xl flex justify-center items-center p-3 h-48">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="210" height="122" viewBox="0 0 210 122" fill="none">
-                                <path d="M0.5 8.47024C0.5 3.51775 4.95421 -0.244946 9.83704 0.582766L103.663 16.4876C104.548 16.6377 105.452 16.6377 106.337 16.4876L200.163 0.582767C205.046 -0.244945 209.5 3.51775 209.5 8.47024V113.032C209.5 118.149 204.764 121.95 199.769 120.843L106.731 100.219C105.591 99.9662 104.409 99.9662 103.269 100.219L10.2314 120.843C5.23635 121.95 0.5 118.149 0.5 113.032V8.47024Z" fill="#AAF2F1" />
-                            </svg>
-                            <div className="absolute left-0 w-full h-auto top-[22%] flex justify-center items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="165" height="44" viewBox="0 0 165 44" fill="none">
-                                    <rect x="0.5" width="164" height="5" rx="2.5" fill="white" />
-                                    <rect x="0.5" y="26" width="164" height="5" rx="2.5" fill="white" />
-                                    <rect x="0.5" y="13" width="85" height="5" rx="2.5" fill="white" />
-                                    <rect x="0.5" y="39" width="85" height="5" rx="2.5" fill="white" />
-                                    <rect x="92.5" y="13" width="72" height="5" rx="2.5" fill="white" />
-                                    <rect x="92.5" y="39" width="72" height="5" rx="2.5" fill="white" />
-                                </svg>
-                            </div>
+                            <svg width="293" height="196" viewBox="0 0 293 196" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 14C0 6.26802 6.26801 0 14 0H279C286.732 0 293 6.26801 293 14V196H0V14Z" fill="#CBFFFE"></path><path d="M42 73.4702C42 68.5178 46.4542 64.7551 51.337 65.5828L145.163 81.4876C146.048 81.6377 146.952 81.6377 147.837 81.4876L241.663 65.5828C246.546 64.7551 251 68.5178 251 73.4702V178.032C251 183.149 246.264 186.95 241.269 185.843L148.231 165.219C147.091 164.966 145.909 164.966 144.769 165.219L51.7314 185.843C46.7363 186.95 42 183.149 42 178.032V73.4702Z" fill="#AAF2F1"></path><rect x="65" y="101" width="164" height="5" rx="2.5" fill="white"></rect><rect x="65" y="127" width="164" height="5" rx="2.5" fill="white"></rect><rect x="65" y="114" width="85" height="5" rx="2.5" fill="white"></rect><rect x="65" y="140" width="85" height="5" rx="2.5" fill="white"></rect><rect x="157" y="114" width="72" height="5" rx="2.5" fill="white"></rect><rect x="157" y="140" width="72" height="5" rx="2.5" fill="white"></rect></svg>
                         </div>
                         <div className="bg-white py-4 px-4">
                             <h3 className="text-[#3C3838] text-lg font-semibold leading-[27px]">Upload Assessment</h3>
@@ -47,17 +35,7 @@ export default function Admin() {
                     </Link>
                     <Link href='/admin/assessment/describe' className="m-0 cursor-pointer shadow-[0px 4px 19.5px 0px #0000001A] relative">
                         <div className="bg-[#CBFFFE] rounded-tl-xl rounded-tr-xl flex justify-center items-center p-3 h-48">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="279" height="196" viewBox="0 0 279 196" fill="none">
-                                <path d="M139.5 -32L153.242 55.7158L209 -13.3775L177.043 69.4574L259.878 37.5L190.784 93.2584L278.5 107L190.784 120.742L259.878 176.5L177.043 144.543L209 227.378L153.242 158.284L139.5 246L125.758 158.284L70 227.378L101.957 144.543L19.1225 176.5L88.2158 120.742L0.5 107L88.2158 93.2584L19.1225 37.5L101.957 69.4574L70 -13.3775L125.758 55.7158L139.5 -32Z" fill="#AAF2F1" />
-                            </svg>
-                            <div className="absolute left-0 w-full h-auto top-[22%] flex justify-center items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="absolute" width="210" height="35" viewBox="0 0 210 35" fill="none">
-                                    <rect x="0.5" width="209" height="35" rx="5" fill="white" />
-                                </svg>
-                                <svg className="relative" xmlns="http://www.w3.org/2000/svg" width="53" height="54" viewBox="0 0 53 54" fill="none">
-                                    <path d="M25.5621 1.5345C25.8843 0.663885 27.1157 0.663888 27.4379 1.53451L33.903 19.0062C34.0043 19.2799 34.2201 19.4957 34.4938 19.597L51.9655 26.0621C52.8361 26.3843 52.8361 27.6157 51.9655 27.9379L34.4938 34.403C34.2201 34.5043 34.0043 34.7201 33.903 34.9938L27.4379 52.4655C27.1157 53.3361 25.8843 53.3361 25.5621 52.4655L19.097 34.9938C18.9957 34.7201 18.7799 34.5043 18.5062 34.403L1.0345 27.9379C0.163885 27.6157 0.163888 26.3843 1.03451 26.0621L18.5062 19.597C18.7799 19.4957 18.9957 19.2799 19.097 19.0062L25.5621 1.5345Z" fill="#84BEBD" />
-                                </svg>
-                            </div>
+                            <svg width="293" height="196" viewBox="0 0 278 196" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_103_355)"><path d="M139 -32L152.742 55.7158L208.5 -13.3775L176.543 69.4574L259.378 37.5L190.284 93.2584L278 107L190.284 120.742L259.378 176.5L176.543 144.543L208.5 227.378L152.742 158.284L139 246L125.258 158.284L69.5 227.378L101.457 144.543L18.6225 176.5L87.7158 120.742L0 107L87.7158 93.2584L18.6225 37.5L101.457 69.4574L69.5 -13.3775L125.258 55.7158L139 -32Z" fill="#AAF2F1"></path></g><rect x="33" y="81" width="209" height="35" rx="5" fill="white"></rect><rect x="90" y="90" width="130" height="5" rx="2.5" fill="#91FBF8"></rect><rect x="90" y="101" width="67" height="5" rx="2.5" fill="#91FBF8"></rect><rect x="163" y="101" width="57" height="5" rx="2.5" fill="#91FBF8"></rect><defs><clipPath id="clip0_103_355"><rect width="278" height="196" fill="white"></rect></clipPath></defs></svg>
                         </div>
                         <div className="bg-white py-4 px-4">
                             <h3 className="text-[#3C3838] text-lg font-semibold leading-[27px]">Describe Assessment</h3>
@@ -66,20 +44,7 @@ export default function Admin() {
                     </Link>
                     <Link href='/admin/assessment/programmatic' className="m-0 shadow-[0px 4px 19.5px 0px #0000001A] relative">
                         <div className="bg-[#CBFFFE] rounded-tl-xl rounded-tr-xl flex justify-center items-center p-3 h-48">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="210" height="150" viewBox="0 0 210 150" fill="none">
-                                <path d="M0.5 32.2826C0.5 28.5948 3.02086 25.3849 6.60349 24.5106L103.103 0.962785C104.35 0.658723 105.65 0.658722 106.897 0.962784L203.396 24.5106C206.979 25.3849 209.5 28.5948 209.5 32.2826V142C209.5 146.418 205.918 150 201.5 150H105H8.5C4.08172 150 0.5 146.418 0.5 142V32.2826Z" fill="#AAF2F1" />
-                            </svg>
-                            <div className="absolute left-0 w-full h-auto top-[25%] flex justify-center items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="165" height="57" viewBox="0 0 165 57" fill="none">
-                                    <rect x="0.5" width="164" height="5" rx="2.5" fill="white" />
-                                    <rect x="0.5" y="52" width="164" height="5" rx="2.5" fill="white" />
-                                    <rect x="0.5" y="26" width="164" height="5" rx="2.5" fill="white" />
-                                    <rect x="0.5" y="13" width="85" height="5" rx="2.5" fill="white" />
-                                    <rect x="0.5" y="39" width="85" height="5" rx="2.5" fill="white" />
-                                    <rect x="92.5" y="13" width="72" height="5" rx="2.5" fill="white" />
-                                    <rect x="92.5" y="39" width="72" height="5" rx="2.5" fill="white" />
-                                </svg>
-                            </div>
+                            <svg width="293" height="196" viewBox="0 0 293 196" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 14C0 6.26802 6.26801 0 14 0H279C286.732 0 293 6.26801 293 14V196H0V14Z" fill="#CBFFFE"></path><path d="M82 0L89.4145 47.3287L119.5 10.0481L102.257 54.7432L146.952 37.5L109.671 67.5855L157 75L109.671 82.4145L146.952 112.5L102.257 95.2568L119.5 139.952L89.4145 102.671L82 150L74.5855 102.671L44.5 139.952L61.7432 95.2568L17.0481 112.5L54.3287 82.4145L7 75L54.3287 67.5855L17.0481 37.5L61.7432 54.7432L44.5 10.0481L74.5855 47.3287L82 0Z" fill="#AAF2F1"></path><path d="M221 0L227.327 40.3871L253 8.57438L238.286 46.7142L276.426 32L244.613 57.673L285 64L244.613 70.327L276.426 96L238.286 81.2858L253 119.426L227.327 87.6129L221 128L214.673 87.6129L189 119.426L203.714 81.2858L165.574 96L197.387 70.327L157 64L197.387 57.673L165.574 32L203.714 46.7142L189 8.57438L214.673 40.3871L221 0Z" fill="#AAF2F1"></path><path d="M42 70.2826C42 66.5948 44.5209 63.3849 48.1035 62.5106L144.603 38.9628C145.85 38.6587 147.15 38.6587 148.397 38.9628L244.896 62.5106C248.479 63.3849 251 66.5948 251 70.2826V180C251 184.418 247.418 188 243 188H146.5H50C45.5817 188 42 184.418 42 180V70.2826Z" fill="#AAF2F1"></path><rect x="65" y="101" width="164" height="5" rx="2.5" fill="white"></rect><rect x="65" y="153" width="164" height="5" rx="2.5" fill="white"></rect><rect x="65" y="127" width="164" height="5" rx="2.5" fill="white"></rect><rect x="65" y="114" width="85" height="5" rx="2.5" fill="white"></rect><rect x="65" y="140" width="85" height="5" rx="2.5" fill="white"></rect><rect x="157" y="114" width="72" height="5" rx="2.5" fill="white"></rect><rect x="157" y="140" width="72" height="5" rx="2.5" fill="white"></rect></svg>
                         </div>
                         <div className="bg-white py-4 px-4">
                             <h3 className="text-[#3C3838] text-lg font-semibold leading-[27px]">Programmatic Assessment</h3>
