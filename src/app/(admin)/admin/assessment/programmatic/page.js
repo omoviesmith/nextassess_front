@@ -110,12 +110,19 @@ export default function Programmatic() {
                     <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="number" placeholder="No. of Assessments" />
                 </div>
                 <div className="mt-4 mb-8 relative">
-                    <label htmlFor="ratio" className="block mb-2 text-md font-medium text-gray-900">
-                        Ratio of Human-Centric to AI-Integrated Assessments:
-                    </label>
-                    <label className="block text-center text-gray-500" id="ratio-value">
-                        {`${ratio}/${100 - ratio}`}
-                    </label>
+                    <div className="flex justify-between items-center">
+                        <label htmlFor="ratio" className="block mb-0 text-md font-medium text-gray-900">
+                            AI Integrated
+                        </label>
+                        <label htmlFor="ratio" className="block mb-0 text-md font-medium text-gray-900">
+                            Human Centric
+                        </label>
+                    </div>
+                    <div className="flex justify-center">
+                        <span className="block text-center text-black px-3 py-2 mb-2 bg-white shadow-md rounded-md" id="ratio-value">
+                            {`${ratio}/${100 - ratio}`}
+                        </span>
+                    </div>
                     <input
                         type="range"
                         min="0"
@@ -123,7 +130,7 @@ export default function Programmatic() {
                         step="10"
                         id="ratio"
                         name="ratio"
-                        className="w-full bg-gray-200 appearance-none h-3 p-0 border border-gray-200 rounded-md focus:outline-none focus:ring-0 focus:border-blue-500"
+                        className="w-full appearance-none h-3 p-0 rounded-md focus:outline-none focus:ring-0"
                         value={ratio}
                         onChange={handleSliderChange}
                     />
