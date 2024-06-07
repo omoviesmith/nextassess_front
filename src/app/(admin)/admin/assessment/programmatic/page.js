@@ -64,11 +64,11 @@ export default function Programmatic() {
             <form onSubmit={handleSubmit} className=" md:w-1/2 mx-auto">
                 <div>
                     <MdOutlineCalendarToday className="relative top-8 left-5" />
-                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Program" />
+                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Program Name" />
                 </div>
                 <div>
                     <IoBulbOutline className="relative top-8 left-5" />
-                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Units/Courses Incluses" />
+                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Units/Courses Inclused" />
                 </div>
                 <div>
                     <div className="relative inline-block text-left mt-3 w-full" ref={dropdownRef}>
@@ -107,39 +107,41 @@ export default function Programmatic() {
                 </div>
                 <div>
                     <MdNumbers className="relative top-8 left-5" />
-                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="number" placeholder="No. of Assessments" />
+                    <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="number" placeholder="Number of Assessments (optional)" />
                 </div>
                 <div className="mt-4 mb-8 relative">
-                    <div className="flex justify-between items-center">
-                        <label htmlFor="ratio" className="block mb-0 text-md font-medium text-gray-900">
+                    <div className="flex justify-between items-center bg-white rounded-md p-2">
+                        <label htmlFor="ratio" className="mb-0 text-sm w-1/5 font-medium text-gray-900">
                             AI Integrated
                         </label>
-                        <label htmlFor="ratio" className="block mb-0 text-md font-medium text-gray-900">
+                        <div className="m-0 w-3/5">
+                            <div className="flex justify-center">
+                                <span className="block text-center text-black text-xs font-bold" id="ratio-value">
+                                    {`${ratio}/${100 - ratio}`}
+                                </span>
+                            </div>
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="10"
+                                id="ratio"
+                                name="ratio"
+                                className="w-full appearance-none h-3 p-0 rounded-md focus:outline-none focus:ring-0"
+                                value={ratio}
+                                onChange={handleSliderChange}
+                            />
+                        </div>
+                        <label htmlFor="ratio" className="mb-0 text-sm w-1/5 font-medium text-gray-900 text-end">
                             Human Centric
                         </label>
                     </div>
-                    <div className="flex justify-center">
-                        <span className="block text-center text-black px-3 py-2 mb-2 bg-white shadow-md rounded-md" id="ratio-value">
-                            {`${ratio}/${100 - ratio}`}
-                        </span>
-                    </div>
-                    <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        step="10"
-                        id="ratio"
-                        name="ratio"
-                        className="w-full appearance-none h-3 p-0 rounded-md focus:outline-none focus:ring-0"
-                        value={ratio}
-                        onChange={handleSliderChange}
-                    />
                 </div>
                 <div className="mt-4">
                     <Markdown placeholder='Learning Outcomes of Program' value={learningOutcome} setValue={setLearningOutcome} />
                 </div>
                 <div className="mt-4">
-                    <Markdown placeholder='Additional Note' value={additionalNote} setValue={setAdditionalNote} />
+                    <Markdown placeholder='Additional Requirements' value={additionalNote} setValue={setAdditionalNote} />
                 </div>
                 <div className="mt-3">
                     <button type="submit" className={`w-full text-center rounded-lg py-3 px-6 font-bold text-base bg-[#CBFFFE]`}>Submit</button>
