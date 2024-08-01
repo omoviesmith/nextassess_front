@@ -158,7 +158,7 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
             } else {
                 requestBody = updatedData;
             }
-            const res = await fetch(`https://e4eap2uqdz.ap-southeast-2.awsapprunner.com/api/assessments/${formData.id}`, {
+            const res = await fetch(`https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments/${formData.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

@@ -9,7 +9,7 @@ const Table = dynamic(() => import('@/components/Assessment/Table'),{
 
 const fetchData = async () => {
   try {
-    const res = await fetch('https://e4eap2uqdz.ap-southeast-2.awsapprunner.com/api/assessments', {
+    const res = await fetch('https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments', {
       cache: 'no-store', // to ensure fresh data on every request
     });
     if (!res.ok) {

@@ -5,7 +5,7 @@ const EditAssessment = dynamic(() => import('@/components/Assessment/Edit'),{
 
 const fetchData = async (id) => {
     try {
-      const res = await fetch(`https://e4eap2uqdz.ap-southeast-2.awsapprunner.com/api/assessments/${id}`, {
+      const res = await fetch(`https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments/${id}`, {
         cache: 'no-store', // to ensure fresh data on every request
       });
       if (!res.ok) {
