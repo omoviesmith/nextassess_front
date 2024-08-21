@@ -22,10 +22,10 @@ export default function AssessmentPreference({ text, setUploadResponse }) {
         setType(apiType);
         setLoading(true);
         try {
-            const requestPayload = {text};
+            const requestPayload = {text_content: text};
             const url = apiType === 'ai' ? 
-                'https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/ai-assessment' : 
-                'https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/human-assessment';
+                'https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments/ai' : 
+                'https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments/human';
             const res = await fetch(url, {
                 method: 'POST',
                 headers: {

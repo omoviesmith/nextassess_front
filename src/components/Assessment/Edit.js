@@ -73,8 +73,8 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
         assessment_unit: data?.assessment_unit || '',
         percentage_weighting: data?.percentage_weighting || '',
         due_date: data?.due_date || '',
-        assessment_description: data.assessment_description
-            ? data.assessment_description.map(section =>
+        assessment_description: data?.assessment_description
+            ? data?.assessment_description.map(section =>
                 Object.entries(section).map(([key, value]) =>
                     `<div>
                         <h6 className='text-capitalize'>${key.replace(/_/g, ' ')}</h6>
@@ -83,7 +83,7 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
                 ).join('')
             ).join('')
             : null,
-        submission_requirements: `<ul>${data.submission_requirements?.map(item => `<li>${item}</li>`).join('')}</ul>` || null,
+        submission_requirements: `<ul>${data?.submission_requirements?.map(item => `<li>${item}</li>`).join('')}</ul>` || null,
         marking_rubric: data?.marking_rubric || [],
     });
 
@@ -158,7 +158,7 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
             } else {
                 requestBody = updatedData;
             }
-            const res = await fetch(`https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments/${formData.id}`, {
+            const res = await fetch(`https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments/${formData.shardId}/${formData.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
