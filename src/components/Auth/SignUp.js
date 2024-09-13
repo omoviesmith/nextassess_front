@@ -99,7 +99,7 @@ export default function SignUp({ isOpen, onClose }) {
                         Host: "5uzhjd2hd7.ap-southeast-2.awsapprunner.com"
                     }
                 }
-                const res = await fetch('https://5uzhjd2hd7.ap-southeast-2.awsapprunner.com/register_tenant', {
+                const res = await fetch('https://5uzhjd2hd7.ap-southeast-2.awsapprunner.com/api/register_tenant', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
