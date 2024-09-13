@@ -93,7 +93,7 @@ export default function SignUp({ isOpen, onClose }) {
                         password: formData.get('password')
                     },
                     requestContext: {
-                        stage: ""
+                        stage: "api"
                     },
                     headers: {
                         Host: "5uzhjd2hd7.ap-southeast-2.awsapprunner.com"
