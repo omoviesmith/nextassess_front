@@ -6,15 +6,20 @@ import { MdLockOpen } from "react-icons/md";
 import { LuEye, LuEyeOff  } from "react-icons/lu";
 import Modal from "../Modal/Modal";
 import { useState } from "react";
-import ForgetPassword from "./ForgetPassword";
 import SignUp from "./SignUp";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import { showToast } from 'react-next-toast';
+import SetPassword from "./SetPassword";
 
 export default function SignIn({ isOpen, onClose }) {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [showForgetPassword, setShowForgetPassword] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
+    const [loading, setLoading] = useState(false);
+    
+    // Validation states
+    const [errors, setErrors] = useState({});
     function handleShowForgetPassword() {
         setShowForgetPassword(true);
     }
@@ -29,14 +34,57 @@ export default function SignIn({ isOpen, onClose }) {
         setShowSignup(false);
         onClose();
     }
-    function handleSubmit(e) {
+    function validateForm(formValues) {
+        const newErrors = {};
+
+        if (!formValues.username) {
+            newErrors.username = "UserName is required.";
+        }
+
+        if (!formValues.password) {
+            newErrors.password = "Password is required.";
+        }
+
+        return newErrors;
+    }
+    async function handleSubmit(e) {
         e.preventDefault();
-        router.push('/assessments');
+        try {
+            const formData = new FormData(e.target);
+            const formValues = {
+                username: formData.get('username'),
+                password: formData.get('password')
+            };
+            const newErrors = validateForm(formValues);
+            if (Object.keys(newErrors).length === 0) {
+                setLoading(true);
+                const res = await fetch('https://5uzhjd2hd7.ap-southeast-2.awsapprunner.com/api/login', {
+                    method: 'POST',
+                    body: formData
+                });
+                const parsedResponse = await res.json();
+                if (res.ok) {
+                    setLoading(false);
+                    showToast.success('Logged in successfully!');
+                    router.push('/assessments');
+                } else {
+                    setLoading(false);
+                    showToast.error('Something went wrong. Please try again!');
+                } 
+            } else {
+                setLoading(false);
+                showToast.error('Something went wrong. Please try again!');
+                setErrors(newErrors);
+            }
+        } catch (error) {
+            setLoading(false);
+            showToast.error('Something went wrong. Please try again!');
+        }
     }
     return (<>
         {
             showForgetPassword ? (
-                <ForgetPassword isOpen={showForgetPassword} onClose={handleCloseForgetPassword} />
+                <SetPassword isOpen={showForgetPassword} onClose={handleCloseForgetPassword} />
             ) : showSignup ? (
                 <SignUp isOpen={showSignup} onClose={handleCloseSignup} />
             ) : (
@@ -50,19 +98,21 @@ export default function SignIn({ isOpen, onClose }) {
                         <form onSubmit={handleSubmit}>
                             <div>
                                 <FaRegUser className="relative top-8 left-5" />
-                                <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" placeholder="Username / Email address" />
+                                <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" name="username" type="text" placeholder="Username" />
+                                {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
                             </div>
                             <div className="relative mt-5">
                                 <MdLockOpen className="absolute top-4 left-5" />
-                                <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type={showPassword ? 'text' : 'password'} placeholder="Password" />
+                                <input required className="rounded-md outline-none pl-12 pr-5 py-3 w-full" name="password" type={showPassword ? 'text' : 'password'} placeholder="Password" />
                                 <div className="cursor-pointer absolute top-[39%] right-[10px]" onClick={()=> setShowPassword(!showPassword)}>
                                     { showPassword ? <LuEyeOff /> : <LuEye /> }
                                 </div>
+                                {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
                             </div>
                             <div className="flex justify-end mt-2">
-                                <span onClick={handleShowForgetPassword} className="text-sm font-semibold text-[#202123] underline cursor-pointer">Forget Password?</span>
+                                <span onClick={handleShowForgetPassword} className="text-sm font-semibold text-[#202123] underline cursor-pointer">Update Password!</span>
                             </div>
-                            <button type="submit" className="bg-[#CBFFFE] rounded-lg w-full py-3 mt-6 text-lg font-bold">Submit</button>
+                            <button type="submit" disabled={loading} className="bg-[#CBFFFE] rounded-lg w-full py-3 mt-6 text-lg font-bold">Submit</button>
                             <div className="flex justify-center mt-2">
                                 <p className="text-sm font-semibold text-[#202123]">Don’t have an account? <span className="text-[#FF0000] cursor-pointer" onClick={handleSignup} >Sign up!</span></p>
                             </div>
