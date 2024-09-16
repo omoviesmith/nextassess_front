@@ -27,7 +27,7 @@ export default function SetPassword({ isOpen, onClose }) {
     }
     function validateForm(formValues) {
         const newErrors = {};
-        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[.@$!%*?&])[A-Za-z\d.@$!%*?&]{8,}$/;
         if (!formValues.username) {
             newErrors.username = "Username is required.";
         }

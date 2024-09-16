@@ -9,11 +9,13 @@ import Modal from "../Modal/Modal";
 import { useState } from "react";
 import SignIn from "./SignIn";
 import { showToast } from 'react-next-toast';
+import SetPassword from "./SetPassword";
 
 export default function SignUp({ isOpen, onClose }) {
     const [showPassword, setShowPassword] = useState(false);
     const [showcPassword, setShowcPassword] = useState(false);
     const [showSignin, setShowSignin] = useState(false);
+    const [showUpdatePassword, setShowUpdatePassword] = useState(false);
     const [loading, setLoading] = useState(false);
     
     // Validation states
@@ -110,8 +112,8 @@ export default function SignUp({ isOpen, onClose }) {
                 console.log('parsedResponse', parsedResponse);
                 if (res.ok) {
                     setLoading(false);
-                    showToast.success('Account has been registered successfully!');
-                    setShowSignin(true);
+                    showToast.success('Account has been registered successfully! Please check your email & update password.');
+                    setShowUpdatePassword(true);
                 } else {
                     setLoading(false);
                     showToast.error('Something went wrong. Please try again!');
@@ -133,6 +135,8 @@ export default function SignUp({ isOpen, onClose }) {
         <>
             {showSignin ? (
                 <SignIn isOpen={showSignin} onClose={handleCloseSignin} />
+            ) : (showUpdatePassword ? (
+                <SetPassword isOpen={showUpdatePassword} onClose={()=> setShowUpdatePassword(false)} />
             ) : (
                 <Modal isOpen={isOpen} onClose={onClose}>
                     <div>
@@ -187,7 +191,7 @@ export default function SignUp({ isOpen, onClose }) {
                         </form>
                     </div>
                 </Modal>
-            )}
+            ))}
         </>
     );
 }
