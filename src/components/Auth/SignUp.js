@@ -32,6 +32,9 @@ export default function SignUp({ isOpen, onClose }) {
 
     function validateForm(formValues) {
         const newErrors = {};
+        if (!formValues.tenantName) {
+            newErrors.tenantName = "Institution Name is required.";
+        }
 
         if (!formValues.firstName) {
             newErrors.firstName = "First Name is required.";
@@ -51,16 +54,6 @@ export default function SignUp({ isOpen, onClose }) {
             newErrors.phone = "Mobile Number is required.";
         }
 
-        if (!formValues.password) {
-            newErrors.password = "Password is required.";
-        } else if (formValues.password.length < 8) {
-            newErrors.password = "Password must be at least 8 characters.";
-        }
-
-        if (formValues.password !== formValues.cPassword) {
-            newErrors.cPassword = "Passwords do not match.";
-        }
-
         return newErrors;
     }
 
@@ -69,12 +62,11 @@ export default function SignUp({ isOpen, onClose }) {
         try {
             const formData = new FormData(e.target);
             const formValues = {
+                tenantName: formData.get('tenantName'),
                 firstName: formData.get('firstName'),
                 lastName: formData.get('lastName'),
                 email: formData.get('email'),
                 phone: formData.get('phone'),
-                password: formData.get('password'),
-                cPassword: formData.get('cPassword')
             };
 
             const newErrors = validateForm(formValues);
@@ -82,7 +74,7 @@ export default function SignUp({ isOpen, onClose }) {
             if (Object.keys(newErrors).length === 0) {
                 setLoading(true);
                 const reqPayload = {
-                    tenantName: formData.get('firstName'),
+                    tenantName: formData.get('tenantName'),
                     tenantAddress: '',
                     tenantEmail: formData.get('email'),
                     tenantPhone: formData.get('phone'),
@@ -92,7 +84,6 @@ export default function SignUp({ isOpen, onClose }) {
                         lastName: formData.get('lastName'),
                         email: formData.get('email'),
                         phone: formData.get('phone'),
-                        password: formData.get('password')
                     },
                     requestContext: {
                         stage: "api"
@@ -146,6 +137,11 @@ export default function SignUp({ isOpen, onClose }) {
                             <Image src='/sun.svg' width='20' height='20' />
                         </div>
                         <form onSubmit={handleSubmit}>
+                            <div>
+                                <FaRegUser className="relative top-8 left-5" />
+                                <input className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="text" name="tenantName" placeholder="Institution Name" />
+                                {errors.tenantName && <p className="text-red-500 text-sm">{errors.tenantName}</p>}
+                            </div>
                             <div className="flex justify-between items-center gap-3">
                                 <div>
                                     <FaRegUser className="relative top-8 left-5" />
@@ -167,22 +163,6 @@ export default function SignUp({ isOpen, onClose }) {
                                 <MdPhoneAndroid className="relative top-8 left-5" />
                                 <input className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type="tel" name="phone" placeholder="Mobile Number" />
                                 {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
-                            </div>
-                            <div className="relative mt-5">
-                                <MdLockOpen className="absolute top-4 left-5" />
-                                <input className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type={showPassword ? 'text' : 'password'} name="password" placeholder="Password" />
-                                <div className="cursor-pointer absolute top-[39%] right-[10px]" onClick={() => setShowPassword(!showPassword)}>
-                                    {showPassword ? <LuEyeOff /> : <LuEye />}
-                                </div>
-                                {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
-                            </div>
-                            <div className="relative mt-5">
-                                <MdLockOpen className="absolute top-4 left-5" />
-                                <input className="rounded-md outline-none pl-12 pr-5 py-3 w-full" type={showcPassword ? 'text' : 'password'} name="cPassword" placeholder="Confirm Password" />
-                                <div className="cursor-pointer absolute top-[39%] right-[10px]" onClick={() => setShowcPassword(!showcPassword)}>
-                                    {showcPassword ? <LuEyeOff /> : <LuEye />}
-                                </div>
-                                {errors.cPassword && <p className="text-red-500 text-sm">{errors.cPassword}</p>}
                             </div>
                             <button type="submit" disabled={loading} className="bg-[#CBFFFE] rounded-lg w-full py-3 mt-6 text-lg font-bold">Create</button>
                             <div className="flex justify-center mt-2">
