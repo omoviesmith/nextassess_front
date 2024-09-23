@@ -1,3 +1,4 @@
+import Profile from "@/components/Profile/Profile";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import SidebarSm from "@/components/Sidebar/SidebarSm";
 import { Inter } from "next/font/google";
@@ -21,6 +22,9 @@ export default function RootLayout({ children }) {
             <SidebarSm />
           </div>
           <div className="relative md:w-3/4">
+            <div className="flex justify-end items-center">
+              <Profile />
+            </div>
             {children}
           </div>
         </div>
