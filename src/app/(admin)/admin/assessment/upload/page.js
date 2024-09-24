@@ -7,8 +7,10 @@ import { MdOutlineFileCopy } from "react-icons/md";
 import { useRouter } from 'next/navigation'
 import { showToast } from 'react-next-toast';
 import AssessmentPreference from "@/components/Assessment/Preference";
+import { useUser } from "@/context/UserContext";
 
 export default function Upload() {
+    const { user } = useUser();
     const router = useRouter();
     const [isClicked, setIsClicked] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -46,7 +48,8 @@ export default function Upload() {
             const res = await fetch(`https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/files/convert/${file}`, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-Tenant-ID': user.tenantId
                 }
             });
             if (res.ok) {
@@ -70,7 +73,10 @@ export default function Upload() {
             try {
                 const response = await fetch('https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/files/upload', {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                      'X-Tenant-ID': user.tenantId
+                    },
+                    body: formData,
                 });
                 if (response.ok) {
                     const parsedResponse = await response.json();

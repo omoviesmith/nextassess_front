@@ -12,7 +12,7 @@ export default function Table({ data = [] }) {
     // Calculate the index range for the current page
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem);
 
     // Handle page change
     const handleNextPage = () => {
@@ -62,7 +62,7 @@ export default function Table({ data = [] }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {currentItems.length > 0 ? (
+                            {currentItems && currentItems.length > 0 ? (
                                 currentItems.map((assessment, index) => (
                                     <tr key={index}>
                                         <td className="border-b border-slate-300 bg-white p-3">

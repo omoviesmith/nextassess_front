@@ -11,8 +11,10 @@ import { useReactToPrint } from "react-to-print";
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
 import PDF from "./PDF/PDF";
 import Markdown from "../Markdown/Markdown";
+import { useUser } from "@/context/UserContext";
 
 export default function EditAssessment({ data, back = () => { window?.history.back(); }, tryAgain, downloadPdf }) {
+    const { user } = useUser();
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -158,14 +160,15 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
             } else {
                 requestBody = updatedData;
             }
-            const res = await fetch(`https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments/${formData.shardId}/${formData.id}`, {
+            const res = await fetch(`https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments/${data.shardId}/${data.assessmentId}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-Tenant-ID': user.tenantId
                 },
                 body: JSON.stringify(requestBody)
             });
-            const data = await res.json();
+            const resData = await res.json();
             showToast.success('Edited successfully!');
             setLoading(false);
             setShowModal(false);

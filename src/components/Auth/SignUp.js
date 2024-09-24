@@ -3,8 +3,6 @@
 import Image from "next/image";
 import { FaRegUser } from "react-icons/fa6";
 import { MdMailOutline, MdPhoneAndroid } from "react-icons/md";
-import { MdLockOpen } from "react-icons/md";
-import { LuEye, LuEyeOff  } from "react-icons/lu";
 import Modal from "../Modal/Modal";
 import { useState } from "react";
 import SignIn from "./SignIn";
@@ -12,8 +10,6 @@ import { showToast } from 'react-next-toast';
 import SetPassword from "./SetPassword";
 
 export default function SignUp({ isOpen, onClose }) {
-    const [showPassword, setShowPassword] = useState(false);
-    const [showcPassword, setShowcPassword] = useState(false);
     const [showSignin, setShowSignin] = useState(false);
     const [showUpdatePassword, setShowUpdatePassword] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -73,17 +69,34 @@ export default function SignUp({ isOpen, onClose }) {
 
             if (Object.keys(newErrors).length === 0) {
                 setLoading(true);
+                
                 const reqPayload = {
-                    tenantName: formData.get('tenantName'),
-                    tenantAddress: '',
-                    tenantEmail: formData.get('email'),
-                    tenantPhone: formData.get('phone'),
-                    tenantTier: 'Basic',
-                    adminUser: {
+                    body: {
+                        fullName: formData.get('firstName') + ' ' + formData.get('lastName'),
+                        profileImage: "",
                         firstName: formData.get('firstName'),
                         lastName: formData.get('lastName'),
-                        email: formData.get('email'),
+                        emailAddress: formData.get('email'),
                         phone: formData.get('phone'),
+                        bio: "",
+                        country: "",
+                        cityState: "",  
+                        postalCode: "",  
+                        taxId: "",  
+                        applicationRole: "admin",
+                        applicationTier: "Basic",
+                        institutionName: formData.get('tenantName'),
+                        institutionAddress: "",
+                        institutionEmail: formData.get('email'),
+                        institutionPhone: formData.get('phone'),
+                        institutionDepartment: "",  
+                        roleAtInstitution: "Admin",
+                        adminUser: {
+                            firstName: formData.get('firstName'),
+                            lastName: formData.get('lastName'),
+                            email: formData.get('email'),
+                            phone: formData.get('phone')
+                        }
                     },
                     requestContext: {
                         stage: "api"

@@ -6,8 +6,10 @@ import { showToast } from 'react-next-toast';
 import ViewAssessment from "./View";
 import { IoMdArrowBack } from "react-icons/io";
 import { MdErrorOutline } from "react-icons/md";
+import { useUser } from "@/context/UserContext";
 
 export default function AssessmentPreference({ text, setUploadResponse }) {
+    const { user } = useUser();
     const [response, setResponse] = useState(null);
     const [type, setType] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -29,7 +31,8 @@ export default function AssessmentPreference({ text, setUploadResponse }) {
             const res = await fetch(url, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-Tenant-ID': user.tenantId
                 },
                 body: JSON.stringify(requestPayload)
             });

@@ -10,8 +10,10 @@ import SignUp from "./SignUp";
 import { useRouter } from 'next/navigation';
 import { showToast } from 'react-next-toast';
 import SetPassword from "./SetPassword";
+import { useUser } from "@/context/UserContext";
 
 export default function SignIn({ isOpen, onClose }) {
+    const { setUser } = useUser();
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [showForgetPassword, setShowForgetPassword] = useState(false);
@@ -66,11 +68,13 @@ export default function SignIn({ isOpen, onClose }) {
                 if (res.ok) {
                     setLoading(false);
                     showToast.success('Logged in successfully!');
+                    setUser(parsedResponse.user_details);
+                    document.cookie = `user=${JSON.stringify(parsedResponse.user_details)}; path=/;`;
                     router.push('/assessments');
                 } else {
                     setLoading(false);
                     showToast.error('Something went wrong. Please try again!');
-                } 
+                }
             } else {
                 setLoading(false);
                 showToast.error('Something went wrong. Please try again!');

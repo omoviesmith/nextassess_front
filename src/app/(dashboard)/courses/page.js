@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cookies } from 'next/headers';
 
 const assessments = [
     {
@@ -38,11 +39,14 @@ const assessments = [
     },
 ]
 export default function Courses() {
+    const cookieStore = cookies();
+    const userCookie = cookieStore.get('user');
+    const user = userCookie ? JSON.parse(userCookie.value) : null;
     return (
         <div>
             <div className="flex justify-between items-center md:flex-row flex-col gap-3">
                 <div>
-                    <h3 className="text-[#101828] text-3xl font-semibold">Welcome back, Nici</h3>
+                    <h3 className="text-[#101828] text-3xl font-semibold">Welcome back, {user && user.firstName}</h3>
                     <p className="text-[#475467] text-base font-normal mt-2">Track, manage and forecast your courses.</p>
                 </div>
                 <Link href='/courses' className="flex justify-end w-full md:w-auto">

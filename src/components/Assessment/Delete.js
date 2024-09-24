@@ -1,13 +1,18 @@
 'use client';
 
 import { showToast } from "react-next-toast";
+import { useUser } from "@/context/UserContext";
 
 export default async function DeleteAssessment({shardId, id}) {
+    const { user } = useUser();
     const deleteAssessment = async () => {
         try {
           showToast.info('Deleting Assessment.');
           const res = await fetch(`https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments/${shardId}/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+              'X-Tenant-ID': user.tenantId
+            }
           });
           const data = await res.json();
           showToast.success('Assessment deleted successfully');
