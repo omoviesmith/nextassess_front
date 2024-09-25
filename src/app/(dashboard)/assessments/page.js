@@ -64,8 +64,8 @@ const Table = dynamic(() => import('@/components/Assessment/Table'), {
 });
 
 /**
- * Fetches assessment data from the API using the provided shardId, page, and perPage.
- * @param {string} shardId - The shard ID for tenant isolation.
+ * Fetches assessment data from the API using the provided tenantId, page, and perPage.
+ * @param {string} tenantId - The shard ID for tenant isolation.
  * @param {number} page - The current page number for pagination.
  * @param {number} perPage - Number of items per page.
  * @param {string} tenantId - The tenant ID for header.
@@ -73,7 +73,7 @@ const Table = dynamic(() => import('@/components/Assessment/Table'), {
  */
 const fetchData = async (page = 1, perPage = 10, tenantId) => {
   if (!tenantId) {
-    console.error('Missing shardId or tenantId.');
+    console.error('Missing tenantId or tenantId.');
     return null;
   }
 
@@ -109,8 +109,8 @@ const fetchData = async (page = 1, perPage = 10, tenantId) => {
  * @returns {JSX.Element} - The rendered component.
  */
 export default async function Assessment({ params, searchParams }) {
-  // Extract shardId, page, and per_page from searchParams
-  const shardId = searchParams.shardId;
+  // Extract tenantId, page, and per_page from searchParams
+  // const tenantId = searchParams.tenantId;
   const page = parseInt(searchParams.page, 10) || 1;
   const perPage = parseInt(searchParams.per_page, 10) || 10;
 
@@ -120,7 +120,7 @@ export default async function Assessment({ params, searchParams }) {
   const user = userCookie ? JSON.parse(userCookie.value) : null;
   const tenantId = user?.tenantId || null;
 
-  // Handle cases where user or shardId might be missing
+  // Handle cases where user or tenantId might be missing
   if (!user || !tenantId) {
     return (
       <div className="p-4">
@@ -130,7 +130,7 @@ export default async function Assessment({ params, searchParams }) {
     );
   }
 
-  // if (!shardId) {
+  // if (!tenantId) {
   //   return (
   //     <div className="p-4">
   //       <h2 className="text-xl font-semibold text-red-500">Shard ID Missing</h2>
@@ -201,7 +201,7 @@ export default async function Assessment({ params, searchParams }) {
           <Pagination
             currentPage={pagination.current_page}
             totalPages={Math.ceil(pagination.total_items / pagination.items_per_page)}
-            shardId={shardId}
+            tenantId={tenantId}
             perPage={perPage}
           />
         </div>
@@ -215,16 +215,16 @@ export default async function Assessment({ params, searchParams }) {
  * @param {Object} props - The component props.
  * @param {number} props.currentPage - The current page number.
  * @param {number} props.totalPages - The total number of pages.
- * @param {string} props.shardId - The shard ID for the endpoint.
+ * @param {string} props.tenant_id - The shard ID for the endpoint.
  * @param {number} props.perPage - Number of items per page.
  * @returns {JSX.Element} - The rendered pagination controls.
  */
-function Pagination({ currentPage, totalPages, shardId, perPage }) {
+function Pagination({ currentPage, totalPages, tenantId, perPage }) {
   return (
     <div className="flex space-x-2">
       {/* Previous Button */}
       {currentPage > 1 ? (
-        <Link href={`/assessments?shardId=${shardId}&page=${currentPage - 1}&per_page=${perPage}`}>
+        <Link href={`/assessments/${tenantId}&page=${currentPage - 1}&per_page=${perPage}`}>
           <button className="px-4 py-2 rounded bg-[#7F56D9] text-white hover:bg-[#5e3bbd] transition-colors">
             Previous
           </button>
@@ -242,7 +242,7 @@ function Pagination({ currentPage, totalPages, shardId, perPage }) {
 
       {/* Next Button */}
       {currentPage < totalPages ? (
-        <Link href={`/assessments?shardId=${shardId}&page=${currentPage + 1}&per_page=${perPage}`}>
+        <Link href={`/assessments?tenantId=${tenantId}&page=${currentPage + 1}&per_page=${perPage}`}>
           <button className="px-4 py-2 rounded bg-[#7F56D9] text-white hover:bg-[#5e3bbd] transition-colors">
             Next
           </button>
@@ -259,6 +259,6 @@ function Pagination({ currentPage, totalPages, shardId, perPage }) {
 Pagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
-  shardId: PropTypes.string.isRequired,
+  tenantId: PropTypes.string.isRequired,
   perPage: PropTypes.number.isRequired,
 };

@@ -45,7 +45,7 @@ export default function Upload() {
     };
     async function getFileData(file) {
         try {
-            const res = await fetch(`https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/files/convert/${file}`, {
+            const res = await fetch(`https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/files/convert/${file}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export default function Upload() {
             formData.append('file', selectedFile);
             setIsClicked(true);
             try {
-                const response = await fetch('https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/files/upload', {
+                const response = await fetch('https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/files/upload', {
                     method: 'POST',
                     headers: {
                       'X-Tenant-ID': user.tenantId
