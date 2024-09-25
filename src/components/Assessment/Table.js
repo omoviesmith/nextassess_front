@@ -120,10 +120,27 @@
 
 import Link from "next/link";
 import DeleteAssessment from "./Delete";
-import PropTypes from 'prop-types';
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import useAssessmentStore from '@/stores/assessmentStore';
 
-export default function Table({ data = [] }) {
+export default function Table() {
+    // Access assessments from the Zustand store
+    const assessments = useAssessmentStore((state) => state.assessments);
+
+    // Local state for search functionality
+    const [searchQuery, setSearchQuery] = useState('');
+
+    // Memoize filtered assessments for performance optimization
+    const filteredAssessments = useMemo(() => {
+        if (!searchQuery) return assessments;
+        const lowerCaseQuery = searchQuery.toLowerCase();
+        return assessments.filter(assessment =>
+            assessment.title_assessment.toLowerCase().includes(lowerCaseQuery) ||
+            assessment.year_level.toLowerCase().includes(lowerCaseQuery) ||
+            (assessment.assessment_unit || '').toLowerCase().includes(lowerCaseQuery)
+        );
+    }, [assessments, searchQuery]);
+
     return (
         <>
             <div className="flex justify-between mt-6">
@@ -144,12 +161,22 @@ export default function Table({ data = [] }) {
                     <svg className="absolute top-3 left-3" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                         <path d="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z" fill="#667085" />
                     </svg>
-                    <input placeholder="Search" type="text" className="rounded-lg w-full border-[1px] border-[#D0D5DD] py-[10px] pr-4 pl-10 outline-none" />
+                    <input 
+                        placeholder="Search" 
+                        type="text" 
+                        className="rounded-lg w-full border-[1px] border-[#D0D5DD] py-[10px] pr-4 pl-10 outline-none" 
+                        aria-label="Search Assessments"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
                 </div>
             </div>
             <div className="mt-8">
                 <div className="overflow-x-auto mx-w-full">
-                    <table className="table-auto border-collapse overflow-auto md:w-full md:overflow-hidden border border-slate-300 rounded-tl-lg rounded-tr-lg">
+                    <table 
+                        className="table-auto border-collapse overflow-auto md:w-full md:overflow-hidden border border-slate-300 rounded-tl-lg rounded-tr-lg" 
+                        aria-label="Assessments Table"
+                    >
                         <thead>
                             <tr>
                                 <th className="border-b border-t border-slate-300 p-3 text-start bg-[#F9FAFB] text-[#475467] text-xs font-semibold">ID</th>
@@ -160,8 +187,8 @@ export default function Table({ data = [] }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {data && data.length > 0 ? (
-                                data.map((assessment, index) => (
+                            {filteredAssessments && filteredAssessments.length > 0 ? (
+                                filteredAssessments.map((assessment, index) => (
                                     <tr key={assessment.assessmentId}>
                                         <td className="border-b border-slate-300 bg-white p-3">
                                             <span className="block text-[#101828] text-sm font-normal">#{index + 1}</span>
