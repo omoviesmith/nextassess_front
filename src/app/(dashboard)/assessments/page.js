@@ -4,7 +4,8 @@ import Loading from "@/components/Loading/Loading";
 import useAssessmentStore from '@/stores/assessmentStore';
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { cookies } from 'next/headers';
+// import { cookies } from 'next/headers';
+import { useCookies } from 'react-cookie';
 import PropTypes from 'prop-types';
 
 // Dynamically import the Table component with a loading state
