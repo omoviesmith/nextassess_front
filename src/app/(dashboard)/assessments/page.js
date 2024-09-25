@@ -71,13 +71,13 @@ const Table = dynamic(() => import('@/components/Assessment/Table'), {
  * @param {string} tenantId - The tenant ID for header.
  * @returns {Object|null} - The fetched data or null if an error occurs.
  */
-const fetchData = async (shardId, page = 1, perPage = 10, tenantId) => {
-  if (!shardId || !tenantId) {
+const fetchData = async (page = 1, perPage = 10, tenantId) => {
+  if (!tenantId) {
     console.error('Missing shardId or tenantId.');
     return null;
   }
 
-  const endpoint = `https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/assessments/${shardId}?page=${page}&per_page=${perPage}`;
+  const endpoint = `https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/assessments/${tenantId}?page=${page}&per_page=${perPage}`;
 
   try {
     const res = await fetch(endpoint, {
@@ -130,17 +130,17 @@ export default async function Assessment({ params, searchParams }) {
     );
   }
 
-  if (!shardId) {
-    return (
-      <div className="p-4">
-        <h2 className="text-xl font-semibold text-red-500">Shard ID Missing</h2>
-        <p className="text-gray-700">No shard ID provided. Please provide a valid shard ID to view assessments.</p>
-      </div>
-    );
-  }
+  // if (!shardId) {
+  //   return (
+  //     <div className="p-4">
+  //       <h2 className="text-xl font-semibold text-red-500">Shard ID Missing</h2>
+  //       <p className="text-gray-700">No shard ID provided. Please provide a valid shard ID to view assessments.</p>
+  //     </div>
+  //   );
+  // }
 
   // Fetch the assessment data
-  const data = await fetchData(shardId, page, perPage, tenantId);
+  const data = await fetchData(page, perPage, tenantId);
 
   // Handle fetch error or data absence
   if (!data) {
