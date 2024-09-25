@@ -1,10 +1,10 @@
 "use client";
+
 import React, { useEffect } from 'react';
 import Loading from "@/components/Loading/Loading";
 import useAssessmentStore from '@/stores/assessmentStore';
 import dynamic from "next/dynamic";
 import Link from "next/link";
-// import { cookies } from 'next/headers';
 import { useCookies } from 'react-cookie';
 import PropTypes from 'prop-types';
 
@@ -16,11 +16,14 @@ const Table = dynamic(() => import('@/components/Assessment/Table'), {
 
 /**
  * Assessment Page Component
+ * @param {Object} props - The component props.
+ * @param {Object} props.params - The route parameters.
+ * @param {Object} props.searchParams - The query parameters.
  * @returns {JSX.Element} - The rendered component.
  */
 export default function Assessment({ params, searchParams }) {
   const [cookies] = useCookies(['user']);
-  const { setAssessments, assessments } = useAssessmentStore();
+  const { setAssessments, assessments, pagination } = useAssessmentStore();
 
   // Extract tenantId, page, and per_page from searchParams
   const page = parseInt(searchParams.page, 10) || 1;
@@ -59,10 +62,11 @@ export default function Assessment({ params, searchParams }) {
       }
     };
 
+    // Fetch data only if assessments are not yet loaded or need to be refreshed
     if (assessments.length === 0) {
       fetchData();
     }
-  }, [assessments, setAssessments, tenantId, page, perPage]);
+  }, [assessments.length, setAssessments, tenantId, page, perPage]);
 
   // Handle cases where user or tenantId might be missing
   if (!user || !tenantId) {
@@ -88,18 +92,10 @@ export default function Assessment({ params, searchParams }) {
       </div>
 
       {/* Table Section */}
-      {assessments && assessments.length > 0 ? (
-        <Table data={assessments} />
-      ) : (
-        <div className="text-center text-gray-500">
-          No assessments found.
-        </div>
-      )}
+      <Table />
 
       {/* Pagination Controls */}
-      {/* Ensure that `pagination` data is available in your Zustand store or fetched accordingly */}
-      {/* Example:
-      {pagination.total_items > pagination.items_per_page && (
+      {pagination && pagination.total_items > pagination.items_per_page && (
         <div className="flex justify-center mt-4">
           <Pagination
             currentPage={pagination.current_page}
@@ -109,7 +105,6 @@ export default function Assessment({ params, searchParams }) {
           />
         </div>
       )}
-      */}
     </div>
   );
 }
