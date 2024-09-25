@@ -160,7 +160,7 @@ export default function EditAssessment({ data, back = () => { window?.history.ba
             } else {
                 requestBody = updatedData;
             }
-            const res = await fetch(`https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments/${data.shardId}/${data.assessmentId}`, {
+            const res = await fetch(`https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/assessments/${data.shardId}/${data.assessmentId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -52,6 +52,8 @@
 
 
 import Loading from "@/components/Loading/Loading";
+import { useEffect } from 'react';
+import useAssessmentStore from '@/stores/assessmentStore';
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { cookies } from 'next/headers';
@@ -93,6 +95,11 @@ const fetchData = async (page = 1, perPage = 10, tenantId) => {
     }
 
     const data = await res.json();
+
+    // Update Zustand store
+    const { setAssessments } = useAssessmentStore.getState();
+    setAssessments(data);
+
     return data;
 
   } catch (error) {
@@ -153,26 +160,25 @@ export default async function Assessment({ params, searchParams }) {
   }
 
   // Destructure assessments and pagination from the response
-  const { assessments, pagination } = data;
+  // const { assessments, pagination } = data;
+
+  //Update your `Assessment function` to use the Zustand store.
+  const { assessments, setAssessments } = useAssessmentStore();
+
+  useEffect(() => {
+    if (assessments.length === 0) {
+      fetchData().then((data) => {
+        if (data) {
+          setAssessments(data);
+        }
+      });
+    }
+  }, [assessments, setAssessments]);
+
 
   return (
     <div className="p-4">
       {/* Header Section */}
-      {/* <div className="flex justify-between items-center flex-col md:flex-row gap-3 mb-6">
-        <div>
-          <h3 className="text-[#101828] text-3xl font-semibold">
-            Welcome back, {user.firstName || 'User'}
-          </h3>
-          <p className="text-[#475467] text-base font-normal mt-2">
-            Track and manage your assessments.
-          </p>
-        </div>
-        <Link href='/admin'>
-          <button className="text-sm text-white font-semibold bg-[#7F56D9] rounded-lg py-[10px] px-4 hover:bg-[#5e3bbd] transition-colors">
-            + Create New Assessment
-          </button>
-        </Link>
-      </div> */}
         <div className="flex justify-between items-center flex-col md:flex-row gap-3">
          <div>
            <h3 className="text-[#101828] text-3xl font-semibold">Welcome back, {user && user.firstName}</h3>

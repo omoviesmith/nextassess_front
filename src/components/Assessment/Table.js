@@ -121,6 +121,7 @@
 import Link from "next/link";
 import DeleteAssessment from "./Delete";
 import PropTypes from 'prop-types';
+import { useState } from "react";
 
 export default function Table({ data = [] }) {
     return (

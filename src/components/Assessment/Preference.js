@@ -26,8 +26,8 @@ export default function AssessmentPreference({ text, setUploadResponse }) {
         try {
             const requestPayload = {text_content: text};
             const url = apiType === 'ai' ? 
-                'https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments/ai' : 
-                'https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments/human';
+                'https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/assessments/ai' : 
+                'https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/assessments/human';
             const res = await fetch(url, {
                 method: 'POST',
                 headers: {

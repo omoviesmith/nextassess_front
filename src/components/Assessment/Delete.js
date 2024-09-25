@@ -8,7 +8,7 @@ export default async function DeleteAssessment({shardId, id}) {
     const deleteAssessment = async () => {
         try {
           showToast.info('Deleting Assessment.');
-          const res = await fetch(`https://cqzb53kpam.ap-southeast-2.awsapprunner.com/api/assessments/${shardId}/${id}`, {
+          const res = await fetch(`https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/assessments/${shardId}/${id}`, {
             method: 'DELETE',
             headers: {
               'X-Tenant-ID': user.tenantId
