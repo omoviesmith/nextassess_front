@@ -22,7 +22,6 @@
 // //     </html>
 // //   );
 // // }
-"use client";
 
 import { CookiesProvider } from 'react-cookie';
 import { UserProvider } from '@/context/UserContext';
