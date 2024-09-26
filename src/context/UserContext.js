@@ -88,6 +88,7 @@ export const UserProvider = ({ children }) => {
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
     const [user, setUserState] = useState(null);
 
+    
     useEffect(() => {
         if (cookies.user) {
             try {
