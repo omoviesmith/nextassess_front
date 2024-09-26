@@ -37,7 +37,7 @@ const inter = Inter({
 
 export const metadata = {
   title: "NextAssess",
-  description: "Assignment Generator",
+  description: "Assessment Generator",
 };
 
 export default function RootLayout({ children }) {
