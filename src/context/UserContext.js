@@ -88,12 +88,12 @@ export const UserProvider = ({ children }) => {
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
     const [user, setUserState] = useState(null);
 
-    
     useEffect(() => {
         if (cookies.user) {
             try {
                 const parsedUser = JSON.parse(cookies.user);
                 setUserState(parsedUser);
+                console.log('User set from cookie:', parsedUser);
             } catch (error) {
                 console.error('Failed to parse user cookie:', error);
                 setUserState(null);
@@ -116,9 +116,11 @@ export const UserProvider = ({ children }) => {
                 // Optionally, set an expiration date
                 // expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 1 week
             });
+            console.log('User cookie set:', newUser);
         } else {
             setUserState(null);
             removeCookie('user', { path: '/' });
+            console.log('User logged out, cookie removed');
         }
     };
 

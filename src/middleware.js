@@ -1,32 +1,4 @@
-// import { NextResponse } from 'next/server';
-
-// export function middleware(request) {
-//     const user = request.cookies.get('user');
-
-//     if (!user && request.nextUrl.pathname !== '/') {
-//         return NextResponse.redirect(new URL('/', request.url));
-//     }
-
-//     if (user && request.nextUrl.pathname === '/') {
-//         return NextResponse.redirect(new URL('/assessments', request.url));
-//     }
-// }
-
-// export const config = {
-//     matcher: [
-//         '/admin/:path*',
-//         '/assessments',
-//         '/assessment/:path*',
-//         '/courses',
-//         '/support',
-//         '/subscription',
-//         '/users',
-//         '/account',
-//         '/'
-//     ],
-// };
-
-
+// src/middleware.js
 import { NextResponse } from 'next/server';
 
 export function middleware(request) {
@@ -34,18 +6,26 @@ export function middleware(request) {
 
     let user = null;
     try {
-        user = userCookie ? JSON.parse(userCookie) : null;
+        // Ensure userCookie is a string before parsing
+        user = userCookie && typeof userCookie.value === 'string' ? JSON.parse(userCookie.value) : null;
     } catch (error) {
         console.error('Failed to parse user cookie:', error);
+        user = null; // Explicitly set to null on parse failure
     }
 
-    if (!user && request.nextUrl.pathname !== '/') {
+    const { pathname } = request.nextUrl;
+
+    if (!user && pathname !== '/') {
+        // Redirect unauthenticated users to the login page
         return NextResponse.redirect(new URL('/', request.url));
     }
 
-    if (user && request.nextUrl.pathname === '/') {
+    if (user && pathname === '/') {
+        // Redirect authenticated users to the dashboard
         return NextResponse.redirect(new URL('/assessments', request.url));
     }
+
+    return NextResponse.next(); // Continue to the requested page
 }
 
 export const config = {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Loading from "@/components/Loading/Loading";
 import useAssessmentStore from '@/stores/assessmentStore';
 import dynamic from "next/dynamic";
@@ -24,6 +24,8 @@ const Table = dynamic(() => import('@/components/Assessment/Table'), {
 export default function Assessment({ params, searchParams }) {
   const { user } = useUser(); // Updated to use UserContext
   const { setAssessments, assessments, pagination } = useAssessmentStore();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Extract tenantId, page, and per_page from searchParams
   const page = parseInt(searchParams.page, 10) || 1;
@@ -36,7 +38,8 @@ export default function Assessment({ params, searchParams }) {
     const fetchData = async () => {
       if (!user || !tenantId) {
         console.error('User or TenantId missing.');
-        // Optionally, redirect to login or show a message
+        setLoading(false);
+        setError('Access Denied. Please log in.');
         return;
       }
 
@@ -61,19 +64,25 @@ export default function Assessment({ params, searchParams }) {
 
         const data = await res.json();
         setAssessments(data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching assessments:', error);
-        // Optionally, display an error message to the user
+        setError('Failed to load assessments.');
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [user, tenantId, page, perPage, setAssessments]);
 
-  if (!user) {
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <p className="text-xl text-red-500">Access Denied. You must be logged in to view your assessments.</p>
+        <p className="text-xl text-red-500">{error}</p>
       </div>
     );
   }
@@ -81,10 +90,12 @@ export default function Assessment({ params, searchParams }) {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Your Assessments</h1>
-      {assessments ? (
-        <Table assessments={assessments} pagination={pagination} />
+      {assessments && assessments.length > 0 ? (
+        <Table />
       ) : (
-        <Loading />
+        <div className="flex items-center justify-center h-64">
+          <p className="text-xl text-gray-500">No assessments found.</p>
+        </div>
       )}
       {/* Optionally, add a link to create a new assessment */}
       <Link href="/assessments/new" className="mt-4 inline-block text-blue-500 hover:underline">
