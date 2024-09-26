@@ -1,12 +1,12 @@
 "use client";
-    
+
 import React, { useEffect } from 'react';
 import Loading from "@/components/Loading/Loading";
 import useAssessmentStore from '@/stores/assessmentStore';
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useCookies } from 'react-cookie';
 import PropTypes from 'prop-types';
+import { useUser } from '@/context/UserContext'; // Updated import
 
 // Dynamically import the Table component with a loading state
 const Table = dynamic(() => import('@/components/Assessment/Table'), {
@@ -22,18 +22,15 @@ const Table = dynamic(() => import('@/components/Assessment/Table'), {
  * @returns {JSX.Element} - The rendered component.
  */
 export default function Assessment({ params, searchParams }) {
-  const [cookies] = useCookies(['user']);
+  const { user } = useUser(); // Updated to use UserContext
   const { setAssessments, assessments, pagination } = useAssessmentStore();
 
   // Extract tenantId, page, and per_page from searchParams
   const page = parseInt(searchParams.page, 10) || 1;
   const perPage = parseInt(searchParams.per_page, 10) || 10;
 
-  // Retrieve user and tenantId from cookies
-  const userCookie = cookies.user;
-  const user = userCookie ? JSON.parse(userCookie) : null;
+  // Retrieve tenantId from user context
   const tenantId = user?.tenantId || null;
-  console.log(tenantId);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,7 +39,9 @@ export default function Assessment({ params, searchParams }) {
         return;
       }
 
-      const endpoint = `https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/assessments/${tenantId}?page=${page}&per_page=${perPage}`;
+      // Use environment variable for API base URL
+      const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || ''; // Ensure to set this in your .env file
+      const endpoint = `${API_BASE_URL}/api/assessments/${tenantId}?page=${page}&per_page=${perPage}`;
 
       try {
         const res = await fetch(endpoint, {
@@ -68,7 +67,7 @@ export default function Assessment({ params, searchParams }) {
     if (assessments.length === 0) {
       fetchData();
     }
-  }, [assessments.length, setAssessments, tenantId, page, perPage]);
+  }, [assessments.length, setAssessments, tenantId, page, perPage, user]);
 
   // Handle cases where user or tenantId might be missing
   if (!user || !tenantId) {
@@ -85,7 +84,7 @@ export default function Assessment({ params, searchParams }) {
       {/* Header Section */}
       <div className="flex justify-between items-center flex-col md:flex-row gap-3">
         <div>
-          <h3 className="text-[#101828] text-3xl font-semibold">Welcome back, {user && user.firstName}</h3>
+          <h3 className="text-[#101828] text-3xl font-semibold">Welcome back, {user.firstName}</h3>
           <p className="text-[#475467] text-base font-normal mt-2">Track and manage your assessments.</p>
         </div>
         <Link href='/admin' className="flex justify-end w-full md:w-auto">
@@ -110,6 +109,11 @@ export default function Assessment({ params, searchParams }) {
     </div>
   );
 }
+
+Assessment.propTypes = {
+  params: PropTypes.object,
+  searchParams: PropTypes.object,
+};
 
 /**
  * Pagination Component
