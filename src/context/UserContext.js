@@ -96,19 +96,24 @@ export const UserProvider = ({ children }) => {
             } catch (error) {
                 console.error('Failed to parse user cookie:', error);
                 setUserState(null);
+                // Remove the malformed cookie to prevent continuous errors
+                removeCookie('user', { path: '/' });
             }
         } else {
             setUserState(null);
         }
-    }, [cookies.user]);
+    }, [cookies.user, removeCookie]);
 
     const setUser = (newUser) => {
         if (newUser) {
             setUserState(newUser);
+            // Ensure the user object is stringified before setting the cookie
             setCookie('user', JSON.stringify(newUser), {
                 path: '/',
-                secure: true,       // Ensures cookie is sent over HTTPS
-                sameSite: 'strict', // Helps mitigate CSRF attacks
+                secure: true,        // Ensures cookie is sent over HTTPS
+                sameSite: 'strict',  // Helps mitigate CSRF attacks
+                // Optionally, set an expiration date
+                // expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 1 week
             });
         } else {
             setUserState(null);
