@@ -45,7 +45,7 @@ export default function Assessment({ params, searchParams }) {
 
       // Use environment variable for API base URL
       const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com"; // Ensure to set this in your .env file
-      const endpoint = `${API_BASE_URL}/api/assessments/${tenantId}?page=${page}&per_page=${perPage}`;
+      const endpoint = `${API_BASE_URL}/api/assessments/${tenantId}`;
 
       console.log(`Fetching assessments from: ${endpoint} with tenant id ${tenantId}`);
 
@@ -54,7 +54,9 @@ export default function Assessment({ params, searchParams }) {
           cache: 'no-store',
           headers: {
             'X-Tenant-ID': tenantId,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Credentials': 'true'
           }
         });
         console.log(`Fetched response status: ${res.status} ${res.statusText}`)
