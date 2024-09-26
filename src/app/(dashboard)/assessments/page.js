@@ -1,5 +1,5 @@
 "use client";
-    
+
 import React, { useEffect } from 'react';
 import Loading from "@/components/Loading/Loading";
 import useAssessmentStore from '@/stores/assessmentStore';
@@ -30,8 +30,10 @@ export default function Assessment({ params, searchParams }) {
   const perPage = parseInt(searchParams.per_page, 10) || 10;
 
   // Retrieve user and tenantId from cookies
-  const user = cookies.user ? JSON.parse(cookies.user) : null;
+  // const user = cookies.user ? JSON.parse(cookies.user) : null;
+  const user = cookies.user ? JSON.parse(decodeURIComponent(cookies.user)) : null;
   const tenantId = user?.tenantId || null;
+  console.log(tenantId)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +42,7 @@ export default function Assessment({ params, searchParams }) {
         return;
       }
 
-      const endpoint = `https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/assessments/${tenantId}?page=${page}&per_page=${perPage}`;
+      const endpoint = `https://5uzhjd2hd7.ap-southeast-2.awsapprunner.com/api/assessments/${tenantId}?page=${page}&per_page=${perPage}`;
 
       try {
         const res = await fetch(endpoint, {

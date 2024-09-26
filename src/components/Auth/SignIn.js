@@ -69,7 +69,8 @@ export default function SignIn({ isOpen, onClose }) {
                     setLoading(false);
                     showToast.success('Logged in successfully!');
                     setUser(parsedResponse.user_details);
-                    document.cookie = `user=${JSON.stringify(parsedResponse.user_details)}; path=/;`;
+                    // document.cookie = `user=${JSON.stringify(parsedResponse.user_details)}; path=/;`;
+                    document.cookie = `user=${encodeURIComponent(JSON.stringify(parsedResponse.user_details))}; path=/;`;
                     router.push('/assessments');
                 } else {
                     setLoading(false);
