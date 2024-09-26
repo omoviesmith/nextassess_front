@@ -124,13 +124,9 @@ import { useState, useMemo } from "react";
 import useAssessmentStore from '@/stores/assessmentStore';
 
 export default function Table() {
-    // Access assessments from the Zustand store
     const assessments = useAssessmentStore((state) => state.assessments);
-
-    // Local state for search functionality
     const [searchQuery, setSearchQuery] = useState('');
 
-    // Memoize filtered assessments for performance optimization
     const filteredAssessments = useMemo(() => {
         if (!searchQuery) return assessments;
         const lowerCaseQuery = searchQuery.toLowerCase();
@@ -231,22 +227,11 @@ export default function Table() {
                         </tbody>
                     </table>
                 </div>
-                {/* 
-                Removed client-side pagination controls from here since pagination is now handled in the Assessment component.
-                */}
             </div>
         </>
     );
+    }
 
-}
-
-Table.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        assessmentId: PropTypes.string.isRequired,
-        shardId: PropTypes.string.isRequired,
-        title_assessment: PropTypes.string.isRequired,
-        year_level: PropTypes.string.isRequired,
-        assessment_unit: PropTypes.string,
-        // Add other fields if necessary
-    })),
-};
+    Table.propTypes = {
+        // Removed data propType since data is pulled from the store
+    };
