@@ -43,6 +43,8 @@ export default function Assessment({ params, searchParams }) {
       const API_BASE_URL = "https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com"; // Ensure to set this in your .env file
       const endpoint = `${API_BASE_URL}/api/assessments/${tenantId}?page=${page}&per_page=${perPage}`;
 
+      console.log(endpoint)
+
       try {
         const res = await fetch(endpoint, {
           cache: 'no-store',
@@ -51,7 +53,7 @@ export default function Assessment({ params, searchParams }) {
             'Content-Type': 'application/json'
           }
         });
-
+        console.log(`Fetched response status: ${res.statusText}`)
         if (!res.ok) {
           throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
         }
