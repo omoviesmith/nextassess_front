@@ -1,12 +1,22 @@
 'use client'
 
+// import Image from "next/image";
+// import Link from "next/link";
+// import { useEffect, useRef, useState } from "react";
+// import { MdBlurCircular } from "react-icons/md";
+// import { TbChevronDown, TbChevronUp } from "react-icons/tb";
+// import { useUser } from '@/context/UserContext';
+
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { MdBlurCircular } from "react-icons/md";
+import { useRouter } from 'next/navigation';
+import { useUser } from '@/context/UserContext';
 import { TbChevronDown, TbChevronUp } from "react-icons/tb";
 
 export default function Profile() {
+    const { setUser } = useUser();
+    const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -17,6 +27,14 @@ export default function Profile() {
         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
             setIsOpen(false);
         }
+    };
+
+    const handleLogout = () => {
+        // 1. Clear the user context
+        setUser(null);
+        // 2. Cookies are removed by setUser(null) in UserContext
+        // 3. Redirect to the main page
+        router.push('/');
     };
 
     useEffect(() => {
@@ -52,7 +70,11 @@ export default function Profile() {
                             <span onClick={toggleDropdown} className="block cursor-pointer px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabIndex="-1" id="dropdown-item-2">
                                 <Link href='/support'>Support</Link>
                             </span>
-                            <span onClick={toggleDropdown} className="block cursor-pointer px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabIndex="-1" id="dropdown-item-3">
+                            <span onClick={() => {toggleDropdown();handleLogout();}}
+                                className="block cursor-pointer px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900"
+                                role="menuitem"
+                                tabIndex="-1"
+                                id="dropdown-item-3">
                                 <Link href='/'>Logout</Link>
                             </span>
                         </div>
