@@ -22,13 +22,9 @@
 // //     </html>
 // //   );
 // // }
-
-import { CookiesProvider } from 'react-cookie';
-import { UserProvider } from '@/context/UserContext';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import './globals.css'; // Ensure global styles are imported
+import Providers from '@/components/Providers'; // Adjust the path if necessary
 import { Inter } from 'next/font/google'; // Example for importing Inter font
+import './globals.css'; // Ensure global styles are imported
 
 const inter = Inter({
     subsets: ['latin'],
@@ -37,19 +33,17 @@ const inter = Inter({
 
 export const metadata = {
   title: "NextAssess",
-  description: "Assessment Generator",
+  description: "Assignment Generator",
+  // You can add more metadata as needed
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <CookiesProvider>
-          <UserProvider>
-            {children}
-            <ToastContainer position="top-right" />
-          </UserProvider>
-        </CookiesProvider>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
