@@ -42,7 +42,7 @@ export default function Assessment({ params, searchParams }) {
         return;
       }
 
-      const endpoint = `https://5uzhjd2hd7.ap-southeast-2.awsapprunner.com/api/assessments/${tenantId}?page=${page}&per_page=${perPage}`;
+      const endpoint = `https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/assessments/${tenantId}?page=${page}&per_page=${perPage}`;
 
       try {
         const res = await fetch(endpoint, {
