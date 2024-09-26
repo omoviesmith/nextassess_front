@@ -27,7 +27,7 @@ import { CookiesProvider } from 'react-cookie';
 import { UserProvider } from '@/context/UserContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '@/styles/globals.css'; // Ensure global styles are imported
+import './globals.css'; // Ensure global styles are imported
 import { Inter } from 'next/font/google'; // Example for importing Inter font
 
 const inter = Inter({
