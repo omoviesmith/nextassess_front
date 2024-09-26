@@ -85,7 +85,9 @@ import { useCookies } from 'react-cookie';
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const [cookies, setCookie, removeCookie] = useCookies(['user']);
+    const [cookies, setCookie, removeCookie] = useCookies(['user'],{
+        doNotParse: true,
+    });
     const [user, setUserState] = useState(null);
 
     useEffect(() => {
@@ -111,8 +113,8 @@ export const UserProvider = ({ children }) => {
             // Ensure the user object is stringified before setting the cookie
             setCookie('user', JSON.stringify(newUser), {
                 path: '/',
-                secure: true,        // Ensures cookie is sent over HTTPS
-                sameSite: 'strict',  // Helps mitigate CSRF attacks
+                secure: false,        // Ensures cookie is sent over HTTPS
+                sameSite: 'lax',  // Helps mitigate CSRF attacks
                 // Optionally, set an expiration date
                 // expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 1 week
             });
