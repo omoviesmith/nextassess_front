@@ -211,7 +211,7 @@ export default function Assessment({ params, searchParams }) {
       }
 
       // Use environment variable for API base URL
-      const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || ''; // Ensure to set this in your .env file
+      const API_BASE_URL = "https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com" 
       const endpoint = `${API_BASE_URL}/api/assessments/${tenantId}?page=${page}&per_page=${perPage}`;
 
       console.log('Fetching assessments from:', endpoint); // Debugging log
