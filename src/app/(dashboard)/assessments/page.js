@@ -5,6 +5,7 @@ import Loading from "@/components/Loading/Loading";
 import useAssessmentStore from '@/stores/assessmentStore';
 import dynamic from "next/dynamic";
 import Link from "next/link";
+// import { cookies } from 'next/headers';
 import { useCookies } from 'react-cookie';
 import PropTypes from 'prop-types';
 
@@ -31,15 +32,21 @@ export default function Assessment({ params, searchParams }) {
 
   // Retrieve user and tenantId from cookies
   // const user = cookies.user ? JSON.parse(cookies.user) : null;
-  const user = cookies.user ? JSON.parse(decodeURIComponent(cookies.user)) : null;
+  const cookieStore = cookies();
+  const userCookie = cookieStore.get('user');
+  // const user = cookies.user ? JSON.parse(decodeURIComponent(cookies.user)) : null;
+  const user = userCookie ? JSON.parse(decodeURIComponent(userCookie.value)) : null;
   const tenantId = user?.tenantId || null;
   console.log(tenantId)
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!tenantId) {
-        console.error('Missing tenantId.');
-        return;
+      // if (!tenantId) {
+      //   console.error('Missing tenantId.');
+      //   return;
+      // }
+      if (!user || !user.tenantId) {
+        throw new Error("User or TenantId missing");
       }
 
       const endpoint = `https://5uzhjd2hd7.ap-southeast-2.awsapprunner.com/api/assessments/${tenantId}?page=${page}&per_page=${perPage}`;
