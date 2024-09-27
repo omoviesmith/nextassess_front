@@ -79,7 +79,7 @@ const SearchBar = React.memo(({ searchQuery, setSearchQuery }) => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setSearchQuery(inputValue);
-    }, 300); // 300ms debounce delay
+    }, 800); // 300ms debounce delay
 
     return () => {
       clearTimeout(handler);
