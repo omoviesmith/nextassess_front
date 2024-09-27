@@ -200,7 +200,7 @@ export default function Table() {
                 </div>
             </div>
             <div className="mt-8">
-                // Assessment Table Region
+
                 <AssessmentsTable assessments={filteredAssessments} />
                 {/* <div className="overflow-x-auto mx-w-full">
                     <table 

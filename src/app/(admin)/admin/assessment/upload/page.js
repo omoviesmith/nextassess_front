@@ -9,6 +9,7 @@ import { showToast } from 'react-next-toast';
 import AssessmentPreference from "@/components/Assessment/Preference";
 import { useUser } from "@/context/UserContext";
 
+
 export default function Upload() {
     const { user } = useUser();
     const router = useRouter();
@@ -43,13 +44,18 @@ export default function Upload() {
             return `${(size / (1024 * 1024)).toFixed(2)} MB`;
         }
     };
+
+    // Retrieve tenantId from user context
+    const tenantId = user?.tenantId || null;
+
     async function getFileData(file) {
         try {
+
             const res = await fetch(`https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/files/convert/${file}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-Tenant-ID': user.tenantId
+                    'X-Tenant-ID': tenantId
                 }
             });
             if (res.ok) {
@@ -70,11 +76,13 @@ export default function Upload() {
             const formData = new FormData();
             formData.append('file', selectedFile);
             setIsClicked(true);
+            console.log(`Now uploading file with this tenantId - ${tenantId}`)
             try {
+                
                 const response = await fetch('https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/files/upload', {
                     method: 'POST',
                     headers: {
-                      'X-Tenant-ID': user.tenantId
+                      'X-Tenant-ID': tenantId
                     },
                     body: formData,
                 });
