@@ -1,10 +1,61 @@
+// // components/Assessment/Table.js
+// 'use client';
+
+// import React, { useState, useMemo } from "react";
+// import PropTypes from 'prop-types';
+// import SearchBar from "./SearchBar";
+// import FiltersButton from "./FilterButton";
+// import AssessmentsTable from "./AssessmentsTable";
+// import Pagination from "./Pagination";
+
+// const Table = React.memo(({ assessments, pagination }) => {
+//   const { current_page, items_per_page, total_items } = pagination;
+//   const total_pages = Math.ceil(total_items / items_per_page);
+
+//   const [searchQuery, setSearchQuery] = useState('');
+
+//   const filteredAssessments = useMemo(() => {
+//     if (!searchQuery) return assessments;
+//     const lowerCaseQuery = searchQuery.toLowerCase();
+//     return assessments.filter(assessment =>
+//       assessment.title_assessment.toLowerCase().includes(lowerCaseQuery) ||
+//       assessment.year_level.toLowerCase().includes(lowerCaseQuery) ||
+//       (assessment.assessment_unit || '').toLowerCase().includes(lowerCaseQuery)
+//     );
+//   }, [assessments, searchQuery]);
+
+//   return (
+//     <>
+//       <div className="flex justify-between mt-6">
+//         <FiltersButton />
+//         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+//       </div>
+//       <div className="mt-8">
+//         <AssessmentsTable assessments={filteredAssessments} />
+//         <Pagination currentPage={current_page} totalPages={total_pages} itemsPerPage={items_per_page} />
+//       </div>
+//     </>
+//   );
+// });
+
+// Table.propTypes = {
+//   assessments: PropTypes.array.isRequired,
+//   pagination: PropTypes.shape({
+//     current_page: PropTypes.number.isRequired,
+//     items_per_page: PropTypes.number.isRequired,
+//     total_items: PropTypes.number.isRequired,
+//   }).isRequired,
+// };
+
+// export default Table;
+
 // components/Assessment/Table.js
 'use client';
 
 import React, { useState, useMemo } from "react";
 import PropTypes from 'prop-types';
 import SearchBar from "./SearchBar";
-import FiltersButton from "./FilterButton";
+import FiltersButton from "./FiltersButton";
 import AssessmentsTable from "./AssessmentsTable";
 import Pagination from "./Pagination";
 
