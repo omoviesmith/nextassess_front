@@ -1,49 +1,100 @@
-// Table.js (with debouncing)
+// components/Assessment/Table.js
 'use client';
 
-import React, { useState, useMemo, useEffect } from "react";
-import useAssessmentStore from '@/stores/assessmentStore';
+import React, { useState, useMemo } from "react";
+import PropTypes from 'prop-types';
 import SearchBar from "./SearchBar";
 import FiltersButton from "./FiltersButton";
 import AssessmentsTable from "./AssessmentsTable";
+import Pagination from "./Pagination";
 
-export default function Table() {
-    const assessments = useAssessmentStore((state) => state.assessments);
-    const [searchInput, setSearchInput] = useState('');
-    const [searchQuery, setSearchQuery] = useState('');
+const Table = React.memo(({ assessments, pagination }) => {
+  const { current_page, items_per_page, total_items } = pagination;
+  const total_pages = Math.ceil(total_items / items_per_page);
 
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            setSearchQuery(searchInput);
-        }, 300); // Adjust the delay as needed
+  const [searchQuery, setSearchQuery] = useState('');
 
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [searchInput]);
-
-    const filteredAssessments = useMemo(() => {
-        if (!searchQuery) return assessments;
-        const lowerCaseQuery = searchQuery.toLowerCase();
-        return assessments.filter(assessment =>
-            assessment.title_assessment.toLowerCase().includes(lowerCaseQuery) ||
-            assessment.year_level.toLowerCase().includes(lowerCaseQuery) ||
-            (assessment.assessment_unit || '').toLowerCase().includes(lowerCaseQuery)
-        );
-    }, [assessments, searchQuery]);
-
-    return (
-        <>
-            <div className="flex justify-between mt-6">
-                <FiltersButton />
-                <SearchBar searchQuery={searchInput} setSearchQuery={setSearchInput} />
-            </div>
-            <div className="mt-8">
-                <AssessmentsTable assessments={filteredAssessments} />
-            </div>
-        </>
+  const filteredAssessments = useMemo(() => {
+    if (!searchQuery) return assessments;
+    const lowerCaseQuery = searchQuery.toLowerCase();
+    return assessments.filter(assessment =>
+      assessment.title_assessment.toLowerCase().includes(lowerCaseQuery) ||
+      assessment.year_level.toLowerCase().includes(lowerCaseQuery) ||
+      (assessment.assessment_unit || '').toLowerCase().includes(lowerCaseQuery)
     );
-}
+  }, [assessments, searchQuery]);
+
+  return (
+    <>
+      <div className="flex justify-between mt-6">
+        <FiltersButton />
+        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      </div>
+      <div className="mt-8">
+        <AssessmentsTable assessments={filteredAssessments} />
+        <Pagination currentPage={current_page} totalPages={total_pages} itemsPerPage={items_per_page} />
+      </div>
+    </>
+  );
+});
+
+Table.propTypes = {
+  assessments: PropTypes.array.isRequired,
+  pagination: PropTypes.shape({
+    current_page: PropTypes.number.isRequired,
+    items_per_page: PropTypes.number.isRequired,
+    total_items: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+export default Table;
+
+// // Table.js (with debouncing)
+// 'use client';
+
+// import React, { useState, useMemo, useEffect } from "react";
+// import useAssessmentStore from '@/stores/assessmentStore';
+// import SearchBar from "./SearchBar";
+// import FiltersButton from "./FiltersButton";
+// import AssessmentsTable from "./AssessmentsTable";
+
+// export default function Table() {
+//     const assessments = useAssessmentStore((state) => state.assessments);
+//     const [searchInput, setSearchInput] = useState('');
+//     const [searchQuery, setSearchQuery] = useState('');
+
+//     useEffect(() => {
+//         const handler = setTimeout(() => {
+//             setSearchQuery(searchInput);
+//         }, 300); // Adjust the delay as needed
+
+//         return () => {
+//             clearTimeout(handler);
+//         };
+//     }, [searchInput]);
+
+//     const filteredAssessments = useMemo(() => {
+//         if (!searchQuery) return assessments;
+//         const lowerCaseQuery = searchQuery.toLowerCase();
+//         return assessments.filter(assessment =>
+//             assessment.title_assessment.toLowerCase().includes(lowerCaseQuery) ||
+//             assessment.year_level.toLowerCase().includes(lowerCaseQuery) ||
+//             (assessment.assessment_unit || '').toLowerCase().includes(lowerCaseQuery)
+//         );
+//     }, [assessments, searchQuery]);
+
+//     return (
+//         <>
+//             <div className="flex justify-between mt-6">
+//                 <FiltersButton />
+//                 <SearchBar searchQuery={searchInput} setSearchQuery={setSearchInput} />
+//             </div>
+//             <div className="mt-8">
+//                 <AssessmentsTable assessments={filteredAssessments} />
+//             </div>
+//         </>
+//     );
+// }
 
 // 'use client';
 
