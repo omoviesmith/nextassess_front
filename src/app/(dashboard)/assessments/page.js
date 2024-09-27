@@ -88,20 +88,44 @@ export default function Assessment({ params, searchParams }) {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Your Assessments</h1>
-      {assessments && assessments.length > 0 ? (
-        <Table />
-      ) : (
-        <div className="flex items-center justify-center h-64">
-          <p className="text-xl text-gray-500">No assessments found.</p>
-        </div>
-      )}
-      {/* Optionally, add a link to create a new assessment */}
-      <Link href="/assessments/new" className="mt-4 inline-block text-blue-500 hover:underline">
-        Create New Assessment
-      </Link>
+    <div>
+  <div className="flex justify-between items-center flex-col md:flex-row gap-3">
+    <div>
+      <h3 className="text-[#101828] text-3xl font-semibold">
+        Welcome, {user && user.firstName}
+      </h3>
+      <p className="text-[#475467] text-base font-normal mt-2">
+        Track and manage your assessments.
+      </p>
     </div>
+    <Link href='/admin' className="flex justify-end w-full md:w-auto">
+      <button className="text-sm text-white font-semibold bg-[#7F56D9] rounded-lg py-[10px] px-4">
+        + Create New Assessment
+      </button>
+    </Link>
+  </div>
+  {assessments && assessments.length > 0 ? (
+    <Table />
+  ) : (
+    <div className="flex items-center justify-center h-64">
+      <p className="text-xl text-gray-500">No assessments found. Create one</p>
+    </div>
+  )}
+</div>
+    // <div className="container mx-auto p-4">
+    //   <h1 className="text-2xl font-bold mb-4">Your Assessments</h1>
+    //   {assessments && assessments.length > 0 ? (
+    //     <Table />
+    //   ) : (
+    //     <div className="flex items-center justify-center h-64">
+    //       <p className="text-xl text-gray-500">No assessments found. Create one</p>
+    //     </div>
+    //   )}
+    //   {/* Optionally, add a link to create a new assessment */}
+    //   <Link href="/assessments/new" className="mt-4 inline-block text-blue-500 hover:underline">
+    //     Create New Assessment
+    //   </Link>
+    // </div>
   );
 }
 
