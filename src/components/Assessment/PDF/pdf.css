@@ -1,4 +1,4 @@
-/* @media print {
+@media print {
     .container-pdf {
         height: inherit;
         overflow: initial;
@@ -16,44 +16,6 @@
     }
 
     th {
-        page-break-inside: avoid;
-        page-break-after: auto;
-    }
-
-    thead {
-        display: table-header-group;
-    }
-
-    tfoot {
-        display: table-footer-group;
-    }
-} */
-
-@media print {
-    .container-pdf {
-        height: inherit;
-        overflow: initial;
-        page-break-inside: avoid;
-        break-inside: avoid;
-    }
-
-    /* Ensure the entire content doesn't break inside pages */
-    .container-pdf > div {
-        page-break-inside: avoid;
-        break-inside: avoid;
-    }
-
-    /* Page break before the Marking Rubric section */
-    .marking-rubric {
-        page-break-before: always;
-        break-before: always;
-    }
-
-    table {
-        page-break-after: auto;
-    }
-
-    td, th {
         page-break-inside: avoid;
         page-break-after: auto;
     }
