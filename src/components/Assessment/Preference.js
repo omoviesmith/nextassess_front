@@ -24,7 +24,7 @@ export default function AssessmentPreference({ text, setUploadResponse }) {
         setType(apiType);
         setLoading(true);
         try {
-            const requestPayload = {text_content: text};
+            const requestPayload = {text: text};
             const url = apiType === 'ai' ? 
                 'https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/assessments/ai' : 
                 'https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/assessments/human';
