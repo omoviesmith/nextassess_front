@@ -55,8 +55,6 @@ export default function Assessment({ params, searchParams }) {
           headers: {
             'X-Tenant-ID': tenantId,
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Credentials': 'true'
           }
         });
         console.log(`Fetched response status: ${res.status} ${res.statusText}`)
