@@ -76,7 +76,9 @@ export default function Upload() {
             const formData = new FormData();
             formData.append('file', selectedFile);
             setIsClicked(true);
+            console.log(`Now uploading file with this tenantId - ${tenantId}`)
             try {
+                
                 const response = await fetch('https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/files/upload', {
                     method: 'POST',
                     headers: {
@@ -84,67 +86,24 @@ export default function Upload() {
                     },
                     body: formData,
                 });
-                const parsedResponse = await response.json();
-                console.log('Upload Response:', parsedResponse); // Log the response
-    
                 if (response.ok) {
-                    if (parsedResponse && typeof parsedResponse.file_url === 'string') {
-                        const parts = parsedResponse.file_url.split('/');
-                        const filename = parts[parts.length - 1];
-                        showToast.success('File uploaded successfully');
-                        await getFileData(filename);
-                    } else {
-                        showToast.error('Unexpected response structure from the server.');
-                        console.error('file_url is missing or not a string:', parsedResponse);
-                    }
+                    const parsedResponse = await response.json();
+                    const parts = parsedResponse?.file_url.split('/');
+                    const filename = parts[parts.length - 1];
+                    showToast.success('File uploaded successfully');
+                    await getFileData(filename);
                     setIsClicked(false);
                 } else {
-                    const errorMessage = parsedResponse.message || 'Error uploading file';
-                    showToast.error(errorMessage);
-                    console.error('Server responded with an error:', parsedResponse);
+                    showToast.error('Error uploading file')
                     setIsClicked(false);
                 }
             } catch (error) {
-                showToast.error('Network error or server is unreachable.');
-                console.log(`Error uploading file: ${error}`);
+                showToast.error('Error uploading file')
+                console.log(`Error uploading file: ${error}`)
                 setIsClicked(false);
             }
         }
     }
-    // async function handleSubmit(e) {
-    //     e.preventDefault();
-    //     if (selectedFile) {
-    //         const formData = new FormData();
-    //         formData.append('file', selectedFile);
-    //         setIsClicked(true);
-    //         console.log(`Now uploading file with this tenantId - ${tenantId}`)
-    //         try {
-                
-    //             const response = await fetch('https://pqwsf4zp7s.ap-southeast-2.awsapprunner.com/api/files/upload', {
-    //                 method: 'POST',
-    //                 headers: {
-    //                   'X-Tenant-ID': tenantId
-    //                 },
-    //                 body: formData,
-    //             });
-    //             if (response.ok) {
-    //                 const parsedResponse = await response.json();
-    //                 const parts = parsedResponse?.file_url.split('/');
-    //                 const filename = parts[parts.length - 1];
-    //                 showToast.success('File uploaded successfully');
-    //                 await getFileData(filename);
-    //                 setIsClicked(false);
-    //             } else {
-    //                 showToast.error('Error uploading file')
-    //                 setIsClicked(false);
-    //             }
-    //         } catch (error) {
-    //             showToast.error('Error uploading file')
-    //             console.log(`Error uploading file: ${error}`)
-    //             setIsClicked(false);
-    //         }
-    //     }
-    // }
     return (
         <div>
             {

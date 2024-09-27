@@ -151,13 +151,38 @@
 
 import Link from "next/link";
 import DeleteAssessment from "./Delete";
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import useAssessmentStore from '@/stores/assessmentStore';
 import AssessmentsTable from "./AssessmentsTable";
+import SearchBar from "./SearchBar";
+import FiltersButton from "./FiltersButton";
 
 export default function Table() {
+    // const assessments = useAssessmentStore((state) => state.assessments);
+    // const [searchQuery, setSearchQuery] = useState('');
     const assessments = useAssessmentStore((state) => state.assessments);
+    const [searchInput, setSearchInput] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setSearchQuery(searchInput);
+        }, 300); // Adjust the delay as needed
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchInput]);
+
+    // const filteredAssessments = useMemo(() => {
+    //     if (!searchQuery) return assessments;
+    //     const lowerCaseQuery = searchQuery.toLowerCase();
+    //     return assessments.filter(assessment =>
+    //         assessment.title_assessment.toLowerCase().includes(lowerCaseQuery) ||
+    //         assessment.year_level.toLowerCase().includes(lowerCaseQuery) ||
+    //         (assessment.assessment_unit || '').toLowerCase().includes(lowerCaseQuery)
+    //     );
+    // }, [assessments, searchQuery]);
 
     const filteredAssessments = useMemo(() => {
         if (!searchQuery) return assessments;
@@ -172,7 +197,9 @@ export default function Table() {
     return (
         <>
             <div className="flex justify-between mt-6">
-                <button className="flex gap-3 py-[10px] px-4 items-center bg-white text-[#344054] text-sm font-semibold rounded-lg border-[1px] border-[#D0D5DD]">
+              <FiltersButton />
+              <SearchBar searchQuery={searchInput} setSearchQuery={setSearchInput} />
+                {/* <button className="flex gap-3 py-[10px] px-4 items-center bg-white text-[#344054] text-sm font-semibold rounded-lg border-[1px] border-[#D0D5DD]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                         <g clipPath="url(#clip0_16_13075)">
                             <path d="M10 18H14V16H10V18ZM3 6V8H21V6H3ZM6 13H18V11H6V13Z" fill="#323232" />
@@ -197,7 +224,7 @@ export default function Table() {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
-                </div>
+                </div> */}
             </div>
             <div className="mt-8">
 
