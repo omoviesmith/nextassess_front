@@ -153,6 +153,7 @@ import Link from "next/link";
 import DeleteAssessment from "./Delete";
 import { useState, useMemo } from "react";
 import useAssessmentStore from '@/stores/assessmentStore';
+import AssessmentsTable from "./AssessmentsTable";
 
 export default function Table() {
     const assessments = useAssessmentStore((state) => state.assessments);
@@ -199,7 +200,9 @@ export default function Table() {
                 </div>
             </div>
             <div className="mt-8">
-                <div className="overflow-x-auto mx-w-full">
+                // Assessment Table Region
+                <AssessmentsTable assessments={filteredAssessments} />
+                {/* <div className="overflow-x-auto mx-w-full">
                     <table 
                         className="table-auto border-collapse overflow-auto md:w-full md:overflow-hidden border border-slate-300 rounded-tl-lg rounded-tr-lg" 
                         aria-label="Assessments Table"
@@ -257,7 +260,7 @@ export default function Table() {
                             )}
                         </tbody>
                     </table>
-                </div>
+                </div> */}
             </div>
         </>
     );
