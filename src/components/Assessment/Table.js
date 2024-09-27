@@ -327,7 +327,7 @@ export default function Table() {
     return (
         <>
             <div className="flex justify-between mt-6">
-                <FiltersButton />
+                {/* <FiltersButton /> */}
                 <SearchBar searchQuery={searchInput} setSearchQuery={setSearchInput} />
             </div>
             <div className="mt-8">
