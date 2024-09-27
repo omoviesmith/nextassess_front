@@ -91,6 +91,7 @@ export default function Upload() {
                 }
             } catch (error) {
                 showToast.error('Error uploading file')
+                console.log(`Error uploading file: ${error}`)
                 setIsClicked(false);
             }
         }
