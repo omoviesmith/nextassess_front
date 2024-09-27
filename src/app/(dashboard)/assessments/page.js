@@ -167,7 +167,8 @@ export default function Assessment({ params, searchParams }) {
       if (!user || !tenantId) {
         console.error('User or TenantId missing.');
         setLoading(false);
-        setError('Access Denied. Please log in.');
+        // setError('Access Denied. Please log in.');
+        router.push('/');
         return;
       }
 
