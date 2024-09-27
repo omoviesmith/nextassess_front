@@ -4,7 +4,7 @@
 import React, { useState, useMemo } from "react";
 import PropTypes from 'prop-types';
 import SearchBar from "./SearchBar";
-import FiltersButton from "./FiltersButton";
+import FiltersButton from "./FilterButton";
 import AssessmentsTable from "./AssessmentsTable";
 import Pagination from "./Pagination";
 
